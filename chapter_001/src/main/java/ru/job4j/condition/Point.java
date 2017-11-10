@@ -9,20 +9,32 @@ package ru.job4j.condition;
 public class Point {
     private int x;
     private int y;
+    private int a;
+    private int b;
 
-    public  Point(int x, int y) {
+    public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+
     /**
-     *Method is определяет принадлежит ли точка графику функции.
-     *@return result.
+     * Method is определяет принадлежит ли точка графику функции.
+     *
+     * @return result.
      */
     public boolean is(int a, int b) {
-        if (y ==  a * x + b) {
+        if (y == a * x + b) {
             return true;
         } else {
             return false;
         }
     }
+
 }
