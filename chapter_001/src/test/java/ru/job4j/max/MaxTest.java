@@ -16,9 +16,19 @@ public class MaxTest {
         //assign block
         Max maxim = new Max();
         //act block
-        int result = maxim.max(10,2);
+        int result = maxim.max(2,10);
         //assert block
         assertThat(result, is(10));
+
+    }
+    @Test
+    public void whenSecondLessFirst() {
+        //assign block
+        Max minimum = new Max();
+        //act block
+        int result = minimum.min(10,2);
+        //assert block
+        assertThat(result, is(2));
 
     }
 }
