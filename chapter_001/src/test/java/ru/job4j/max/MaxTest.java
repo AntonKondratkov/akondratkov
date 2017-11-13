@@ -7,12 +7,12 @@ import static org.junit.Assert.assertThat;
 
 /**
  *@author Anton Kondratkov
- *@since 9.11.2017
+ *@since 13.11.2017
  */
 
 public class MaxTest {
     @Test
-    public void whenFirstLessSecond() {
+    public void whenFirstOnSecond() {
         //assign block
         Max maxim = new Max();
         //act block
@@ -26,9 +26,27 @@ public class MaxTest {
         //assign block
         Max minimum = new Max();
         //act block
-        int result = minimum.min(10,2);
+        int result = minimum.min(9,3);
         //assert block
-        assertThat(result, is(2));
+        assertThat(result, is(3));
 
+    }
+    @Test
+    public void whenFirstOnSecondOrThird() {
+        //assign block
+        Max maximThree = new Max();
+        //act block
+        int result = maximThree.maxOfThree(4,13, 8);
+        //assert block
+        assertThat(result, is(13));
+    }
+    @Test
+    public void whenFirstLessSecondOrThird() {
+        //assign block
+        Max minimumThree = new Max();
+        //act block
+        int result = minimumThree.minOfThree(25,11, 7);
+        //assert block
+        assertThat(result, is(7));
     }
 }
