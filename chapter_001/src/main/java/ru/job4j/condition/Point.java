@@ -30,11 +30,7 @@ public class Point {
      * @return result.
      */
     public boolean is(int a, int b) {
-        if (y == a * x + b) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.y == this.x * a + b;
     }
 
 }
