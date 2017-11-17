@@ -10,9 +10,9 @@ import org.junit.Test;
 import static org.hamcrest.number.IsCloseTo.closeTo;
 import static org.junit.Assert.*;
 
-public class TriangleTest {
+public class TriangleTest{
     @Test
-    public void whenAreaSetThreePointsThenTriangleArea() {
+    public void whenAreaSetThreePointsThenTriangleArea(){
         // создаем три объекта класса Point.
         Point a = new Point(0, 0);
         Point b = new Point(0, 2);
@@ -22,13 +22,13 @@ public class TriangleTest {
         // Вычисляем площадь.
         double result = triangle.area();
         // Задаем ожидаемый результат.
-        double expected = 0.1D;
+        double expected = 2D;
         //Проверяем результат и ожидаемое значение.
         assertThat(result, closeTo(expected, 0.1));
     }
 
     @Test
-    public void whenDistanceDiffPointsThen10() {
+    public void whenDistanceDiffPointsThen10(){
         // создаем два объекта класса Point.
         Point left = new Point(0, 0);
         Point right = new Point(0, 10);
