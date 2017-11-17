@@ -10,9 +10,9 @@ import static org.junit.Assert.assertThat;
  *@since 13.11.2017
  */
 
-public class MaxTest {
+public class MaxTest{
     @Test
-    public void whenFirstOnSecond() {
+    public void whenFirstOnSecond(){
         //assign block
         Max maxim = new Max();
         //act block
@@ -22,7 +22,7 @@ public class MaxTest {
 
     }
     @Test
-    public void whenSecondLessFirst() {
+    public void whenSecondLessFirst(){
         //assign block
         Max minimum = new Max();
         //act block
@@ -32,7 +32,7 @@ public class MaxTest {
 
     }
     @Test
-    public void whenFirstOnSecondOrThird() {
+    public void whenFirstOnSecondOrThird(){
         //assign block
         Max maximThree = new Max();
         //act block
@@ -41,7 +41,7 @@ public class MaxTest {
         assertThat(result, is(13));
     }
     @Test
-    public void whenFirstLessSecondOrThird() {
+    public void whenFirstLessSecondOrThird(){
         //assign block
         Max minimumThree = new Max();
         //act block
