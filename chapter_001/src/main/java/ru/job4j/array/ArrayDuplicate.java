@@ -4,30 +4,26 @@ import java.util.Arrays;
 /**
  *Class ArrayDuplicate в данном классе происходит удаление дубликатов в передаваемом массиве.
  *@author Anton Kondratkov
- *@since 30.11.2017
+ *@since 01.11.2017
  */
-public class ArrayDuplicate {
+public class ArrayDuplicate{
     /**
-     * Метод remove убирает все дубликаты из строк массива.
-     * @param array - входной массив типа String с дубликатами.
+     * Метод removeDuplicate убирает все дубликаты из строк массива.
+     * @param array - входной массив с дубликатами.
      * @return array без дубликатов.
      */
-    public String[] remove(String[] array) {
-        int dup = 0;
-        for (int i = 0; i < array.length; i++) {
-            for (int j = i + 1; j < array.length - dup; j++) {
-                if (array[i].equals(array[j])) {
-                    while (j != array.length - dup - 1
-                            && array[array.length - dup - 1].equals(array[j])) {
-                        dup++;
-                    }
-                    String tmp = array[array.length - dup - 1];
-                    array[array.length - dup - 1] = array[j];
-                    array[j] = tmp;
-                    dup++;
+    public String[] removeDuplicate(String[] array){
+        int unique = array.length;
+        for (int out = 0; out < unique; out++){
+            for (int in = out + 1; in < unique ; in++){
+                if (array[out].equals(array[in])){
+                    array[in]=array[unique-1];
+                    unique--;
+                    in--;
                 }
             }
+
         }
-        return Arrays.copyOf(array, array.length - dup);
+        return Arrays.copyOf(array, unique);
     }
 }
