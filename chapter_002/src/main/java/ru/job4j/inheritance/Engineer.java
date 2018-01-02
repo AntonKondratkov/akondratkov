@@ -6,7 +6,14 @@ package ru.job4j.inheritance;
  * @since 29.12.2017
  */
 public class Engineer extends Profession{
+
     /**
+     * Использование супер конструктора в классе Engineer.
+     */
+    Engineer(String fullName, int experience, String education, String specialization){
+        super(fullName, experience, education, specialization);
+    }
+     /**
      * Метод возвращает фразу содержащую ФИО инженера и название оборудования.
      * @param name **название оборудования**
      * @return **фраза содержащая ФИО инженера и название оборудования**

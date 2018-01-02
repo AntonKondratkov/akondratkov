@@ -8,6 +8,18 @@ package ru.job4j.inheritance;
 
 public class Teacher extends Profession{
 
+    private int audienceNumber;
+    private String discipline;
+
+    /**
+     * Добавление полей audienceNumber и discipline в супер конструктор.
+     */
+    Teacher(String fullName, int experience, String education, String specialization, int audienceNumber, String discipline){
+        super(fullName, experience, education, specialization);
+        this.audienceNumber = audienceNumber;
+        this.discipline = discipline;
+    }
+
     /**
      * Метод возвращает фразу содержащую ФИО учителя, название дисциплины по которой будет происходить экзамен.
      * @param discipline **название дисциплины**

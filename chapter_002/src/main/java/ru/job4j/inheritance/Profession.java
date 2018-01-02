@@ -8,7 +8,7 @@ package ru.job4j.inheritance;
 
 public class Profession{
 
-    /**
+     /**
      *  Поле хранит ФИО
      */
     private String fullName;
@@ -27,6 +27,16 @@ public class Profession{
      * Поле хранит название специализациии.
      */
     private String specialization;
+
+    /**
+     * Конструктор со всеми полями класса Profession.
+     */
+    Profession (String fullName, int experience, String education, String specialization){
+        this.fullName = fullName;
+        this.experience = experience;
+        this.education = education;
+        this.specialization = specialization;
+    }
 
     /**
      * Метод устанавливает ФИО.
