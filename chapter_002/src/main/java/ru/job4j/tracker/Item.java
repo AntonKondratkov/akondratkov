@@ -42,7 +42,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Имя заявки: " + name + ", " + "Описание заявки: " + description;
+        return "Имя заявки: " + name + ", " + "Описание заявки: " + description + "id заявки: " + id;
     }
 }
 

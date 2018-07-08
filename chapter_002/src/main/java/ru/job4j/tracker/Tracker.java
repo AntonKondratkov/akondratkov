@@ -48,7 +48,7 @@ public class Tracker {
      * @param id Уникальный ключ.
      * @return Найденный элемент.
      */
-    protected Item findById(String id){
+    public Item findById(String id){
         Item result = null;
         for(Item item : items){
             if(item != null && item.getId().equals(id)){
@@ -83,39 +83,50 @@ public class Tracker {
         for(int i = 0; i != this.position; i++){
             if(key.equals(this.items[i].getName())){
                     result[position++] = this.items[i];
-
             }
         }
-        return result;
+        return Arrays.copyOf(result, position);
     }
 
     /**
      * Метод удаляет ячеку из массива со сдвигом ячеек находящихся правее от удаляемой влево.
      * @param id Уникальный ключ.
+     * @return element - Проверка удаления элемента (true - удалён, false - не удалён).
      */
-    public void delete(String id){
+    public boolean delete(String id){
         int result = 0;
+        boolean element = false;
 
         for(int i = 0; i < items.length; i++){
             if(items[i] != null && items[i].getId().equals(id)){
                 result = i;
+                element = true;
+                break;
             }
         }
         System.arraycopy(this.items, result+1, this.items, result, this.position - result );
 
+
+        return element;
     }
 
     /**
      * Метод заменяет ячейку в массиве найденную по id на другую ячейку переданную в параметрах метода.
      * @param id Уникальный ключ искомой ячейки.
      * @param item Ячейка на которую необходимо заменить искомую ячейку.
+     * @return result - Проверка замены элемента (true - заменён, false - не заменён).
      */
-    public void replace(String id, Item item){
+    public boolean replace(String id, Item item){
+        boolean result = false;
         for(int i = 0; i < this.items.length; i++){
             if(items[i] != null && items[i].getId().equals(id)){
                 items[i] = item;
+                item.setId(generateId());
+                result = true;
+                break;
             }
         }
+        return result;
     }
 
     /**

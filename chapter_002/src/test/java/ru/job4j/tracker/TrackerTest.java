@@ -31,10 +31,10 @@ public class TrackerTest {
         Item next = new Item("test2","testDescription2",1234L);
         // Проставляем старый id из previous, который был сгенерирован выше.
         next.setId(previous.getId());
-        // Обновляем заявку в трекере.
-        tracker.replace(previous.getId(), next);
+        // Обновляем заявку в трекере и проверяем, что метод возвращает "true".
+        assertThat(tracker.replace(previous.getId(), next), is (true));
         // Проверяем, что заявка с таким id имеет новые имя test2.
-        assertThat(tracker.findById(previous.getId()).getName(), is(next.name));
+        assertThat(tracker.findById(next.getId()).getName(), is(next.getName()));
     }
 
     @Test
@@ -75,15 +75,13 @@ public class TrackerTest {
         Item next2 = new Item ("test88", "testDescription88", 12568L);
         // Добавляем заявку в трекер.
         tracker.add(next2);
-        // Удаляем заявку "next" из массива.
-        tracker.delete(next.getId());
+        // Удаляем заявку "next" из массива и проверяем, что метод возвращает "true".
+        assertThat(tracker.delete(next.getId()), is(true));
         // Создаём массив для сравнения.
         Item[] item = {previous, next2, null};
         // Проверяем, что массив "item" соответствует массиву,
         // который возвращает метод findAll() после удаления заявки "next".
         assertThat(tracker.findAll(), is(item));
-
-
     }
 
     @Test
