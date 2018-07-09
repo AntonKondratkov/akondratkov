@@ -74,29 +74,20 @@ public class StartUI {
         while (!exit){
             this.showMenu();
             String answer = this.input.ask("Введите пункт меню: ");
-                // Условие для добавление новой заявки.
             if (ADD.equals(answer)){
                 this.createItem();
-                // Условие для вывода в консоль всех заявок.
             }else if(SHOW.equals(answer)){
                 this.showItems();
-                // Условие для редактирования заявки.
             }else if(EDIT.equals(answer)){
                 this.editItem();
-                // Условие для удаления заявки.
             }else if(DELETE.equals(answer)){
                 this.deleteItem();
-                // Условие для поиска заявки по id.
             }else if(FID.equals(answer)){
                 this.findById();
-                // Условие для поиска заявки по имени.
             }else if(FIN.equals(answer)){
                 this.findByName();
-                // Условие для выхода из программы..
             }else if(EXIT.equals(answer)){
                 exit = true;
-                // Сообщение для пользователей, которые ввели несуществующий
-                // пункт меню.
             }else{
                 System.out.println("Выберите раздел с помощью цифр от 0 до 6");
             }
