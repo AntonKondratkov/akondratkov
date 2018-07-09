@@ -76,9 +76,9 @@ public class TrackerTest {
         // Добавляем заявку в трекер.
         tracker.add(next2);
         // Удаляем заявку "next" из массива и проверяем, что метод возвращает "true".
-        assertThat(tracker.delete(next.getId()), is(true));
+        assertThat(tracker.delete(previous.getId()), is(true));
         // Создаём массив для сравнения.
-        Item[] item = {previous, next2, null};
+        Item[] item = {next, next2, null};
         // Проверяем, что массив "item" соответствует массиву,
         // который возвращает метод findAll() после удаления заявки "next".
         assertThat(tracker.findAll(), is(item));
