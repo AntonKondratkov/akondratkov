@@ -7,13 +7,12 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static java.lang.System.lineSeparator;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
  * @author Anton Kondratkov
- * @since 12.07.18.
+ * @since 13.07.18.
  */
 public class PaintTest {
     // поле содержит дефолтный вывод в консоль.
@@ -40,11 +39,14 @@ public class PaintTest {
                 new String(out.toByteArray()),
                 is(
                         new StringBuilder()
-                                .append("++++\n")
-                                .append("++++\n")
-                                .append("++++\n")
-                                .append("++++\n")
-                                .append(lineSeparator())
+                                .append("++++")
+                                .append(System.lineSeparator())
+                                .append("++++")
+                                .append(System.lineSeparator())
+                                .append("++++")
+                                .append(System.lineSeparator())
+                                .append("++++")
+                                .append(System.lineSeparator())
                                 .toString()
                 )
         );
@@ -57,10 +59,12 @@ public class PaintTest {
                 new String(out.toByteArray()),
                 is(
                         new StringBuilder()
-                                .append("  ^  \n")
-                                .append(" ^ ^ \n")
-                                .append("^^^^^\n")
-                                .append(lineSeparator())
+                                .append("  ^  ")
+                                .append(System.lineSeparator())
+                                .append(" ^ ^ ")
+                                .append(System.lineSeparator())
+                                .append("^^^^^")
+                                .append(System.lineSeparator())
                                 .toString()
                 )
         );

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * @author Anton Kondratkov
- * @since 12.07.18.
+ * @since 13.07.18.
  */
 public class SquareTest {
     @Test
@@ -16,11 +16,15 @@ public class SquareTest {
                 new Square().draw(),
                 is(
                         new StringBuilder()
-                        .append("++++\n")
-                        .append("++++\n")
-                        .append("++++\n")
-                        .append("++++\n")
-                        .toString()
+                                .append("++++")
+                                .append(System.lineSeparator())
+                                .append("++++")
+                                .append(System.lineSeparator())
+                                .append("++++")
+                                .append(System.lineSeparator())
+                                .append("++++")
+                                .toString()
+
                 ));
     }
 }

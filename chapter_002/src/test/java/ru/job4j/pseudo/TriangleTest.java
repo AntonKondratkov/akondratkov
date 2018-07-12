@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * @author Anton Kondratkov
- * @since 12.07.18.
+ * @since 13.07.18.
  */
 public class TriangleTest {
     @Test
@@ -16,9 +16,11 @@ public class TriangleTest {
                 new Triangle().draw(),
                 is(
                         new StringBuilder()
-                                .append("  ^  \n")
-                                .append(" ^ ^ \n")
-                                .append("^^^^^\n")
+                                .append("  ^  ")
+                                .append(System.lineSeparator())
+                                .append(" ^ ^ ")
+                                .append(System.lineSeparator())
+                                .append("^^^^^")
                                 .toString()
                 ));
     }
