@@ -1,22 +1,45 @@
 package ru.job4j.start;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.Arrays;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
  * @author Anton Kondratkov
- * @since 12.07.18.
+ * @since 13.07.18.
  * В данном классе расположены JUnit тесты, использующие класс StubInput для эмуляции поведения пользователя.
  **/
 
 public class StartUITest {
-
+    //поле содержит объект класса Tracker
     private final Tracker tracker = new Tracker();
+    //поле содержит объект класса Item
     private final Item item = tracker.add(new Item("name5", "desc5"));
+    // поле содержит дефолтный вывод в консоль.
+    private final PrintStream stdout = System.out;
+    // буфер для результата.
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+    @Before
+    public void loadOutput(){
+        System.out.println("execute before method");;
+        System.setOut(new PrintStream(this.out));
+    }
+
+    @After
+    public void backOutput(){
+        System.setOut(this.stdout);
+        System.out.println("execute after method");
+    }
 
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
@@ -59,35 +82,147 @@ public class StartUITest {
         //Проверяем, что удалённый элемент отсутсвует и на его месте находится следующая заявка.
         assertThat(tracker.findAll()[0].getName(), is(item4.getName()));
     }
+
     @Test
     public void whenShowItems(){
-        //Создаём StubInput с последовательностью действий(показать все заявки).
-        Input input = new StubInput(new String[]{"1", "6"});
-        //Создаём StartUI и вызываем метод init().
-        new StartUI(input, tracker).init();
-        //Проверяем, что найденные заявки соотвествуют тем, что добавили (item).
+        new StartUI(new StubInput(new String[]{"1", "6"}), tracker).init();
         Item[] expect  = {item};
-        assertThat(tracker.findAll(), is(expect));
+        assertThat(new String(out.toByteArray()),
+                is(
+                        new StringBuilder()
+                                .append("Меню.")
+                                .append(System.lineSeparator())
+                                .append("0. Add new Item")
+                                .append(System.lineSeparator())
+                                .append("1. Show all items")
+                                .append(System.lineSeparator())
+                                .append("2. Edit item")
+                                .append(System.lineSeparator())
+                                .append("3. Delete item")
+                                .append(System.lineSeparator())
+                                .append("4. Find item by Id")
+                                .append(System.lineSeparator())
+                                .append("5. Find items by name")
+                                .append(System.lineSeparator())
+                                .append("6. Exit Program")
+                                .append(System.lineSeparator())
+                                .append("------- В хранилище есть следующие заявки -------")
+                                .append(System.lineSeparator())
+                                .append(Arrays.toString(expect))
+                                .append(System.lineSeparator())
+                                .append("Меню.")
+                                .append(System.lineSeparator())
+                                .append("0. Add new Item")
+                                .append(System.lineSeparator())
+                                .append("1. Show all items")
+                                .append(System.lineSeparator())
+                                .append("2. Edit item")
+                                .append(System.lineSeparator())
+                                .append("3. Delete item")
+                                .append(System.lineSeparator())
+                                .append("4. Find item by Id")
+                                .append(System.lineSeparator())
+                                .append("5. Find items by name")
+                                .append(System.lineSeparator())
+                                .append("6. Exit Program")
+                                .append(System.lineSeparator())
+                                .toString()
+                )
+        );
     }
 
     @Test
     public void whenFindId(){
-        //Создаём StubInput с последовательностью действий(найти заявку по id).
-        Input input = new StubInput(new String[]{"4", item.getId(), "6"});
-        //Создаём StartUI и вызываем метод init().
-        new StartUI(input, tracker).init();
-        //Проверяем, что найденная по id заявка соотвествуют добавленной (item).
-        assertThat(tracker.findById(item.getId()), is(item));
+        new StartUI(new StubInput(new String[]{"4", item.getId(), "6"}), tracker).init();
+        assertThat(new String(out.toByteArray()),
+                is(
+                        new StringBuilder()
+                                .append("Меню.")
+                                .append(System.lineSeparator())
+                                .append("0. Add new Item")
+                                .append(System.lineSeparator())
+                                .append("1. Show all items")
+                                .append(System.lineSeparator())
+                                .append("2. Edit item")
+                                .append(System.lineSeparator())
+                                .append("3. Delete item")
+                                .append(System.lineSeparator())
+                                .append("4. Find item by Id")
+                                .append(System.lineSeparator())
+                                .append("5. Find items by name")
+                                .append(System.lineSeparator())
+                                .append("6. Exit Program")
+                                .append(System.lineSeparator())
+                                .append("------- Поиск заявки по id -------")
+                                .append(System.lineSeparator())
+                                .append("------- Ваша заявка найдена : " + item + " -------")
+                                .append(System.lineSeparator())
+                                .append("Меню.")
+                                .append(System.lineSeparator())
+                                .append("0. Add new Item")
+                                .append(System.lineSeparator())
+                                .append("1. Show all items")
+                                .append(System.lineSeparator())
+                                .append("2. Edit item")
+                                .append(System.lineSeparator())
+                                .append("3. Delete item")
+                                .append(System.lineSeparator())
+                                .append("4. Find item by Id")
+                                .append(System.lineSeparator())
+                                .append("5. Find items by name")
+                                .append(System.lineSeparator())
+                                .append("6. Exit Program")
+                                .append(System.lineSeparator())
+                                .toString()
+                )
+        );
     }
 
     @Test
     public void whenFindName(){
-        //Создаём StubInput с последовательностью действий(найти заявку по имени).
-        Input input = new StubInput(new String[]{"5", item.getName(), "6"});
-        //Создаём StartUI и вызываем метод init().
-        new StartUI(input, tracker).init();
-        //Проверяем, что найденная по имени заявка соотвествуют добавленной (item).
-        Item[] expect = {item};
-        assertThat(tracker.findByName(item.getName()), is(expect));
+        new StartUI(new StubInput(new String[]{"5", item.getName(), "6"}), tracker).init();
+        Item[] expect  = {item};
+        assertThat(new String(out.toByteArray()),
+                is(
+                        new StringBuilder()
+                                .append("Меню.")
+                                .append(System.lineSeparator())
+                                .append("0. Add new Item")
+                                .append(System.lineSeparator())
+                                .append("1. Show all items")
+                                .append(System.lineSeparator())
+                                .append("2. Edit item")
+                                .append(System.lineSeparator())
+                                .append("3. Delete item")
+                                .append(System.lineSeparator())
+                                .append("4. Find item by Id")
+                                .append(System.lineSeparator())
+                                .append("5. Find items by name")
+                                .append(System.lineSeparator())
+                                .append("6. Exit Program")
+                                .append(System.lineSeparator())
+                                .append("------- Поиск заявки по имени -------")
+                                .append(System.lineSeparator())
+                                .append("------- Ваша заявка найдена : " + Arrays.toString(expect) + " -------")
+                                .append(System.lineSeparator())
+                                .append("Меню.")
+                                .append(System.lineSeparator())
+                                .append("0. Add new Item")
+                                .append(System.lineSeparator())
+                                .append("1. Show all items")
+                                .append(System.lineSeparator())
+                                .append("2. Edit item")
+                                .append(System.lineSeparator())
+                                .append("3. Delete item")
+                                .append(System.lineSeparator())
+                                .append("4. Find item by Id")
+                                .append(System.lineSeparator())
+                                .append("5. Find items by name")
+                                .append(System.lineSeparator())
+                                .append("6. Exit Program")
+                                .append(System.lineSeparator())
+                                .toString()
+                )
+        );
     }
 }
