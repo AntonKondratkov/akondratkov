@@ -21,26 +21,26 @@ public class StartUI {
      * Конструктор инициализирующий поля.
      * @param input пользователький ввод данных.
      */
-    public StartUI(Input input){
+    public StartUI(Input input) {
         this.input = input;
     }
 
     /**
      * Основной цикл программы.
      */
-    public void init(){
+    public void init() {
         Tracker tracker = new Tracker();
         MenuTracker menu = new MenuTracker(this.input, tracker);
         menu.fillActions(this);
-        do{
+        do {
             System.out.println("Select from 0 to 6");
             menu.show();
             int key = Integer.valueOf(this.input.ask("select: "));
             menu.select(key);
-        }while (this.exit);
+        } while (this.exit);
     }
 
-    public void setExit(){
+    public void setExit() {
         this.exit = false;
     }
 

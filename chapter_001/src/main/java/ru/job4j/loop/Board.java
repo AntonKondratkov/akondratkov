@@ -4,7 +4,7 @@ package ru.job4j.loop;
  *@author Anton Kondratkov
  *@since 19.11.2017
  */
-public class Board{
+public class Board {
     /**
      * Метод строит шахматную доску.
      * @param width - ширина доски.
@@ -12,20 +12,18 @@ public class Board{
      * @return - строку содержащую построенную доску.
      */
 
-    public String paint(int width, int height){
+    public String paint(int width, int height) {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < height; i++){
-            for (int j = 0; j < width; j++){
-                if ((i+j) % 2 == 0){
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if ((i + j) % 2 == 0) {
                     result.append("X");
-                }else{
+                } else {
                     result.append(" ");
                 }
             }
             result.append(System.getProperty("line.separator"));
-
         }
         return result.toString();
     }
-
 }

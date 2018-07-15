@@ -6,7 +6,7 @@ package ru.job4j.loop;
  *@since 17.11.2017
  */
 
-public class Counter{
+public class Counter {
 
     /**
      * Method add вычисляет сумму чётныx чисел в диапазоне от start до finish.
@@ -14,21 +14,15 @@ public class Counter{
      * @return result.
      */
 
-    public int add(int start, int finish){
-
+    public int add(int start, int finish) {
         int i;
-        int summ=0;
+        int summ = 0;
 
-        for (i = start; i <= finish; i++){
-
-            if (i % 2 == 0){
-
-                summ+=i;
-
+        for (i = start; i <= finish; i++) {
+            if (i % 2 == 0) {
+                summ += i;
             }
-
         }
-
         return summ;
     }
 }

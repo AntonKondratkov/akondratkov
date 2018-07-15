@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThat;
  */
 public class SquareTest {
     @Test
-    public void whenDrawSquare(){
+    public void whenDrawSquare() {
         assertThat(
                 new Square().draw(),
                 is(

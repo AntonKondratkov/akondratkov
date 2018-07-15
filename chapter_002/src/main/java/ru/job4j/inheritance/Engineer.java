@@ -5,12 +5,12 @@ package ru.job4j.inheritance;
  * @author Anton Kondratkov
  * @since 29.12.2017
  */
-public class Engineer extends Profession{
+public class Engineer extends Profession {
 
     /**
      * Использование супер конструктора в классе Engineer.
      */
-    Engineer(String fullName, int experience, String education, String specialization){
+    Engineer(String fullName, int experience, String education, String specialization) {
         super(fullName, experience, education, specialization);
     }
      /**
@@ -19,7 +19,7 @@ public class Engineer extends Profession{
      * @return **фраза содержащая ФИО инженера и название оборудования**
      */
 
-    public String repair(Equipment name){
+    public String repair(Equipment name) {
         return String.format(this.getFullName(), name.getName());
 
     }

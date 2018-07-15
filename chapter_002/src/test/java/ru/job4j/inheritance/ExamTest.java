@@ -15,7 +15,7 @@ public class ExamTest {
      * Тестирование геттеров/сеттеров.
      */
     @Test
-    public void  setNameGetNameTest(){
+    public void  setNameGetNameTest() {
         Exam exam = new Exam();
         exam.setName("Физика");
         String result = exam.getName();

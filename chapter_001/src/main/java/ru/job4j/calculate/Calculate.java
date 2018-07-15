@@ -1,7 +1,7 @@
-package ru.job4j;
+package ru.job4j.calculate;
 
 /**
-*Class Calculate - решение задачи в части 001 Базовый Синтаксис, урок 1 JVM. Byte code.
+*Class Calculate - решение задачи в части 001 Базовый Синтаксис, урок inheritance JVM. Byte code.
 *@author Anton Kondratkov
 *@since 27.10.2017
 */

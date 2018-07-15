@@ -36,7 +36,7 @@ public class Calculator {
      *return результат.
      */
     public void sub(double first, double second) {
-        this.result = first-second;
+        this.result = first - second;
     }
     /**
      *Метод div операция деление.

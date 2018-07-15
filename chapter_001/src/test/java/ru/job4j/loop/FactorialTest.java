@@ -10,9 +10,9 @@ import static org.junit.Assert.assertThat;
  *@since 17.11.2017
  */
 
-public class FactorialTest{
+public class FactorialTest {
     @Test
-     public void whenCalculateFactorialForFiveThenOneHundreedTwenty(){
+     public void whenCalculateFactorialForFiveThenOneHundreedTwenty() {
         //создаём объект.
         Factorial sum = new Factorial();
         //задаём число для вычисления факториала.
@@ -24,7 +24,7 @@ public class FactorialTest{
     }
 
     @Test
-    public void whenCalculateFactorialForZeroThenOne(){
+    public void whenCalculateFactorialForZeroThenOne() {
         //создаём объект.
         Factorial sum = new Factorial();
         //задаём число для вычисления факториала.

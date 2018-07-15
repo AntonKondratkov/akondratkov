@@ -10,8 +10,8 @@ package ru.job4j.array;
      * @param input - входной массив int
      * @return input в обратном порядке.
      */
-    public int[] reverse(int[] input){
-        for (int i = 0; i < input.length / 2; i++){
+    public int[] reverse(int[] input) {
+        for (int i = 0; i < input.length / 2; i++) {
             int temp = input[i];
             input[i] = input[input.length - 1 - i];
             input[input.length - 1 - i] = temp;

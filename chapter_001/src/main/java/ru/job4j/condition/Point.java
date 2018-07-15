@@ -32,5 +32,4 @@ public class Point {
     public boolean is(int a, int b) {
         return this.y == this.x * a + b;
     }
-
 }

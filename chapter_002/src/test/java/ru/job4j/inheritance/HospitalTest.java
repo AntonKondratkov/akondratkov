@@ -10,18 +10,18 @@ import static org.junit.Assert.assertThat;
  * Created 30.12.17
  */
 
-public class HospitalTest{
+public class HospitalTest {
 
 
     /**
      * Тестирование геттеров/сеттеров.
      */
     @Test
-    public void  setNameGetNameTest(){
+    public void  setNameGetNameTest() {
         Hospital hospital = new Hospital();
-        hospital.setName("Больница №1");
+        hospital.setName("Больница №inheritance");
         String result = hospital.getName();
-        String expected = "Больница №1";
+        String expected = "Больница №inheritance";
         assertThat(result, is(expected));
     }
 }

@@ -13,21 +13,21 @@ public class Item {
     public String description;
     public long create;
 
-    public Item(){
+    public Item() {
     }
 
-    public Item(String name, String description){
+    public Item(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public Item(String name, String description, long create){
+    public Item(String name, String description, long create) {
         this.name = name;
         this.description = description;
         this.create = create;
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
@@ -42,7 +42,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Имя заявки: " + name + ", " + "Описание заявки: " + description + "id заявки: " + id;
+        return "Имя заявки: " + name + ", " + "Описание заявки: " + description + " id заявки: " + id;
     }
 }
 

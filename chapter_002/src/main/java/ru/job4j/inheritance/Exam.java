@@ -6,7 +6,7 @@ package ru.job4j.inheritance;
  * @since 29.12.2017
  */
 
-public class Exam{
+public class Exam {
     /**
      * Поле хранит название дисциплины.
      */
@@ -16,7 +16,7 @@ public class Exam{
      * Метод устанавливает название дисциплины.
      * @param name **название дисциплины**
      */
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -24,7 +24,7 @@ public class Exam{
      * Метод возвращает название дисциплины.
      * @return **название дисциплины**
      */
-    public String getName(){
+    public String getName() {
         return name;
     }
 }

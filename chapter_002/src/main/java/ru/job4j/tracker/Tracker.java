@@ -37,7 +37,7 @@ public class Tracker {
      * @return Добавленная в массив заявка.
      */
 
-    public Item add(Item item){
+    public Item add(Item item) {
         item.setId(this.generateId());
         this.items[position++] = item;
         return item;
@@ -48,10 +48,10 @@ public class Tracker {
      * @param id Уникальный ключ.
      * @return Найденный элемент.
      */
-    public Item findById(String id){
+    public Item findById(String id) {
         Item result = null;
-        for(Item item : items){
-            if(item != null && item.getId().equals(id)){
+        for (Item item : items) {
+            if (item != null && item.getId().equals(id)) {
                 result = item;
                 break;
             }
@@ -63,9 +63,9 @@ public class Tracker {
      * Метод возвращает копию массива без null элементов.
      * @return Массив result без null элементов.
      */
-    public Item[] findAll(){
+    public Item[] findAll() {
         Item[] result = new Item[this.position];
-        for(int i = 0; i != this.position; i++){
+        for (int i = 0; i != this.position; i++) {
             result[i] = this.items[i];
         }
         return result;
@@ -77,11 +77,11 @@ public class Tracker {
      * @param key Имя по которому происходит поиск элементов в массиве.
      * @return Результирующий массив result с найденными элементами.
      */
-    public Item[] findByName(String key){
+    public Item[] findByName(String key) {
         Item[] result = new Item[this.position];
         int position = 0;
-        for(int i = 0; i != this.position; i++){
-            if(key.equals(this.items[i].getName())){
+        for (int i = 0; i != this.position; i++) {
+            if (key.equals(this.items[i].getName())) {
                     result[position++] = this.items[i];
             }
         }
@@ -93,15 +93,15 @@ public class Tracker {
      * @param id Уникальный ключ.
      * @return element - Проверка удаления элемента (true - удалён, false - не удалён).
      */
-    public boolean delete(String id){
+    public boolean delete(String id) {
         int result = 0;
         boolean element = false;
 
-        for(int i = 0; i < items.length; i++){
-            if(items[i] != null && items[i].getId().equals(id)){
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] != null && items[i].getId().equals(id)) {
                 result = i;
                 element = true;
-                System.arraycopy(this.items, result+1, this.items, result, this.position - result );
+                System.arraycopy(this.items, result + 1, this.items, result, this.position - result);
                 break;
             }
         }
@@ -114,10 +114,10 @@ public class Tracker {
      * @param item Ячейка на которую необходимо заменить искомую ячейку.
      * @return result - Проверка замены элемента (true - заменён, false - не заменён).
      */
-    public boolean replace(String id, Item item){
+    public boolean replace(String id, Item item) {
         boolean result = false;
-        for(int i = 0; i < this.items.length; i++){
-            if(items[i] != null && items[i].getId().equals(id)){
+        for (int i = 0; i < this.items.length; i++) {
+            if (items[i] != null && items[i].getId().equals(id)) {
                 items[i] = item;
                 item.setId(id);
                 result = true;
@@ -132,7 +132,7 @@ public class Tracker {
      * Так как у заявки нет уникальности полей, имени и описания. для её идентификации нам нужен уникальный ключ.
      * @return Уникальный ключ.
      */
-    private String generateId(){
+    private String generateId() {
         return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
 }

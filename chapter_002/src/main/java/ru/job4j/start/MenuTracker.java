@@ -3,6 +3,8 @@ package ru.job4j.start;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 
+import java.util.Arrays;
+
 /**
  * @author Anton Kondratkov
  * @since 15.07.18.
@@ -10,7 +12,7 @@ import ru.job4j.tracker.Tracker;
 /**
  * Класс редактирует заявку.
  */
-class EditItem implements UserAction{
+class EditItem implements UserAction {
     @Override
     public int key() {
         return 2;
@@ -21,9 +23,9 @@ class EditItem implements UserAction{
         String name = input.ask("Please, enter the task's name: ");
         String desc = input.ask("Please, enter the task's desc: ");
         Item item = new Item(name, desc);
-        if(tracker.replace(id, item)){
+        if (tracker.replace(id, item)) {
             System.out.println("Item was update");
-        }else {
+        } else {
             System.out.println("Item not found");
         }
     }
@@ -36,7 +38,7 @@ class EditItem implements UserAction{
 /**
  * Класс ищет заявку по имени.
  */
-class FindNameItems implements UserAction{
+class FindNameItems implements UserAction {
 
     @Override
     public int key() {
@@ -46,14 +48,17 @@ class FindNameItems implements UserAction{
     public void execute(Input input, Tracker tracker) {
         String name = input.ask("Please, enter the task's name: ");
         Item[] item = tracker.findByName(name);
-        if(item.length != 0){
-            for(Item item1 : item){
-                    System.out.println(
-                            String.format("%s. %s", item1.getId(), item1.getName()));
-            }
-        }else {
+        if (item.length == 0) {
             System.out.println("Item not found");
         }
+        for (Item item1 : item) {
+            System.out.println(
+                    String.format("%s. %s", item1.getId(), item1.getName()));
+            }
+        System.out.println(Arrays.toString(item));
+
+
+
     }
     @Override
     public String info() {
@@ -130,7 +135,7 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             String name = input.ask("Please, enter the task's name: ");
             String desc = input.ask("Please, enter the task's desc: ");
-            tracker.add(new Task(name, desc));
+            tracker.add(new Item(name, desc));
         }
         @Override
         public String info() {
@@ -150,20 +155,20 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             Item[] item = tracker.findAll();
-            if(tracker.findAll().length == 0 || item[0] == null){
+            if (tracker.findAll().length == 0 || item[0] == null) {
                 System.out.println("Items not found");
             }
-            for(Item item1: item){
-                if(item1 == null){
+            for (Item item1: item) {
+                if (item1 == null) {
                     break;
-                }else {
+                } else {
                     System.out.println(
                             String.format("%s. %s", item1.getId(), item1.getName()));
                 }
             }
         }
         @Override
-        public String info () {
+        public String info() {
             return String.format("%s. %s", this.key(), "Show the all items.");
         }
     }
@@ -179,9 +184,9 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Please, enter the task's id: ");
-            if(tracker.delete(id)){
+            if (tracker.delete(id)) {
                 System.out.println("Item delete");
-            }else {
+            } else {
                 System.out.println("Item not delete");
             }
         }
@@ -194,7 +199,7 @@ public class MenuTracker {
     /**
      * Класс ищет заявку по id.
      */
-    private static class FindIdItem implements UserAction{
+    private static class FindIdItem implements UserAction {
         @Override
         public int key() {
             return 4;
@@ -203,10 +208,10 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Please, enter the task's id: ");
             Item item = tracker.findById(id);
-            if(item != null){
+            if (item != null) {
                 System.out.println(
                         String.format("%s. %s", item.getId(), item.getName()));
-            }else {
+            } else {
                 System.out.println("Item not found");
             }
         }
@@ -218,9 +223,9 @@ public class MenuTracker {
     /**
      * Класс осуществляет выход из программы.
      */
-    private class Exit implements UserAction{
+    private class Exit implements UserAction {
         private final StartUI ui;
-        Exit(StartUI ui){
+        Exit(StartUI ui) {
             this.ui = ui;
         }
         @Override

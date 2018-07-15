@@ -20,7 +20,7 @@ public class PaintTest {
         //задаём высоту пирамиды.
         String result = paint.piramid(2);
         // Задаем ожидаемый результат.
-        String expected = String.format(" ^%s^^^%<s",System.getProperty("line.separator"));
+        String expected = String.format(" ^%s^^^%<s", System.getProperty("line.separator"));
         //Проверяем результат и ожидаемое значение.
         assertThat(result, is(expected));
     }
@@ -34,7 +34,7 @@ public class PaintTest {
         //задаём высоту пирамиды.
         String result = paint.piramid(3);
         // Задаем ожидаемый результат.
-        String expected = String.format("  ^%s ^^^%<s^^^^^%<s",System.getProperty("line.separator"));
+        String expected = String.format("  ^%s ^^^%<s^^^^^%<s", System.getProperty("line.separator"));
         //Проверяем результат и ожидаемое значение.
         assertThat(result, is(expected));
     }

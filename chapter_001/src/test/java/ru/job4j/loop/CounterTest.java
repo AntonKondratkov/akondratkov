@@ -10,9 +10,9 @@ import static org.junit.Assert.assertThat;
  *@since 17.11.2017
  */
 
-public class CounterTest{
+public class CounterTest {
     @Test
-    public void whenSumEvenNumbersFromOneToTenThenThirty(){
+    public void whenSumEvenNumbersFromOneToTenThenThirty() {
         //создаём объект.
         Counter sum = new Counter();
         //задаём диапазон чисел.
@@ -21,7 +21,6 @@ public class CounterTest{
         int expected = 30;
         //Проверяем результат и ожидаемое значение.
         assertThat(result, is(expected));
-
     }
 }
 

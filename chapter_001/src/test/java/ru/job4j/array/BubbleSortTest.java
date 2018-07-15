@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThat;
  */
 public class BubbleSortTest {
     /**
-     * Метод тестирует метод BubbleSort.sort() для массива {1, 5, 4, 2, 3, 1, 7, 8, 0, 5}.
+     * Метод тестирует метод BubbleSort.sort() для массива {inheritance, 5, 4, 2, 3, inheritance, 7, 8, 0, 5}.
      */
     @Test
     public void whenSortArrayWithTenElementsThenSortedArray() {

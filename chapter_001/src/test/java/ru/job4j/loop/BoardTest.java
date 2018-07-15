@@ -11,12 +11,12 @@ import static org.junit.Assert.assertThat;
  *@since 19.11.2017
  */
 
-public class BoardTest{
+public class BoardTest {
     /**
      * Метод тестирует метод Board.paint() для шахматной доски размером 3х3.
      */
     @Test
-    public void whenPaintBoardWithWidthThreeAndHeightThreeThenStringWithThreeColsAndThreeRows(){
+    public void whenPaintBoardWithWidthThreeAndHeightThreeThenStringWithThreeColsAndThreeRows() {
         //создаём объект.
         Board board = new Board();
         //задаём размер шахматной доски.
@@ -33,7 +33,7 @@ public class BoardTest{
      */
 
     @Test
-    public void whenPaintBoardWithWidthFiveAndHeightFourThenStringWithFiveColsAndFourRows(){
+    public void whenPaintBoardWithWidthFiveAndHeightFourThenStringWithFiveColsAndFourRows() {
         //создаём объект.
         Board board = new Board();
         //задаём размер шахматной доски.

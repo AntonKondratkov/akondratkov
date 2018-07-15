@@ -4,12 +4,12 @@ package ru.job4j.max;
  *@author Anton Kondratkov
  *@since 13.11.2017
  */
-public class Max{
+public class Max {
      /**
      *Method max вычисляет максимум из двух чисел.
      *@return result.
      */
-    public int max(int first, int second){
+    public int max(int first, int second) {
         return first > second ? first : second;
     }
 
@@ -18,7 +18,7 @@ public class Max{
      *@return result.
      */
 
-    public int min(int first, int second){
+    public int min(int first, int second) {
         return first < second ? first : second;
     }
 
@@ -27,7 +27,7 @@ public class Max{
      *@return result.
      */
 
-    public int maxOfThree(int first, int second, int third){
+    public int maxOfThree(int first, int second, int third) {
         return max(max(first, second), third);
     }
 
@@ -36,7 +36,7 @@ public class Max{
      *@return result.
      */
 
-    public int minOfThree(int first, int second, int third){
+    public int minOfThree(int first, int second, int third) {
         return min(min(first, second), third);
     }
 }

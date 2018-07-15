@@ -6,7 +6,7 @@ package ru.job4j.inheritance;
  * @since 29.12.2017
  */
 
-public class Equipment{
+public class Equipment {
     /**
      * Поле хранит название оборудования.
      */
@@ -16,7 +16,7 @@ public class Equipment{
      * Метод устанавливает название оборудования.
      * @param name **название оборудования**
      */
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -24,7 +24,7 @@ public class Equipment{
      * Метод возвращает название оборудования.
      * @return **название оборудования**
      */
-    public String getName(){
+    public String getName() {
         return name;
     }
 }

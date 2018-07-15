@@ -10,17 +10,17 @@ public class RotateArray {
      * @param array - входной массив int
      * @return array повёрнутый на 90 градусов массив.
      */
-    public int[][] rotate(int[][] array){
-        int [][] retArr = new int[array[0].length][array.length];
+    public int[][] rotate(int[][] array) {
+        int[][] retArr = new int[array[0].length][array.length];
         int retArrI = 0;
         int retArrJ = array.length - 1;
-        for (int [] srI : array){
-            for (int srJ : srI)
+        for (int[] srI : array) {
+            for (int srJ : srI) {
                 retArr[retArrI++][retArrJ] = srJ;
-            retArrI = 0;
-            retArrJ--;
+                retArrI = 0;
+                retArrJ--;
+            }
         }
         return retArr;
-
     }
 }

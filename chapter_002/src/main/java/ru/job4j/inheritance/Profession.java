@@ -6,7 +6,7 @@ package ru.job4j.inheritance;
  * @since 29.12.2017
  */
 
-public class Profession{
+public class Profession {
 
      /**
      *  Поле хранит ФИО
@@ -31,7 +31,7 @@ public class Profession{
     /**
      * Конструктор со всеми полями класса Profession.
      */
-    Profession (String fullName, int experience, String education, String specialization){
+    Profession(String fullName, int experience, String education, String specialization) {
         this.fullName = fullName;
         this.experience = experience;
         this.education = education;
@@ -42,7 +42,7 @@ public class Profession{
      * Метод устанавливает ФИО.
      * @param fullName **ФИО**
      */
-    public void setFullName(String fullName){
+    public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
@@ -50,7 +50,7 @@ public class Profession{
      * Метод устанавливает значение стажа.
      * @param experience **стаж**
      */
-    public void setExperience(int experience){
+    public void setExperience(int experience) {
         this.experience = experience;
     }
 
@@ -58,7 +58,7 @@ public class Profession{
      * Метод устанавливает информацию об образовании.
      * @param education **образование**
      */
-    public void setEducation(String education){
+    public void setEducation(String education) {
         this.education = education;
     }
 
@@ -66,14 +66,14 @@ public class Profession{
      * Метод устанавливает название специализации.
      * @param specialization **специализация**
      */
-    public void setSpecialization(String specialization){
+    public void setSpecialization(String specialization) {
         this.specialization = specialization;
     }
     /**
      * Метод возвращает значение ФИО.
      * @return **ФИО**
      */
-    public String getFullName(){
+    public String getFullName() {
         return fullName;
     }
 
@@ -81,7 +81,7 @@ public class Profession{
      * Метод возвращает значение стажа.
      * @return **стаж**
      */
-    public int getExperience(){
+    public int getExperience() {
         return experience;
     }
 
@@ -89,7 +89,7 @@ public class Profession{
      * Метод возвращает информацию об образовании.
      * @return **образование**
      */
-    public String getEducation(){
+    public String getEducation() {
         return education;
     }
 
@@ -97,7 +97,7 @@ public class Profession{
      * Метод возвращает название специализации.
      * @return **специализация**
      */
-    public String getSpecialization(){
+    public String getSpecialization() {
         return specialization;
     }
 

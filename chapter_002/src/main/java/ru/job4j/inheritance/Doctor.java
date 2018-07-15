@@ -13,7 +13,7 @@ public class Doctor extends Profession {
     /**
      * Добавление поля hospital в супер конструктор.
      */
-    Doctor(String fullName, int experience, String education, String specialization, String hospital){
+    Doctor(String fullName, int experience, String education, String specialization, String hospital) {
         super(fullName, experience, education, specialization);
         this.hospital = hospital;
     }

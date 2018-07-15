@@ -6,7 +6,7 @@ package ru.job4j.loop;
  *@since 17.11.2017
  */
 
-public class Factorial{
+public class Factorial {
 
     /**
      * Method calc вычисляет факториал и возвращает рассчитанный факториал для этого числа.
@@ -14,10 +14,10 @@ public class Factorial{
      * @return result.
      */
 
-    public int calc(int n){
-        int result=1;
-        for (int i = 2; i <= n; i++){
-            result *=i;
+    public int calc(int n) {
+        int result = 1;
+        for (int i = 2; i <= n; i++) {
+            result *= i;
         }
         return result;
     }

@@ -6,7 +6,7 @@ package ru.job4j.inheritance;
  * @since 29.12.2017
  */
 
-public class Hospital{
+public class Hospital {
     /**
      * Поле хранит название места работы.
      */
@@ -16,7 +16,7 @@ public class Hospital{
      * Метод устанавливает название места работы.
      * @param name **место работы**
      */
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -24,7 +24,7 @@ public class Hospital{
      * Метод возвращает название места работы.
      * @return **название места работы**
      */
-    public String getName(){
+    public String getName() {
         return name;
     }
 }

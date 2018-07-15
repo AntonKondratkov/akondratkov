@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 
 public class TurnTest {
     /**
-     * Метод тестирует метод Turn.reverse() для массива {2, 6, 1, 4}.
+     * Метод тестирует метод Turn.reverse() для массива {2, 6, inheritance, 4}.
      */
     @Test
     public void whenTurnArrayWithEvenAmountOfElementsThenTurnedArray() {
@@ -28,7 +28,7 @@ public class TurnTest {
         assertThat(result, is(expected));
     }
     /**
-     * Метод тестирует метод Turn.reverse() для массива {1, 2, 3, 4, 5}.
+     * Метод тестирует метод Turn.reverse() для массива {inheritance, 2, 3, 4, 5}.
      */
     @Test
     public void whenTurnArrayWithOddAmountOfElementsThenTurnedArray() {

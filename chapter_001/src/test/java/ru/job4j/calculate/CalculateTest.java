@@ -1,17 +1,14 @@
-package ru.job4j;
+package ru.job4j.calculate;
 
 import org.junit.Test;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
-* Test.
-*
+* В данном классе тестируется класс Calculate.
 * @author Anton Kondratkov (mailto:kondratkov.anton@yandex.ru)
 * @version $Id$
-* @since 0.1
+* @since 0.inheritance
 */
 public class CalculateTest {
 	/**

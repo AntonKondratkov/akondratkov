@@ -9,12 +9,12 @@ import static org.junit.Assert.assertThat;
  *@author Anton Kondratkov
  *@since 01.11.2017
  */
-public class ArrayDuplicateTest{
+public class ArrayDuplicateTest {
     /**
      * Метод тестирует метод ArrayDuplicate.removeDuplicate() для массива {"Привет", "Мир", "Привет", "Супер", "Мир"}.
      */
     @Test
-    public void whenRemoveDuplicatesThenArrayWithoutDuplicate(){
+    public void whenRemoveDuplicatesThenArrayWithoutDuplicate() {
         //создаём объект.
         ArrayDuplicate duplicate = new ArrayDuplicate();
         //передаём заданный массив в метод removeDuplicate.

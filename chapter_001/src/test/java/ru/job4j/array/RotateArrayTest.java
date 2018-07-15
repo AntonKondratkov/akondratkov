@@ -11,32 +11,32 @@ import static org.junit.Assert.assertThat;
  */
 public class RotateArrayTest {
     /**
-     * Метод тестирует метод RotateArray.rotate() для массива {{1, 2},{3, 4}}.
+     * Метод тестирует метод RotateArray.rotate() для массива {{inheritance, 2},{3, 4}}.
      */
     @Test
     public void whenRotateTwoRowTwoColArrayThenRotatedArray() {
         //создаём объект.
         RotateArray getRotate = new RotateArray();
         //передаём заданный массив в метод rotate.
-        int[][] input = {{1, 2},{3, 4}};
+        int[][] input = {{1, 2}, {3, 4}};
         int[][] result = getRotate.rotate(input);
         // Задаем ожидаемый результат.
-        int[][] expected = {{3, 1},{4, 2}};
+        int[][] expected = {{3, 1}, {4, 2}};
         //Проверяем результат и ожидаемое значение.
         assertThat(result, is(expected));
     }
     /**
-     * Метод тестирует метод RotateArray.rotate() для массива {{1, 2, 3},{4, 5, 6}, {7, 8, 9}}.
+     * Метод тестирует метод RotateArray.rotate() для массива {{inheritance, 2, 3},{4, 5, 6}, {7, 8, 9}}.
      */
     @Test
     public void whenRotateThreeRowThreeColArrayThenRotatedArray() {
         //создаём объект.
         RotateArray turn = new RotateArray();
         //передаём заданный массив в метод rotate.
-        int[][] input = {{1, 2, 3},{4, 5, 6}, {7, 8, 9}};
+        int[][] input = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         int[][] result = turn.rotate(input);
         // Задаем ожидаемый результат.
-        int[][] expected = {{7, 4, 1},{8, 5, 2}, {9, 6, 3}};
+        int[][] expected = {{7, 4, 1}, {8, 5, 2}, {9, 6, 3}};
         //Проверяем результат и ожидаемое значение.
         assertThat(result, is(expected));
 
