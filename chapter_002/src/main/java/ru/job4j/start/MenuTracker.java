@@ -5,10 +5,8 @@ import ru.job4j.tracker.Tracker;
 
 /**
  * @author Anton Kondratkov
- * @since 14.07.18.
+ * @since 15.07.18.
  */
-
-
 /**
  * Класс редактирует заявку.
  */
@@ -17,16 +15,18 @@ class EditItem implements UserAction{
     public int key() {
         return 2;
     }
-
     @Override
     public void execute(Input input, Tracker tracker) {
         String id = input.ask("Please, enter the task's id: ");
         String name = input.ask("Please, enter the task's name: ");
         String desc = input.ask("Please, enter the task's desc: ");
-        Task task = new Task(name, desc);
-        System.out.println(tracker.replace(id, task));
+        Item item = new Item(name, desc);
+        if(tracker.replace(id, item)){
+            System.out.println("Item was update");
+        }else {
+            System.out.println("Item not found");
+        }
     }
-
     @Override
     public String info() {
         return String.format("%s. %s", this.key(), "Edit the new item.");
@@ -42,18 +42,19 @@ class FindNameItems implements UserAction{
     public int key() {
         return 5;
     }
-
     @Override
     public void execute(Input input, Tracker tracker) {
         String name = input.ask("Please, enter the task's name: ");
         Item[] item = tracker.findByName(name);
-        for(Item item1 : item){
-            System.out.println(
-                    String.format("%s. %s", item1.getId(), item1.getName()));
+        if(item.length != 0){
+            for(Item item1 : item){
+                    System.out.println(
+                            String.format("%s. %s", item1.getId(), item1.getName()));
+            }
+        }else {
+            System.out.println("Item not found");
         }
-
     }
-
     @Override
     public String info() {
         return String.format("%s. %s", this.key(), "Find the item by name.");
@@ -75,7 +76,7 @@ public class MenuTracker {
     /**
      * @param хранит ссылку на массив типа UserAction.
      */
-    private UserAction[] actions = new UserAction[7];
+    private UserAction[] actions = new UserAction[8];
     /**
      * Конструктор.
      *
@@ -89,14 +90,14 @@ public class MenuTracker {
     /**
      * Метод заполняет массив.
      */
-    public void fillActions() {
+    public void fillActions(StartUI ui) {
         this.actions[0] = this.new AddItem();
         this.actions[1] = new MenuTracker.ShowItems();
         this.actions[2] = new EditItem();
         this.actions[3] = this.new DeleteItem();
         this.actions[4] = new MenuTracker.FindIdItem();
         this.actions[5] = new FindNameItems();
-        this.actions[6] = this.new Exit();
+        this.actions[6] = this.new Exit(ui);
     }
     /**
      * Метод в зависимости от указанного ключа, выполняет соотвествующие действие.
@@ -125,14 +126,12 @@ public class MenuTracker {
         public int key() {
             return 0;
         }
-
         @Override
         public void execute(Input input, Tracker tracker) {
             String name = input.ask("Please, enter the task's name: ");
             String desc = input.ask("Please, enter the task's desc: ");
             tracker.add(new Task(name, desc));
         }
-
         @Override
         public String info() {
             return String.format("%s. %s", this.key(), "Add the new item.");
@@ -155,18 +154,18 @@ public class MenuTracker {
                 System.out.println("Items not found");
             }
             for(Item item1: item){
-               if(item1 == null){
+                if(item1 == null){
                     break;
-               }else if(tracker.findAll().length != 0){
+                }else {
                     System.out.println(
                             String.format("%s. %s", item1.getId(), item1.getName()));
-               }
+                }
             }
         }
-            @Override
-            public String info () {
-                return String.format("%s. %s", this.key(), "Show the all items.");
-            }
+        @Override
+        public String info () {
+            return String.format("%s. %s", this.key(), "Show the all items.");
+        }
     }
 
     /**
@@ -177,13 +176,15 @@ public class MenuTracker {
         public int key() {
             return 3;
         }
-
         @Override
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Please, enter the task's id: ");
-            tracker.delete(id);
+            if(tracker.delete(id)){
+                System.out.println("Item delete");
+            }else {
+                System.out.println("Item not delete");
+            }
         }
-
         @Override
         public String info() {
             return String.format("%s. %s", this.key(), "Delete the item.");
@@ -194,20 +195,21 @@ public class MenuTracker {
      * Класс ищет заявку по id.
      */
     private static class FindIdItem implements UserAction{
-
         @Override
         public int key() {
             return 4;
         }
-
         @Override
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Please, enter the task's id: ");
             Item item = tracker.findById(id);
-            System.out.println(
-                    String.format("%s. %s", item.getId(), item.getName()));
+            if(item != null){
+                System.out.println(
+                        String.format("%s. %s", item.getId(), item.getName()));
+            }else {
+                System.out.println("Item not found");
+            }
         }
-
         @Override
         public String info() {
             return String.format("%s. %s", this.key(), "Find the item by id.");
@@ -217,20 +219,22 @@ public class MenuTracker {
      * Класс осуществляет выход из программы.
      */
     private class Exit implements UserAction{
-
+        private final StartUI ui;
+        Exit(StartUI ui){
+            this.ui = ui;
+        }
         @Override
         public int key() {
             return 6;
         }
-
         @Override
         public void execute(Input input, Tracker tracker) {
+            System.out.println("Menu item selected \"Exit programm.\"");
+            this.ui.setExit();
         }
-
         @Override
         public String info() {
             return String.format("%s. %s", this.key(), "Exit programm.");
         }
     }
 }
-
