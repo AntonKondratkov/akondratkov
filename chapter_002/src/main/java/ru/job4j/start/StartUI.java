@@ -4,15 +4,18 @@ import ru.job4j.tracker.Tracker;
 
 /**
  * @author Anton Kondratkov
- * @since 15.07.18.
+ * @since 17.07.18.
  * Данный класс позволяет пользователю полноценно работать с приложением Tracker.
  */
-
 public class StartUI {
     /**
      * Получение данных от пользователя.
      */
     private final Input input;
+    /**
+     *Создаём Tracker.
+     */
+    private final Tracker tracker;
     /**
      * С помощью этого поля происходит выход из цикла программы.
      */
@@ -21,16 +24,16 @@ public class StartUI {
      * Конструктор инициализирующий поля.
      * @param input пользователький ввод данных.
      */
-    public StartUI(Input input) {
+    public StartUI(Input input, Tracker tracker) {
         this.input = input;
+        this.tracker = tracker;
     }
 
     /**
      * Основной цикл программы.
      */
     public void init() {
-        Tracker tracker = new Tracker();
-        MenuTracker menu = new MenuTracker(this.input, tracker);
+        MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions(this);
         do {
             System.out.println("Select from 0 to 6");
@@ -42,10 +45,5 @@ public class StartUI {
 
     public void setExit() {
         this.exit = false;
-    }
-
-    public static void main(String[] args) {
-        Input input = new ConsoleInput();
-        new StartUI(input).init();
     }
 }

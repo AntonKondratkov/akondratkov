@@ -3,13 +3,9 @@ package ru.job4j.start;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 
-import java.util.Arrays;
-
 /**
  * @author Anton Kondratkov
- * @since 15.07.18.
- */
-/**
+ * @since 17.07.18.
  * Класс редактирует заявку.
  */
 class EditItem implements UserAction {
@@ -54,11 +50,7 @@ class FindNameItems implements UserAction {
         for (Item item1 : item) {
             System.out.println(
                     String.format("%s. %s", item1.getId(), item1.getName()));
-            }
-        System.out.println(Arrays.toString(item));
-
-
-
+        }
     }
     @Override
     public String info() {
@@ -135,7 +127,9 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             String name = input.ask("Please, enter the task's name: ");
             String desc = input.ask("Please, enter the task's desc: ");
-            tracker.add(new Item(name, desc));
+            Item item = new Item(name, desc);
+            tracker.add(item);
+            System.out.println(item.getName());
         }
         @Override
         public String info() {
