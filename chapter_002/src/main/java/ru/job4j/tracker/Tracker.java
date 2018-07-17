@@ -82,7 +82,7 @@ public class Tracker {
         int position = 0;
         for (int i = 0; i != this.position; i++) {
             if (key.equals(this.items[i].getName())) {
-                    result[position++] = this.items[i];
+                result[position++] = this.items[i];
             }
         }
         return Arrays.copyOf(result, position);
@@ -102,6 +102,7 @@ public class Tracker {
                 result = i;
                 element = true;
                 System.arraycopy(this.items, result + 1, this.items, result, this.position - result);
+                position--;
                 break;
             }
         }
