@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 import org.junit.Test;
+import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.strogare.Tracker;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -78,7 +80,7 @@ public class TrackerTest {
         // Удаляем заявку "next" из массива и проверяем, что метод возвращает "true".
         assertThat(tracker.delete(previous.getId()), is(true));
         // Создаём массив для сравнения.
-        Item[] item = {next, next2, null};
+        Item[] item = {next, next2};
         // Проверяем, что массив "item" соответствует массиву,
         // который возвращает метод findAll() после удаления заявки "next".
         assertThat(tracker.findAll(), is(item));

@@ -1,7 +1,9 @@
-package ru.job4j.start;
+package ru.job4j.tracker.actions;
 
-import ru.job4j.tracker.Item;
-import ru.job4j.tracker.Tracker;
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.StartUI;
+import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.strogare.Tracker;
 
 /**
  * @author Anton Kondratkov
@@ -149,15 +151,12 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             Item[] item = tracker.findAll();
-            if (tracker.findAll().length == 0 || item[0] == null) {
+            if (item.length == 0) {
                 System.out.println("Items not found");
             }
             for (Item item1: item) {
-                if (item1 == null) {
-                    break;
-                } else {
-                    System.out.println(
-                            String.format("%s. %s", item1.getId(), item1.getName()));
+                if (item1 != null) {
+                    System.out.println(String.format("%s. %s", item1.getId(), item1.getName()));
                 }
             }
         }

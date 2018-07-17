@@ -1,4 +1,4 @@
-package ru.job4j.start;
+package ru.job4j.tracker.input;
 
 /**
  * @author Anton Kondratkov
