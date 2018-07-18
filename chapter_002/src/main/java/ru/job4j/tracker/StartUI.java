@@ -12,10 +12,13 @@ import ru.job4j.tracker.strogare.Tracker;
  */
 public class StartUI {
     /**
+     * Поле содержит объект класса Tracker
+     */
+    private Tracker tracker;
+    /**
      * Получение данных от пользователя.
      */
     private final Input input;
-    /**
     /**
      * С помощью этого поля происходит выход из цикла программы.
      */
@@ -27,12 +30,16 @@ public class StartUI {
     public StartUI(Input input) {
         this.input = input;
     }
+
+    public StartUI(Input input, Tracker tracker) {
+        this.input = input;
+        this.tracker = tracker;
+    }
     /**
      * Основной цикл программы.
      */
     public void init() {
-        Tracker tracker = new Tracker();
-        MenuTracker menu = new MenuTracker(this.input, tracker);
+        MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions(this);
         do {
             System.out.println("Select from 0 to 6");
@@ -48,7 +55,8 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
+        Tracker tracker = new Tracker();
         Input input = new ValidateInput();
-        new StartUI(input).init();
+        new StartUI(input, tracker).init();
     }
 }
