@@ -2,11 +2,12 @@ package ru.job4j.tracker;
 
 import ru.job4j.tracker.actions.MenuTracker;
 import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.input.ValidateInput;
 import ru.job4j.tracker.strogare.Tracker;
 
 /**
  * @author Anton Kondratkov
- * @since 17.07.18.
+ * @since 18.07.18.
  * Данный класс позволяет пользователю полноценно работать с приложением Tracker.
  */
 public class StartUI {
@@ -15,9 +16,6 @@ public class StartUI {
      */
     private final Input input;
     /**
-     *Создаём Tracker.
-     */
-    private final Tracker tracker;
     /**
      * С помощью этого поля происходит выход из цикла программы.
      */
@@ -26,26 +24,31 @@ public class StartUI {
      * Конструктор инициализирующий поля.
      * @param input пользователький ввод данных.
      */
-    public StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input) {
         this.input = input;
-        this.tracker = tracker;
     }
-
     /**
      * Основной цикл программы.
      */
     public void init() {
-        MenuTracker menu = new MenuTracker(this.input, this.tracker);
+        Tracker tracker = new Tracker();
+        MenuTracker menu = new MenuTracker(this.input, tracker);
         menu.fillActions(this);
         do {
             System.out.println("Select from 0 to 6");
             menu.show();
-            int key = Integer.valueOf(this.input.ask("select: "));
-            menu.select(key);
+            menu.select(input.ask("select: ", menu.getRange()));
         } while (this.exit);
     }
-
+    /**
+     * Метод устанавливает значение false для переменной exit.
+     */
     public void setExit() {
         this.exit = false;
+    }
+
+    public static void main(String[] args) {
+        Input input = new ValidateInput();
+        new StartUI(input).init();
     }
 }

@@ -2,7 +2,7 @@ package ru.job4j.tracker.input;
 
 /**
  * @author Anton Kondratkov
- * @since 17.07.18.
+ * @since 18.07.18.
  * Класс эмулирует поведение пользователя.
  **/
 public class StubInput implements Input {
@@ -15,5 +15,10 @@ public class StubInput implements Input {
     @Override
     public String ask(String question) {
         return this.answers[this.position++];
+    }
+
+    @Override
+    public int ask(String question, int[] range) {
+        throw new UnsupportedOperationException("Unsupported operation");
     }
 }

@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * @author Anton Kondratkov
- * @since 17.07.18.
+ * @since 18.07.18.
  * Класс используется для ввода пользовательских данных из консоли.
  **/
 public class ConsoleInput implements Input {
@@ -27,5 +27,30 @@ public class ConsoleInput implements Input {
     public String ask(String question) {
         System.out.println(question);
         return scanner.nextLine();
+    }
+    /**
+     * Перезагружаем метод ask.
+     * В данном методе будем проверять выходит ли введённое
+     * пользователем число за пределы переданного диапазона.
+     * Если выходит то выбрасываем исключение.
+     * @param question Ключ для выбора меню.
+     * @param range Диапазон значений меню.
+     * @return Ключ.
+     */
+    @Override
+    public int ask(String question, int[] range) {
+        int key = Integer.valueOf(this.ask(question));
+        boolean exist = false;
+        for (int value : range) {
+            if (value == key) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Out of menu range");
+        }
     }
 }
