@@ -2,7 +2,7 @@ package ru.job4j.tracker.input;
 
 /**
  * @author Anton Kondratkov
- * @since 18.07.18.
+ * @since 20.07.18.
  * Класс эмулирует поведение пользователя.
  **/
 public class StubInput implements Input {
@@ -27,10 +27,9 @@ public class StubInput implements Input {
                 break;
             }
         }
-        if (exist) {
-            return key;
-        } else {
+        if (!exist) {
             throw new MenuOutException("Out of menu range");
         }
+        return key;
     }
 }

@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * @author Anton Kondratkov
- * @since 18.07.18.
+ * @since 20.07.18.
  * Класс используется для ввода пользовательских данных из консоли.
  **/
 public class ConsoleInput implements Input {
@@ -47,10 +47,9 @@ public class ConsoleInput implements Input {
                 break;
             }
         }
-        if (exist) {
-            return key;
-        } else {
+        if (!exist) {
             throw new MenuOutException("Out of menu range");
         }
+        return key;
     }
 }
