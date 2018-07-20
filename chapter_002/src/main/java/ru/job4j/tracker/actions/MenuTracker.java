@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 /**
  * @author Anton Kondratkov
- * @since 20.07.18.
+ * @since 21.07.18.
  * Класс редактирует заявку.
  */
 class EditItem extends BaseAction {
@@ -20,9 +20,7 @@ class EditItem extends BaseAction {
     @Override
     public void execute(Input input, Tracker tracker) {
         String id = input.ask("Please, enter the task's id: ");
-        if (tracker.findAll().length == 0) {
-            System.out.println("Item not found");
-        } else if (tracker.findById(id) != null && tracker.findById(id).getId().equals(id)) {
+        if (tracker.findById(id) != null && tracker.findById(id).getId().equals(id)) {
             String name = input.ask("Please, enter the task's name: ");
             String desc = input.ask("Please, enter the task's desc: ");
             Item item = new Item(name, desc);
@@ -176,15 +174,11 @@ public class MenuTracker {
         }
         @Override
         public void execute(Input input, Tracker tracker) {
-            if (tracker.findAll().length == 0) {
-                System.out.println("Item not found");
+            String id = input.ask("Please, enter the task's id: ");
+            if (tracker.delete(id)) {
+                System.out.println("Item delete");
             } else {
-                String id = input.ask("Please, enter the task's id: ");
-                if (tracker.delete(id)) {
-                    System.out.println("Item delete");
-                } else {
-                    System.out.println("Item not delete");
-                }
+                System.out.println("Item not delete");
             }
         }
     }
