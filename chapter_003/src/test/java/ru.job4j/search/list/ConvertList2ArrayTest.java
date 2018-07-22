@@ -7,7 +7,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 /**
  * @author Anton Kondratkov
- * @since 22.07.18.
+ * @since 23.07.18.
  * Данный класс проверяет работу класса ConvertList2Array.
  */
 public class ConvertList2ArrayTest {
@@ -15,13 +15,17 @@ public class ConvertList2ArrayTest {
     public void when7ElementsThen9() {
         ConvertList2Array list = new ConvertList2Array();
         int[][] result = list.toArray(
-                Arrays.asList(1, 2, 3, 4),
-                3
+                Arrays.asList(1, 2, 3, 4, 5, 6, 7),
+                5
         );
         int[][] expect = {
-                {1, 2, 3},
-                {4, 0, 0},
-                {0, 0, 0}
+                {1, 2},
+                {3, 4},
+                {5, 6},
+                {7, 0},
+                {0, 0}
+
+
         };
         assertThat(result, is(expect));
     }
