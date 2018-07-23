@@ -16,7 +16,7 @@ public class ConvertList2Array {
                 if (listIndex < list.size()) {
                     array[rowIn][cellIn] = list.get(listIndex++);
                 } else {
-                    array[rowIn][cellIn] = 0;
+                    break;
                 }
             }
         }
