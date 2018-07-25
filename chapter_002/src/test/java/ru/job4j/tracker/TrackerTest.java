@@ -1,9 +1,11 @@
 package ru.job4j.tracker;
+
 import org.junit.Test;
 import ru.job4j.tracker.model.Item;
 import ru.job4j.tracker.strogare.Tracker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -82,7 +84,7 @@ public class TrackerTest {
         // Удаляем заявку "next" из массива и проверяем, что метод возвращает "true".
         assertThat(tracker.delete(previous.getId()), is(true));
         // Создаём массив для сравнения.
-        ArrayList<Item> item = new ArrayList<>();
+        List<Item> item = new ArrayList<>();
         item.add(next);
         item.add(next2);
         // Проверяем, что массив "item" соответствует массиву,
@@ -100,7 +102,7 @@ public class TrackerTest {
         // Добавляем заявку в трекер.
         tracker.add(next);
         // Создаём массив для сравнения.
-        ArrayList<Item> item = new ArrayList<>();
+        List<Item> item = new ArrayList<>();
         item.add(previous);
         item.add(next);
         // Проверяем, что массив "item" соответствует массиву который возвращает метод findAll().

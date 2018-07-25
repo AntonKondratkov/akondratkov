@@ -21,7 +21,7 @@ public class Tracker {
     /**
      * Лист для хранения заявок.
      */
-    private ArrayList<Item> items = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
     /**
      * Указатель ячейки для новой заявки.
      */
@@ -64,8 +64,8 @@ public class Tracker {
      * Метод возвращает копию листа.
      * @return Лист result.
      */
-    public ArrayList<Item> findAll() {
-        ArrayList<Item> result = new ArrayList<>(this.position);
+    public List<Item> findAll() {
+        List<Item> result = new ArrayList<>(this.position);
         result.addAll(items);
         return result;
     }
@@ -76,12 +76,11 @@ public class Tracker {
      * @param key Имя по которому происходит поиск элементов в листе.
      * @return Результирующий лист result с найденными элементами.
      */
-    public ArrayList<Item> findByName(String key) {
-        ArrayList<Item> result = new ArrayList<>(this.position);
-        int position = 0;
+    public List<Item> findByName(String key) {
+        List<Item> result = new ArrayList<>(this.position);
         for (int i = 0; i != this.position; i++) {
             if (key.equals(this.items.get(i).getName())) {
-                result.add(position++, this.items.get(i));
+                result.add(this.items.get(i));
             }
         }
         return result;
@@ -115,8 +114,7 @@ public class Tracker {
         boolean result = false;
         for (int i = 0; i < this.items.size(); i++) {
             if (items.get(i) != null && items.get(i).getId().equals(id)) {
-                items.remove(i);
-                items.add(i, item);
+                items.set(i, item);
                 item.setId(id);
                 result = true;
                 break;

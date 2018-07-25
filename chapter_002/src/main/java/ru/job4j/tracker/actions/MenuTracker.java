@@ -5,11 +5,11 @@ import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.model.Item;
 import ru.job4j.tracker.strogare.Tracker;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Anton Kondratkov
- * @since 21.07.18.
+ * @since 25.07.18.
  * Класс редактирует заявку.
  */
 class EditItem extends BaseAction {
@@ -44,7 +44,7 @@ class FindNameItems extends BaseAction {
     @Override
     public void execute(Input input, Tracker tracker) {
         String name = input.ask("Please, enter the task's name: ");
-        ArrayList<Item> item = tracker.findByName(name);
+        List<Item> item = tracker.findByName(name);
         if (item.size() == 0) {
             System.out.println("Item not found");
         }
@@ -153,7 +153,7 @@ public class MenuTracker {
         }
         @Override
         public void execute(Input input, Tracker tracker) {
-            ArrayList<Item> item = tracker.findAll();
+            List<Item> item = tracker.findAll();
             if (item.size() == 0) {
                 System.out.println("Items not found");
             }
