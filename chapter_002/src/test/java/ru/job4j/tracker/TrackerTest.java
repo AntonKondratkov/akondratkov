@@ -3,12 +3,14 @@ import org.junit.Test;
 import ru.job4j.tracker.model.Item;
 import ru.job4j.tracker.strogare.Tracker;
 
+import java.util.ArrayList;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * @version $Id$
- * @since 0.
+ * @author Anton Kondratkov
+ * @since 25.07.18.
  * В данном классе осуществляется тестирование методов из класса Tracker.
  **/
 
@@ -20,7 +22,7 @@ public class TrackerTest {
         // Добавляем заявку в трекер.
         tracker.add(item);
         // Проверяем, что заявка добавлена в 0 ячейку массива.
-        assertThat(tracker.findAll()[0], is(item));
+        assertThat(tracker.findAll().get(0), is(item));
     }
 
     @Test
@@ -62,7 +64,7 @@ public class TrackerTest {
         // Добавляем заявку в трекер.
         tracker.add(next);
         // Проверяем, что найденная заявка соответствует искомой по имени заявке.
-        assertThat(tracker.findByName("test6")[0], is(next));
+        assertThat(tracker.findByName("test6").get(0), is(next));
     }
 
     @Test
@@ -80,7 +82,9 @@ public class TrackerTest {
         // Удаляем заявку "next" из массива и проверяем, что метод возвращает "true".
         assertThat(tracker.delete(previous.getId()), is(true));
         // Создаём массив для сравнения.
-        Item[] item = {next, next2};
+        ArrayList<Item> item = new ArrayList<>();
+        item.add(next);
+        item.add(next2);
         // Проверяем, что массив "item" соответствует массиву,
         // который возвращает метод findAll() после удаления заявки "next".
         assertThat(tracker.findAll(), is(item));
@@ -96,7 +100,9 @@ public class TrackerTest {
         // Добавляем заявку в трекер.
         tracker.add(next);
         // Создаём массив для сравнения.
-        Item[] item = {previous, next};
+        ArrayList<Item> item = new ArrayList<>();
+        item.add(previous);
+        item.add(next);
         // Проверяем, что массив "item" соответствует массиву который возвращает метод findAll().
         assertThat(tracker.findAll(), is(item));
     }

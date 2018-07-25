@@ -5,8 +5,8 @@ import ru.job4j.tracker.model.Item;
 import java.util.*;
 
 /**
- * @version $Id$
- * @since 0.inheritance
+ * @author Anton Kondratkov
+ * @since 25.07.18.
  * Данный класс используется как хранилище заявок.
  * Класс обладает следующими возможностями по работе с завками:
  * добавление заявок;
@@ -19,10 +19,9 @@ import java.util.*;
 
 public class Tracker {
     /**
-     * Массив для хранения заявок.
+     * Лист для хранения заявок.
      */
-    private Item[] items = new Item[10];
-
+    private ArrayList<Item> items = new ArrayList<>();
     /**
      * Указатель ячейки для новой заявки.
      */
@@ -36,17 +35,17 @@ public class Tracker {
     /**
      * Метод реализующий добавление новой заявки.
      * @param item Новая заявка.
-     * @return Добавленная в массив заявка.
+     * @return Добавленная в лист заявка.
      */
 
     public Item add(Item item) {
         item.setId(this.generateId());
-        this.items[position++] = item;
+        this.items.add(position++, item);
         return item;
     }
 
     /**
-     * Метод производит поиск элементов в массиве по id сравнивая его с id переданным в аргументах.
+     * Метод производит поиск элементов в листе по id сравнивая его с id переданным в аргументах.
      * @param id Уникальный ключ.
      * @return Найденный элемент.
      */
@@ -62,44 +61,43 @@ public class Tracker {
     }
 
     /**
-     * Метод возвращает копию массива без null элементов.
-     * @return Массив result без null элементов.
+     * Метод возвращает копию листа.
+     * @return Лист result.
      */
-    public Item[] findAll() {
-        return Arrays.copyOf(this.items, position);
+    public ArrayList<Item> findAll() {
+        ArrayList<Item> result = new ArrayList<>(this.position);
+        result.addAll(items);
+        return result;
     }
 
     /**
-     * Метод ищет элементы в массиве сравнивая их поле name с аргументом key.
-     * Далее копирует найденные элементы в результирующий массив result и возвращает его.
-     * @param key Имя по которому происходит поиск элементов в массиве.
-     * @return Результирующий массив result с найденными элементами.
+     * Метод ищет элементы в листе сравнивая их поле name с аргументом key.
+     * Далее копирует найденные элементы в результирующий лист result и возвращает его.
+     * @param key Имя по которому происходит поиск элементов в листе.
+     * @return Результирующий лист result с найденными элементами.
      */
-    public Item[] findByName(String key) {
-        Item[] result = new Item[this.position];
+    public ArrayList<Item> findByName(String key) {
+        ArrayList<Item> result = new ArrayList<>(this.position);
         int position = 0;
         for (int i = 0; i != this.position; i++) {
-            if (key.equals(this.items[i].getName())) {
-                result[position++] = this.items[i];
+            if (key.equals(this.items.get(i).getName())) {
+                result.add(position++, this.items.get(i));
             }
         }
-        return Arrays.copyOf(result, position);
+        return result;
     }
 
     /**
-     * Метод удаляет ячеку из массива со сдвигом ячеек находящихся правее от удаляемой влево.
+     * Метод удаляет элемент из листа со сдвигом ячеек находящихся правее от удаляемой влево.
      * @param id Уникальный ключ.
      * @return element - Проверка удаления элемента (true - удалён, false - не удалён).
      */
     public boolean delete(String id) {
-        int result = 0;
         boolean element = false;
-
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] != null && items[i].getId().equals(id)) {
-                result = i;
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i) != null && items.get(i).getId().equals(id)) {
                 element = true;
-                System.arraycopy(this.items, result + 1, this.items, result, this.position - result);
+                items.remove(i);
                 position--;
                 break;
             }
@@ -108,16 +106,17 @@ public class Tracker {
     }
 
     /**
-     * Метод заменяет ячейку в массиве найденную по id на другую ячейку переданную в параметрах метода.
+     * Метод заменяет ячейку в листе найденную по id на другую ячейку переданную в параметрах метода.
      * @param id Уникальный ключ искомой ячейки.
      * @param item Ячейка на которую необходимо заменить искомую ячейку.
      * @return result - Проверка замены элемента (true - заменён, false - не заменён).
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (int i = 0; i < this.items.length; i++) {
-            if (items[i] != null && items[i].getId().equals(id)) {
-                items[i] = item;
+        for (int i = 0; i < this.items.size(); i++) {
+            if (items.get(i) != null && items.get(i).getId().equals(id)) {
+                items.remove(i);
+                items.add(i, item);
                 item.setId(id);
                 result = true;
                 break;

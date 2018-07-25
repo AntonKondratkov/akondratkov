@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * @author Anton Kondratkov
- * @since 17.07.18.
+ * @since 25.07.18.
  * В данном классе расположены JUnit тесты, использующие класс StubInput для эмуляции поведения пользователя.
  **/
 public class StartUITest {
@@ -48,7 +48,7 @@ public class StartUITest {
         //Создаём StartUI и вызываем метод init().
         new StartUI(input, tracker).init();
         //Проверяем, что нулевой элемент массива в трекере соедржит имя, введённое при эмуляции.
-        assertThat(tracker.findAll()[0].getName(), is("first name"));
+        assertThat(tracker.findAll().get(0).getName(), is("first name"));
     }
 
     @Test
@@ -78,7 +78,7 @@ public class StartUITest {
         //Создаём StartUI и вызываем метод init().
         new StartUI(input, tracker).init();
         //Проверяем, что удалённый элемент отсутсвует и на его месте находится следующая заявка.
-        assertThat(tracker.findAll()[0].getName(), is(item4.getName()));
+        assertThat(tracker.findAll().get(0).getName(), is(item4.getName()));
     }
 
     @Test

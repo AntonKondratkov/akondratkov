@@ -1,11 +1,11 @@
 package ru.job4j.tracker.actions;
 
-import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.StartUI;
+import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.model.Item;
 import ru.job4j.tracker.strogare.Tracker;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 /**
  * @author Anton Kondratkov
@@ -44,8 +44,8 @@ class FindNameItems extends BaseAction {
     @Override
     public void execute(Input input, Tracker tracker) {
         String name = input.ask("Please, enter the task's name: ");
-        Item[] item = tracker.findByName(name);
-        if (item.length == 0) {
+        ArrayList<Item> item = tracker.findByName(name);
+        if (item.size() == 0) {
             System.out.println("Item not found");
         }
         for (Item item1 : item) {
@@ -138,7 +138,7 @@ public class MenuTracker {
             Item item = new Item(name, desc);
             if (tracker.add(item) != null) {
                 System.out.println("Task added");
-                System.out.println(Arrays.toString(tracker.findByName(item.getName())));
+                System.out.println(tracker.findByName(item.getName()));
             }
         }
     }
@@ -153,8 +153,8 @@ public class MenuTracker {
         }
         @Override
         public void execute(Input input, Tracker tracker) {
-            Item[] item = tracker.findAll();
-            if (item.length == 0) {
+            ArrayList<Item> item = tracker.findAll();
+            if (item.size() == 0) {
                 System.out.println("Items not found");
             }
             for (Item item1: item) {
