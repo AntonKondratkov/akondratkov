@@ -9,10 +9,12 @@ package ru.job4j.comparator;
 public class User implements Comparable<User> {
     private Integer age;
     private String name;
+    private Integer size;
 
     public User(Integer age, String name) {
         this.age = age;
         this.name = name;
+        this.size = name.length();
     }
 
     public Integer getAge() {
@@ -22,6 +24,11 @@ public class User implements Comparable<User> {
     public String getName() {
         return name;
     }
+
+    public Integer getSize() {
+        return size;
+    }
+
     @Override
     public String toString() {
         return "age: " + age + ", name " + name;
