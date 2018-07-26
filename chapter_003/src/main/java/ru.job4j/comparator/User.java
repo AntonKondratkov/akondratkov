@@ -2,7 +2,7 @@ package ru.job4j.comparator;
 
 /**
  * @author Anton Kondratkov
- * @since 26.07.18.
+ * @since 27.07.18.
  * Класс создаёт объект "Пользователь" с полями: age и name.
  * В данном классе переопределяются методы: compareTo и toString.
  */
@@ -22,7 +22,6 @@ public class User implements Comparable<User> {
     public String getName() {
         return name;
     }
-
     @Override
     public String toString() {
         return "age: " + age + ", name " + name;
@@ -30,6 +29,6 @@ public class User implements Comparable<User> {
 
     @Override
     public int compareTo(User o) {
-        return this.name.compareTo(o.name);
+        return this.age.compareTo(o.age);
     }
 }
