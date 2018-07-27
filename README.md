@@ -1,7 +1,5 @@
-﻿# akondratkov
+﻿[![Build Status](https://travis-ci.org/AntonKondratkov/akondratkov.svg?branch=master)](https://travis-ci.org/AntonKondratkov/akondratkov)
+[![codecov](https://codecov.io/gh/AntonKondratkov/akondratkov/branch/master/graph/badge.svg)](https://codecov.io/gh/AntonKondratkov/akondratkov)
 
-Портал предназначенный для обучения и трудоустройства Java-программистов - http://job4j.ru/
-
-Цели которые я для себя выставил:
-1. Прохождение курса "С нуля до трудоустройства, Java SE + EE" до 31.12.2018
-2. Трудоустройство Java-программистом до 31.05.2019
+# junior
+Начальный проект для курса Junior
