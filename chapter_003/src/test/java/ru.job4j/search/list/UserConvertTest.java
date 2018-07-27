@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThat;
  */
 public class UserConvertTest {
     @Test
-    public void whenConvertListToMap () {
+    public void whenConvertListToMap() {
         ArrayList<User> users = new ArrayList<>();
         users.add(new User(1, "name1", "City1"));
         users.add(new User(2, "name2", "City2"));
