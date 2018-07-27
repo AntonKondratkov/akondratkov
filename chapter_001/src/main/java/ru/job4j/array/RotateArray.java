@@ -1,4 +1,5 @@
 package ru.job4j.array;
+
 /**
  *Class RotateArray - в данном классе происходит поворот квадратного массива на 90 градусов.
  *@author Anton Kondratkov
@@ -17,10 +18,11 @@ public class RotateArray {
         for (int[] srI : array) {
             for (int srJ : srI) {
                 retArr[retArrI++][retArrJ] = srJ;
-                retArrI = 0;
-                retArrJ--;
             }
+            retArrI = 0;
+            retArrJ--;
         }
+
         return retArr;
     }
 }
