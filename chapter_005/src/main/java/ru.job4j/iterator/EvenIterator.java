@@ -34,16 +34,13 @@ public class EvenIterator implements Iterator {
     }
     /**
      * Метод возвращает только чётные цифры.
-     * @return переменная number.
+     * @return чётные цифры.
      */
     @Override
     public Object next() {
-        int number = 0;
-        if (hasNext()) {
-            number = array[index++];
-        } else {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        return number;
+        return array[index++];
     }
 }
