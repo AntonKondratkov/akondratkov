@@ -6,12 +6,16 @@ import java.util.NoSuchElementException;
 /**
  * Class Converter. Осуществляет преобразование итератора итераторов в итератор чисел.
  * @author Anton Kondratkov
- * @since 30.07.2018
+ * @since 02.08.2018
  */
 
 public class Converter{
 
-    private Iterator<Integer> integerIterator;
+    class IterateInteger {
+        private Iterator<Integer> integerIterator;
+    }
+
+    private Iterator<Integer> iteratorInt = new IterateInteger().integerIterator;
     /**
      * Метод принимает объект итератор итераторов и возвращает итератор чисел.
      */
@@ -20,35 +24,33 @@ public class Converter{
            @Override
            public boolean hasNext() {
                selectIterator();
-               boolean result = false;
-               if (integerIterator == null) {
+               if (iteratorInt == null) {
                    return false;
                }
-               if (integerIterator.hasNext()) {
+               if (iteratorInt.hasNext()) {
                    return true;
                }
                if (it.hasNext()) {
-                   integerIterator = it.next();
-                   return integerIterator.hasNext();
+                   iteratorInt = it.next();
                }
-               return result;
+               return iteratorInt.hasNext();
            }
 
            @Override
            public Integer next() {
                selectIterator();
-               if (integerIterator == null) {
+               if (iteratorInt == null) {
                    throw new NoSuchElementException();
                }
-               if (!integerIterator.hasNext() && it.hasNext()) {
-                   integerIterator = it.next();
+               if (!iteratorInt.hasNext() && it.hasNext()) {
+                   iteratorInt = it.next();
                }
-               return integerIterator.next();
+               return iteratorInt.next();
            }
 
            private void selectIterator() {
-               if (integerIterator == null && it.hasNext()){
-                   integerIterator = it.next();
+               if (iteratorInt == null && it.hasNext()) {
+                   iteratorInt = it.next();
                }
            }
        };
