@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  * @since 02.08.2018
  */
 
-public class Converter{
+public class Converter {
 
     class IterateInteger {
         private Iterator<Integer> integerIterator;
