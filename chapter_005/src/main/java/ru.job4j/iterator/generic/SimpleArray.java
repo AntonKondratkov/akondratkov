@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 /**
  * @author Anton Kondratkov
- * @since 04.08.2018
+ * @since 05.08.2018
  * Класс SimpleArray - универсальная обёртка над массивом.
  * @param <T> Параметризированный тип.
  */
@@ -30,16 +30,16 @@ public class SimpleArray<T> implements Iterable<T> {
      * Метод добавляет новые элементы в массив.
      * @param model новый элемент.
      */
-    public void add (T model) {
-        arrayOut(index);
-            this.objects[index++] = model;
+    public void add(T model) {
+        arrayOut(this.index);
+            this.objects[this.index++] = model;
     }
     /**
      * Метод добавляет новое значение по индексу.
      * @param index позиция в массиве.
      * @param model новое значение.
      */
-    public void set (int index, T model) {
+    public void set(int index, T model) {
         arrayOut(index);
         this.objects[index] = model;
     }
@@ -50,9 +50,11 @@ public class SimpleArray<T> implements Iterable<T> {
      */
     public boolean delete(int index) {
         boolean result = false;
-        if (index < this.index) {
-            objects[index] = objects[this.index - 1];
-            objects[this.index - 1] = null;
+        if (this.objects.length == index + 1) {
+            this.objects[this.objects.length - 1] = null;
+        }
+        if (index < this.objects.length) {
+            System.arraycopy(this.objects, index + 1, this.objects, index, this.index - index - 1);
             result = true;
         }
         return result;
@@ -64,7 +66,7 @@ public class SimpleArray<T> implements Iterable<T> {
      */
     public T get(int index) {
         arrayOut(index);
-        return (T)objects[index];
+        return (T) objects[index];
     }
 
     /**
@@ -94,7 +96,7 @@ public class SimpleArray<T> implements Iterable<T> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return (T)objects[inIterator++];
+                return (T) objects[inIterator++];
             }
         };
     }

@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.is;
 
 /**
  * @author Anton Kondratkov
- * @since 04.08.18.
+ * @since 05.08.18.
  * Тестирование класса SimpleArray.
  **/
 public class SimpleArrayTest {
@@ -44,9 +44,10 @@ public class SimpleArrayTest {
     public void whenDeleteElement() {
         sa.add(4);
         sa.add("test");
+        sa.add(5);
         sa.delete(1);
 
-        String result = null;
+        int result = 5;
 
         assertThat(result, is(sa.get(1)));
     }
@@ -57,11 +58,11 @@ public class SimpleArrayTest {
         sa.add(3);
         Iterator<Integer> it = sa.iterator();
         assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is (1));
+        assertThat(it.next(), is(1));
         assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is (2));
+        assertThat(it.next(), is(2));
         assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is (3));
+        assertThat(it.next(), is(3));
         assertThat(it.hasNext(), is(false));
     }
 }
