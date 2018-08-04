@@ -1,6 +1,7 @@
 package ru.job4j.iterator.generic;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * @author Anton Kondratkov
@@ -79,21 +80,21 @@ public class SimpleArray<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
+            int inIterator = 0;
             @Override
             public boolean hasNext() {
                 boolean indicator = true;
-                if (index >= objects.length) {
+                if (inIterator >= index) {
                     indicator = false;
                 }
                 return indicator;
             }
             @Override
             public T next() {
-                T result = null;
                 if (!hasNext()) {
-                    result = (T)objects[index];
+                    throw new NoSuchElementException();
                 }
-                return result;
+                return (T)objects[inIterator++];
             }
         };
     }

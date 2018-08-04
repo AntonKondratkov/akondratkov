@@ -2,6 +2,9 @@ package ru.job4j.iterator;
 
 import org.junit.Test;
 import ru.job4j.iterator.generic.SimpleArray;
+
+import java.util.Iterator;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -21,6 +24,7 @@ public class SimpleArrayTest {
         String result2 = "test";
 
         assertThat(result, is(sa.get(0)));
+        System.out.println(sa.iterator().hasNext());
         assertThat(result2, is(sa.get(1)));
     }
     @Test
@@ -45,5 +49,19 @@ public class SimpleArrayTest {
         String result = null;
 
         assertThat(result, is(sa.get(1)));
+    }
+    @Test
+    public void itarator() throws Exception {
+        sa.add(1);
+        sa.add(2);
+        sa.add(3);
+        Iterator<Integer> it = sa.iterator();
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is (1));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is (2));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is (3));
+        assertThat(it.hasNext(), is(false));
     }
 }
