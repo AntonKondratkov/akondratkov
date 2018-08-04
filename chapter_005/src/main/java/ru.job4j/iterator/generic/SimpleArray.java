@@ -1,24 +1,52 @@
 package ru.job4j.iterator.generic;
 
-public class SimpleArray<T> {
+import java.util.Iterator;
 
+/**
+ * @author Anton Kondratkov
+ * @since 04.08.2018
+ * Класс SimpleArray - универсальная обёртка над массивом.
+ * @param <T> Параметризированный тип.
+ */
+
+public class SimpleArray<T> implements Iterable<T> {
+    /**
+     * Позиция в массиве.
+     */
     private int index = 0;
+    /**
+     * Массив.
+     */
     private Object[] objects;
-
+    /**
+     * Конструктор
+     * @param size длинна массива.
+     */
     public SimpleArray(int size) {
         this.objects = new Object[size];
     }
-
+    /**
+     * Метод добавляет новые элементы в массив.
+     * @param model новый элемент.
+     */
     public void add (T model) {
-        arrayOut();
+        arrayOut(index);
             this.objects[index++] = model;
     }
-
+    /**
+     * Метод добавляет новое значение по индексу.
+     * @param index позиция в массиве.
+     * @param model новое значение.
+     */
     public void set (int index, T model) {
-        arrayOut();
+        arrayOut(index);
         this.objects[index] = model;
     }
-
+    /**
+     * Метод удаляет значение по индексу.
+     * @param index позиция в массиве.
+     * @return true - позиция удалёна, false -  позиция не удалёна.
+     */
     public boolean delete(int index) {
         boolean result = false;
         if (index < this.index) {
@@ -28,16 +56,45 @@ public class SimpleArray<T> {
         }
         return result;
     }
-
+    /**
+     * Метод получает значение по индексу.
+     * @param index позиция в массиве.
+     * @return найденная позиция.
+     */
     public T get(int index) {
-        arrayOut();
+        arrayOut(index);
         return (T)objects[index];
     }
 
-    public void arrayOut() {
-        if (index > objects.length) {
+    /**
+     * Метод определяет выход за пределы массива.
+     * @param index позиция в массиве.
+     */
+
+    public void arrayOut(int index) {
+        if (index >= objects.length || index < 0) {
             throw new ArrayIndexOutOfBoundsException("Выход за пределы массива");
         }
     }
-
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            @Override
+            public boolean hasNext() {
+                boolean indicator = true;
+                if (index >= objects.length) {
+                    indicator = false;
+                }
+                return indicator;
+            }
+            @Override
+            public T next() {
+                T result = null;
+                if (!hasNext()) {
+                    result = (T)objects[index];
+                }
+                return result;
+            }
+        };
+    }
 }
