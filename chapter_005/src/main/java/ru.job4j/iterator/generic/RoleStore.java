@@ -4,12 +4,12 @@ package ru.job4j.iterator.generic;
  * @since 09.08.18.
  * Хранилище объектов Role
  */
-public class UserRole extends AbstractStore<Role> {
+public class RoleStore extends AbstractStore<Role> {
     /**
      * Конструктор класса.
      * @param size размер хранилища.
      */
-    public UserRole(int size) {
+    public RoleStore(int size) {
         super(size);
     }
 }

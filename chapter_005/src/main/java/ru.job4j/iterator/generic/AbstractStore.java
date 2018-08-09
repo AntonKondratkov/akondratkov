@@ -3,7 +3,7 @@ package ru.job4j.iterator.generic;
  * Общий функционал для хранилищ UserStore и RoleStore.
  * @param <E> Тип хранимых данных.
  */
-public class AbstractStore<E extends Base> implements Store {
+public class AbstractStore<T extends Base> implements Store<T> {
     /**
      * Размер хранилища.
      */
@@ -11,7 +11,8 @@ public class AbstractStore<E extends Base> implements Store {
     /**
      * Хранилище.
      */
-    private SimpleArray<E> simple;
+    private SimpleArray<T> simple;
+    private T model;
 
     /**
      * Конструктор.
@@ -26,8 +27,8 @@ public class AbstractStore<E extends Base> implements Store {
      * @param model добавляемый объект.
      * @return добавленный объект.
      */
-    public Base add(Base model) {
-        simple.add((E) model);
+    public T add(T model) {
+        simple.add(model);
         return model;
     }
     /**
@@ -36,11 +37,11 @@ public class AbstractStore<E extends Base> implements Store {
      * @param model новый объект.
      * @return подтверждение замены существующего объекта на новый.
      */
-    public boolean replace(String id, Base model) {
+    public boolean replace(String id, T model) {
         boolean indicator = false;
         for (int i = 0; i < size; i++) {
             if (simple.get(i) != null && simple.get(i).getId().equals(id)) {
-                simple.set(i, (E) model);
+                simple.set(i, (T) model);
                 indicator = true;
                 break;
             }
@@ -66,8 +67,8 @@ public class AbstractStore<E extends Base> implements Store {
      * @param id номер искомого объекта.
      * @return найденный объект.
      */
-    public E findById(String id) {
-        E result = null;
+    public T findById(String id) {
+        T result = null;
         for (int i = 0; i < size; i++) {
             if (id.equals(simple.get(i).getId())) {
                 result = simple.get(i);
