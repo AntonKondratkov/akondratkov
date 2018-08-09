@@ -1,14 +1,9 @@
 package ru.job4j.iterator.List;
 
-import java.util.LinkedList;
-import java.util.NoSuchElementException;
-
 public class SimpleArrayList<e> {
 
     private int size;
     private Node<e> first;
-    LinkedList<e> linkedList = new LinkedList<>();
-
     /**
      * Метод вставляет данные в начало списка.
      * @param data добавляемый элемент.
@@ -25,11 +20,9 @@ public class SimpleArrayList<e> {
      * @return удалённый элемент.
      */
     public e delete() {
-        Node<e> newFirst = this.first;
-        if (newFirst == null) {
-            throw new NoSuchElementException();
-        }
-        this.first = null;
+        Node<e> newFirst;
+        newFirst = this.first;
+        this.first = newFirst.next;
         size--;
         return newFirst.date;
     }

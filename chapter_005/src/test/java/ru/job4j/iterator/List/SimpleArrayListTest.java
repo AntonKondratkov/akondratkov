@@ -25,10 +25,8 @@ public class SimpleArrayListTest {
     @Test
     public void whenDelete() {
         list.delete();
-
-        assertThat(list.get(0), is(1));
-        assertThat(list.get(2), is(2));
-        assertThat(list.get(3), is(3));
+        assertThat(list.get(0), is(2));
+        assertThat(list.get(1), is(1));
     }
 
     @Test
