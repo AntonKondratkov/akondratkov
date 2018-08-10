@@ -1,4 +1,4 @@
-package ru.job4j.iterator.List;
+package ru.job4j.iterator.list;
 
 public class SimpleArrayList<e> {
 
