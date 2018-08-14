@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * @author Anton Kondratkov
- * @since 13.08.18.
+ * @since 14.08.18.
  * Тестирование класса DynamicArray.
  **/
 public class DynamicArrayTest {
@@ -29,14 +29,15 @@ public class DynamicArrayTest {
      */
     @Test (expected = ConcurrentModificationException.class)
     public void whenAddElementToDynamicArray() {
+        Iterator<Integer> iterator = array.iterator();
         array.add(3);
-        array.checkForComodification();
+        assertThat(iterator.hasNext(), is(true));
         assertThat(array.get(2), is(3));
     }
     /**
      *  Проверка метода iterator.
      */
-    @Test ()
+    @Test (expected = ConcurrentModificationException.class)
     public void whenIteratorInDynamicArray() {
         Iterator<Integer> iterator = array.iterator();
         array.add(3);

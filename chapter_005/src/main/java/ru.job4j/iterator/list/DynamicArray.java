@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 
 /**
  * @author Anton Kondratkov
- * @since 13.08.18.
+ * @since 14.08.18.
  * @param <E> Тип хранимых данных.
  */
 
@@ -20,8 +20,6 @@ public class DynamicArray<E> implements Iterable<E> {
     private int position = 0;
     // Счётчик изменений коллекции.
     private int modCount = 0;
-    // Переменная хранит значение modCount на момент создания.
-    private final int expectedModCount = modCount;
     /**
      * Конструктор.
      * @param size размер хранилища.
@@ -31,12 +29,10 @@ public class DynamicArray<E> implements Iterable<E> {
         this.container = new Object[size];
     }
     /**
-     * Метод сравнивает значения modCount и expectedModCount.
+     * Метод увеличивает размер массива.
      */
-    final void checkForComodification() {
-        if (modCount != expectedModCount) {
-            throw new ConcurrentModificationException();
-        }
+    public void increaseSize() {
+        size = size * 2;
     }
     /**
      * Метод добавляет элементы в массив и увеличивает размер массива
@@ -45,8 +41,8 @@ public class DynamicArray<E> implements Iterable<E> {
      */
     public void add(E value) {
         if (position == size) {
-            container = Arrays.copyOf(container, this.size * 2);
-            size = this.size * 2;
+            container = Arrays.copyOf(container, size * 2);
+            increaseSize();
             modCount++;
         }
         container[position++] = value;
@@ -69,22 +65,25 @@ public class DynamicArray<E> implements Iterable<E> {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
+            // Переменная хранит значение modCount на момент создания.
+            final int expectedModCount = modCount;
             private int currentIndex = 0;
             @Override
             public boolean hasNext() {
                 boolean result = false;
-                if (container[currentIndex] != null && currentIndex < size) {
+                if (modCount != expectedModCount) {
+                    throw new ConcurrentModificationException();
+                } else if (container[currentIndex] != null && currentIndex < size) {
                     result = true;
                 }
                 return result;
             }
             @Override
             public E next() {
-                if (hasNext()) {
-                    return (E) container[currentIndex++];
-                } else {
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
+                return (E) container[currentIndex++];
             }
         };
     }
