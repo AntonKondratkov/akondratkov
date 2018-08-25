@@ -3,7 +3,11 @@ package ru.job4j.iterator.list;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
+/**
+ * @author Anton Kondratkov
+ * @since 25.08.18.
+ * Связный список.
+ **/
 public class AsLinkedList<e> implements Iterable<e> {
     // Размер списка.
     private int size;
@@ -20,10 +24,10 @@ public class AsLinkedList<e> implements Iterable<e> {
         this.size = 0;
     }
     /**
-     * Добавление элементов в список.
+     * Добавление элементов в конец списка.
      * @param data добавляемый элемент.
      */
-    public void add(e data) {
+    public void addLast(e data) {
         final Node<e> result = last;
         final Node<e> newLink = new Node<>(result, data, null);
         last = newLink;
@@ -31,6 +35,23 @@ public class AsLinkedList<e> implements Iterable<e> {
             first = newLink;
         } else {
             result.next = newLink;
+        }
+        size++;
+        modCount++;
+    }
+
+    /**
+     * Добавление элементов в начало списка.
+     * @param data добавляемый элемент.
+     */
+    public void addFirst(e data) {
+        final Node<e> result = first;
+        final Node<e> newLink = new Node<>(null, data, result);
+        first = newLink;
+        if (result == null) {
+            last = newLink;
+        } else {
+            result.prev = newLink;
         }
         size++;
         modCount++;
@@ -52,6 +73,45 @@ public class AsLinkedList<e> implements Iterable<e> {
         }
         return result.date;
     }
+
+    /**
+     * Удаление последнего элемента.
+     * @return удалённый элемент.
+     */
+    public e removeLast() {
+        Node<e> removedNode;
+        if (size > 1) {
+            removedNode = last;
+            last = last.prev;
+            last.next = null;
+            size--;
+        } else {
+            removedNode = first;
+            first = null;
+            last = null;
+        }
+        return removedNode.date;
+    }
+
+    /**
+     * Удаление первого элемента.
+     * @return удалённый элемент.
+     */
+    public e removeFirst() {
+        Node<e> removedNode;
+        if (size > 1) {
+            removedNode = first;
+            first = first.next;
+            first.prev = null;
+            size--;
+        } else {
+            removedNode = first;
+            first = null;
+            last = null;
+        }
+        return removedNode.date;
+    }
+
     /**
      * Итератор.
      * @return итератор.
