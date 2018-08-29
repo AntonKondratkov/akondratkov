@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 /**
  * @author Anton Kondratkov
- * @since 05.08.2018
+ * @since 29.08.2018
  * Класс SimpleArray - универсальная обёртка над массивом.
  * @param <T> Параметризированный тип.
  */
@@ -69,6 +69,10 @@ public class SimpleArray<T> implements Iterable<T> {
         return (T) objects[index];
     }
 
+    public int getSize() {
+        return this.objects.length;
+    }
+
     /**
      * Метод определяет выход за пределы массива.
      * @param index позиция в массиве.
@@ -79,6 +83,27 @@ public class SimpleArray<T> implements Iterable<T> {
             throw new ArrayIndexOutOfBoundsException("Выход за пределы массива");
         }
     }
+
+    /**
+     * Метод проверяет содержится ли элемент в массиве.
+     * @param value проверяемый элемент.
+     * @return true - если содержится, false - если не содержится.
+     */
+    public boolean contains(T value) {
+        boolean found = false;
+        if (this.objects != null) {
+            for (int i = 0; i < getSize(); i++) {
+                if (this.objects[i] != null) {
+                    if (this.objects[i].equals(value)) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return found;
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
