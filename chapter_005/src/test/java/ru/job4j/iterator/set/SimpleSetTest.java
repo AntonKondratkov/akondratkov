@@ -1,4 +1,4 @@
-package ru.job4j.iterator.Set;
+package ru.job4j.iterator.set;
 
 import org.junit.Test;
 
@@ -8,7 +8,6 @@ import static org.junit.Assert.assertThat;
  * Проверка класса SimpleSet.
  */
 public class SimpleSetTest {
-
     @Test
     public void whenAddToSetSameElement() {
         SimpleSet<Integer> simpleSet = new SimpleSet<>(2);
