@@ -7,17 +7,26 @@ import ru.job4j.iterator.generic.SimpleArray;
  * Коллекция set на массиве.
  * @param <T> тип данных.
  */
-public class SimpleSet<T> extends SimpleArray<T> {
+public class SimpleSet<T>  {
     /**
-     * Конструктор
-     * @param size длинна массива.
+     * Объект класса SimpleArray.
      */
-    public SimpleSet(int size) {
-        super(size);
-    }
+    private SimpleArray<T> array = new SimpleArray<>(2);
+    /**
+     * Метод добавляет новые элементы.
+     * @param model добавляемый элемент.
+     */
     public void add(T model) {
-        if (!super.contains(model)) {
-            super.add(model);
+        if (!array.contains(model)) {
+            array.add(model);
         }
+    }
+    /**
+     * Метод получает значение по индексу.
+     * @param index позиция в массиве.
+     * @return найденная позиция.
+     */
+    public T get(int index) {
+        return array.get(index);
     }
 }

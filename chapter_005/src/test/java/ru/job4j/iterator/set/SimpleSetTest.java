@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThat;
 public class SimpleSetTest {
     @Test
     public void whenAddToSetSameElement() {
-        SimpleSet<Integer> simpleSet = new SimpleSet<>(2);
+        SimpleSet<Integer> simpleSet = new SimpleSet<>();
         simpleSet.add(1);
         simpleSet.add(1);
 
