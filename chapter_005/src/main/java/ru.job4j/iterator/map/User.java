@@ -13,6 +13,16 @@ public class User  {
         this.children = children;
     }
     /**
+     * Переопределение метода hashCode()
+     * @return hashCode.
+     */
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + children;
+        return result;
+    }
+    /**
      * Переопределение метода equals.
      * @param o объект с которым будем сравнивать объект на котором вызывали метод.
      * @return true - равен или false - не равен.
