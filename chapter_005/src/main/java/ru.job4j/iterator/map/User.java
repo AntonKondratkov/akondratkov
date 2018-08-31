@@ -13,13 +13,27 @@ public class User  {
         this.children = children;
     }
     /**
-     * Переопределение метода hashCode()
-     * @return hashCode.
+     * Переопределение метода equals.
+     * @param o объект с которым будем сравнивать объект на котором вызывали метод.
+     * @return true - равен или false - не равен.
      */
     @Override
-    public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + children;
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        User user = (User) o;
+
+        if (name != null ? !name.equals(user.name) : user.name != null) {
+            return false;
+        }
+        if (children != 0 ? children != user.children : user.children != 0) {
+            return false;
+        }
+        return true;
     }
 }

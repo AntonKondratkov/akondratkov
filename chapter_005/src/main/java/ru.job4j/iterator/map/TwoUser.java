@@ -16,5 +16,6 @@ public class TwoUser {
         map.put(second, "first");
 
         System.out.println(map);
+        System.out.println(first.equals(second));
     }
 }
