@@ -12,4 +12,14 @@ public class User  {
         this.name = name;
         this.children = children;
     }
+    /**
+     * Переопределение метода hashCode()
+     * @return hashCode.
+     */
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + children;
+        return result;
+    }
 }
