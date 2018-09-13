@@ -4,7 +4,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * Class RectangleMove. Задаёт логику движения квадратика.
  * @author Anton Kondratkov
- * @since 11.09.2018
+ * @since 14.09.2018
  */
 
 public class RectangleMove implements Runnable {
@@ -19,16 +19,16 @@ public class RectangleMove implements Runnable {
         try {
             while (!Thread.interrupted()) {
                 if (this.rect.getX() == 290) {
-                    while (this.rect.getX() != 0 && !Thread.interrupted()) {
-                        this.rect.setX(this.rect.getX() - 2);
+                    for (int i = 290; i > 0; i -= 5) {
+                        this.rect.setX(this.rect.getX() - 5);
                         Thread.sleep(50);
                     }
                 }
-                this.rect.setX(this.rect.getX() + 10);
-
+                this.rect.setX(this.rect.getX() + 5);
                 Thread.sleep(50);
             }
         }  catch (InterruptedException e) {
+            System.out.println("Поток прерван");
         }
     }
 }
