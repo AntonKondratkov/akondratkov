@@ -1,5 +1,4 @@
 package ru.job4j.iterator;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -10,7 +9,6 @@ import java.util.NoSuchElementException;
  */
 
 public class Converter {
-
     class IterateInteger {
         private Iterator<Integer> integerIterator;
     }
