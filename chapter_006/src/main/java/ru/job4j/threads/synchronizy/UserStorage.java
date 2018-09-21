@@ -92,6 +92,17 @@ public class UserStorage {
                 update(to);
             }
             result = true;
+        } else {
+            synchronized (to) {
+                Thread.sleep(500);
+                to.setAmount(to.getAmount() - amount);
+                update(to);
+            }
+            synchronized (from) {
+                from.setAmount(from.getAmount() + amount);
+                update(from);
+            }
+
         }
         return result;
     }
