@@ -20,7 +20,7 @@ public class PingPong extends Application {
         int limitX = 300;
         int limitY = 300;
         Group group = new Group();
-        Rectangle rect = new Rectangle(50, 100, 10, 10);
+        Rectangle rect = new Rectangle(0, 100, 10, 10);
         group.getChildren().add(rect);
         Thread t = new Thread(new RectangleMove(rect));
         t.start();
