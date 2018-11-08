@@ -2,7 +2,7 @@ package ru.job4j.threads;
 import javafx.scene.shape.Rectangle;
 
 /**
- * Class RectangleMove. Задаёт логику движения квадратика
+ * Class RectangleMove. Задаёт логику движения квадратика.
  * @author Anton Kondratkov
  * @since 08.11.2018
  */
