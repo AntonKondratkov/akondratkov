@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
- * Class PingPong. Задаёт параметры окна в котором происходит анимация.
+ * Class PingPong. Задаёт параметры окна в котором происходит анимация
  * @author Anton Kondratkov
  * @since 08.11.2018
  */
