@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 /**
  * Class PingPong. Задаёт параметры окна в котором происходит анимация.
  * @author Anton Kondratkov
- * @since 11.09.2018
+ * @since 08.11.2018
  */
 
 public class PingPong extends Application {
