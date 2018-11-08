@@ -31,11 +31,11 @@ public class SimpleSetTest {
         simpleSet.add(1);
         simpleSet.add(2);
 
-        assertThat(it.hasNext(),is(true));
+        assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(1));
-        assertThat(it.hasNext(),is(true));
+        assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(2));
-        assertThat(it.hasNext(),is(false));
+        assertThat(it.hasNext(), is(false));
 
     }
 }

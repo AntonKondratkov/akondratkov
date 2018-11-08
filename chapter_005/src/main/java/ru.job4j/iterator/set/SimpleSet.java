@@ -53,7 +53,7 @@ public class SimpleSet<T> implements Iterable<T> {
 
             @Override
             public T next() {
-                if(!hasNext()) {
+                if (!hasNext()) {
                     throw new NoSuchElementException("Элементы не найдены");
                 }
                 return array.get(inIterator++);

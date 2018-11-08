@@ -2,7 +2,7 @@ package ru.job4j.threads.jmm;
 
 
 class A {
-    synchronized void foo (B b) {
+    synchronized void foo(B b) {
         String name = Thread.currentThread().getName();
         System.out.println(name + " вошёл в метод А.foo");
         try {
@@ -19,7 +19,7 @@ class A {
 }
 
 class B {
-    synchronized void bar (A a) {
+    synchronized void bar(A a) {
         String name = Thread.currentThread().getName();
         System.out.println(name + " вошёл в метод B.bar");
         try {
