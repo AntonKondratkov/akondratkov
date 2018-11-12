@@ -10,7 +10,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 /**
  * @author Anton Kondratkov
- * @since 21.09.18.
+ * @since 12.11.18.
  * Тестирование класса TwoThreads.
  **/
 public class TwoThreadsTest {
@@ -23,32 +23,34 @@ public class TwoThreadsTest {
 
     @Test
     public void whenTransferAmount() throws InterruptedException {
-        User user1 = new User(1, 1000);
-        User user2 = new User(2, 800);
-        User user3 = new User(3, 400);
+        int amount = 100;
+
+        User user1 = new User(0, 1000);
+        User user2 = new User(1, 800);
+        User user3 = new User(2, 400);
 
         userStorage.add(user1);
         userStorage.add(user2);
         userStorage.add(user3);
 
-        TwoThreads.Thread1 thread1 = new TwoThreads.Thread1(userStorage);
-        thread1.t.join();
+        TwoThreads threads1 = new TwoThreads(user1, user2, amount, userStorage);
+        TwoThreads threads2 = new TwoThreads(user1, user2, amount, userStorage);
 
+        threads1.start();
+        threads1.join();
 
-        User result = userStorage.getUser(1);
-        int expect = 950;
+        User result = userStorage.getUser(0);
+        int expect = 900;
 
         assertThat(result.getAmount(), is(expect));
 
-        TwoThreads.Thread2 thread2 = new TwoThreads.Thread2(userStorage);
-        thread2.t.join();
+        threads2.start();
+        threads2.join();
 
-        User result2 = userStorage.getUser(1);
-        int expect2 = 650;
+
+        User result2 = userStorage.getUser(0);
+        int expect2 = 800;
 
         assertThat(result2.getAmount(), is(expect2));
-
-
-
     }
 }

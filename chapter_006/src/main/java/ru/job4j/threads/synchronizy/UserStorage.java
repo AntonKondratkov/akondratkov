@@ -5,7 +5,7 @@ import net.jcip.annotations.ThreadSafe;
 
 /**
  * @author Anton Kondratkov
- * @since 18.09.18.
+ * @since 12.11.18.
  * Класс реализует структуру данных для хранения пользователей.
  **/
 
@@ -20,7 +20,7 @@ public class UserStorage {
      * @return true или false, пользователь добавился или не добавился.
      */
     public boolean add(User user) {
-        synchronized (users) {
+        synchronized (this) {
             users[count++] = user;
         }
         return true;
@@ -32,7 +32,7 @@ public class UserStorage {
      */
     public boolean update(User user) {
         boolean result = false;
-        synchronized (users) {
+        synchronized (this) {
             for (int i = 0; i < users.length; i++) {
                 if (users[i].getId() == user.getId()) {
                     users[i] = user;
@@ -49,7 +49,7 @@ public class UserStorage {
      */
     public boolean delete(User user) {
         boolean result = false;
-        synchronized (users) {
+        synchronized (this) {
             for (int i = 0; i < users.length; i++) {
                 if (users[i].equals(user)) {
                     System.arraycopy(users, i + 1, users, i, users.length - i - 1);
@@ -76,33 +76,20 @@ public class UserStorage {
      * @throws InterruptedException
      */
     public boolean transfer(int fromId, int told, int amount) throws InterruptedException {
-        boolean result = false;
+        boolean result;
 
-        User from = users[fromId - 1];
-        User to = users[told - 1];
+        User from = users[fromId];
+        User to = users[told];
 
         if (from.getAmount() >= amount) {
-            synchronized (from) {
-                Thread.sleep(500);
-                from.setAmount(from.getAmount() - amount);
-                update(from);
-            }
-            synchronized (to) {
-                to.setAmount(to.getAmount() + amount);
-                update(to);
-            }
+            from.setAmount(from.getAmount() - amount);
+            update(from);
+            to.setAmount(to.getAmount() + amount);
+            update(to);
             result = true;
         } else {
-            synchronized (to) {
-                Thread.sleep(500);
-                to.setAmount(to.getAmount() - amount);
-                update(to);
-            }
-            synchronized (from) {
-                from.setAmount(from.getAmount() + amount);
-                update(from);
-            }
-
+            System.out.println("No money to transfer");
+            result = false;
         }
         return result;
     }
