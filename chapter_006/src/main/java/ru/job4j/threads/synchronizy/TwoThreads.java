@@ -19,11 +19,7 @@ public class TwoThreads extends Thread {
     @Override
     public void run() {
         synchronized (storage) {
-            try {
-                storage.transfer(user1.getId(), user2.getId(), amount);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            storage.transfer(user1.getId(), user2.getId(), amount);
         }
     }
 }

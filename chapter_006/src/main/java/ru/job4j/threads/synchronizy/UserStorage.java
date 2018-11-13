@@ -75,21 +75,22 @@ public class UserStorage {
      * @return result.
      * @throws InterruptedException
      */
-    public boolean transfer(int fromId, int told, int amount) throws InterruptedException {
+    public boolean transfer(int fromId, int told, int amount) {
         boolean result;
+        synchronized (this) {
+            User from = users[fromId];
+            User to = users[told];
 
-        User from = users[fromId];
-        User to = users[told];
-
-        if (from.getAmount() >= amount) {
-            from.setAmount(from.getAmount() - amount);
-            update(from);
-            to.setAmount(to.getAmount() + amount);
-            update(to);
-            result = true;
-        } else {
-            System.out.println("No money to transfer");
-            result = false;
+            if (from.getAmount() >= amount) {
+                from.setAmount(from.getAmount() - amount);
+                update(from);
+                to.setAmount(to.getAmount() + amount);
+                update(to);
+                result = true;
+            } else {
+                System.out.println("No money to transfer");
+                result = false;
+            }
         }
         return result;
     }

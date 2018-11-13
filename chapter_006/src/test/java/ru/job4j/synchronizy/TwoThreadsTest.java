@@ -33,14 +33,14 @@ public class TwoThreadsTest {
         userStorage.add(user2);
         userStorage.add(user3);
 
-        TwoThreads threads1 = new TwoThreads(user1, user2, amount, userStorage);
+        TwoThreads threads1 = new TwoThreads(user3, user1, amount, userStorage);
         TwoThreads threads2 = new TwoThreads(user1, user2, amount, userStorage);
 
         threads1.start();
         threads1.join();
 
         User result = userStorage.getUser(0);
-        int expect = 900;
+        int expect = 1100;
 
         assertThat(result.getAmount(), is(expect));
 
@@ -49,7 +49,7 @@ public class TwoThreadsTest {
 
 
         User result2 = userStorage.getUser(0);
-        int expect2 = 800;
+        int expect2 = 1000;
 
         assertThat(result2.getAmount(), is(expect2));
     }
