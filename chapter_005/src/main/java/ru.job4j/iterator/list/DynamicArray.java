@@ -1,5 +1,7 @@
 package ru.job4j.iterator.list;
 
+import ru.job4j.threads.synchronizy.SimpleContainer;
+
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
@@ -11,7 +13,7 @@ import java.util.NoSuchElementException;
  * @param <E> Тип хранимых данных.
  */
 
-public class DynamicArray<E> implements Iterable<E> {
+public class DynamicArray<E> implements SimpleContainer<E> {
     // Хранилище.
     private Object[] container;
     // Размер хранилища.
@@ -27,6 +29,15 @@ public class DynamicArray<E> implements Iterable<E> {
     public DynamicArray(int size) {
         this.size = size;
         this.container = new Object[size];
+    }
+    /**
+     * Конструктор.
+     * @param container массив.
+     * @param size размер массива.
+     */
+    public DynamicArray(Object[] container, int size) {
+        this.size = size;
+        this.container = container;
     }
     /**
      * Метод увеличивает размер массива.
@@ -58,6 +69,20 @@ public class DynamicArray<E> implements Iterable<E> {
         } else {
             return (E) container[index];
         }
+    }
+    /**
+     * Метод возвращает размер массива.
+     * @return size.
+     */
+    public int getSize() {
+        return size;
+    }
+    /**
+     * Метод копирует массив.
+     * @return копия массива.
+     */
+    public DynamicArray<E> copy() {
+        return new DynamicArray<>(this.container.clone(), this.size);
     }
     /**
      * Итератор.
