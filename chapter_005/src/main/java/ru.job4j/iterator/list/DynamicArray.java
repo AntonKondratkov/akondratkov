@@ -1,21 +1,17 @@
 package ru.job4j.iterator.list;
-
-import ru.job4j.threads.synchronizy.SimpleContainer;
-
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
 /**
  * @author Anton Kondratkov
  * @since 14.08.18.
  * @param <E> Тип хранимых данных.
  */
 
-public class DynamicArray<E> implements SimpleContainer<E> {
+public class DynamicArray<E> implements Iterable<E> {
     // Хранилище.
-    private Object[] container;
+    private E[] container;
     // Размер хранилища.
     private int size = 10;
     // Позиция в массиве.
@@ -28,22 +24,22 @@ public class DynamicArray<E> implements SimpleContainer<E> {
      */
     public DynamicArray(int size) {
         this.size = size;
-        this.container = new Object[size];
+        this.container = (E[]) new Object[size];
     }
     /**
      * Конструктор.
      * @param container массив.
      * @param size размер массива.
      */
-    public DynamicArray(Object[] container, int size) {
+    public DynamicArray(E[] container, int size) {
         this.size = size;
         this.container = container;
     }
     /**
      * Метод увеличивает размер массива.
      */
-    public void increaseSize() {
-        size = size * 2;
+    public int increaseSize() {
+        return size = size * 2;
     }
     /**
      * Метод добавляет элементы в массив и увеличивает размер массива
@@ -52,8 +48,7 @@ public class DynamicArray<E> implements SimpleContainer<E> {
      */
     public void add(E value) {
         if (position == size) {
-            container = Arrays.copyOf(container, size * 2);
-            increaseSize();
+            container = Arrays.copyOf(container, increaseSize());
             modCount++;
         }
         container[position++] = value;
@@ -90,18 +85,10 @@ public class DynamicArray<E> implements SimpleContainer<E> {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-            // Переменная хранит значение modCount на момент создания.
-            final int expectedModCount = modCount;
             private int currentIndex = 0;
             @Override
             public boolean hasNext() {
-                boolean result = false;
-                if (modCount != expectedModCount) {
-                    throw new ConcurrentModificationException();
-                } else if (container[currentIndex] != null && currentIndex < size) {
-                    result = true;
-                }
-                return result;
+                return currentIndex < size;
             }
             @Override
             public E next() {

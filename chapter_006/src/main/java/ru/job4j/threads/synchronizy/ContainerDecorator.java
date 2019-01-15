@@ -1,7 +1,6 @@
 package ru.job4j.threads.synchronizy;
 
 import ru.job4j.iterator.list.DynamicArray;
-
 import java.util.Iterator;
 
 import net.jcip.annotations.ThreadSafe;
@@ -34,6 +33,6 @@ public class ContainerDecorator<E> implements SimpleContainer<E> {
 
     @Override
     public synchronized Iterator<E> iterator() {
-        return this.container.copy().iterator();
+        return container.copy().iterator();
     }
 }
