@@ -20,25 +20,24 @@ import java.util.concurrent.TimeUnit;
 public class SimpleBlockingQueue<T> {
     @GuardedBy("this")
     private Queue<T> queue = new LinkedList<>();
-    private final int LIMIT = 2;
+    private final int LIMIT = 1;
 
     public void offer(T value) throws InterruptedException {
         synchronized (this) {
+            notify();
             while (queue.size() == LIMIT) {
                 wait();
             }
             queue.offer(value);
-            notify();
         }
     }
 
     public T poll() throws InterruptedException {
-        Thread.sleep(1000);
         synchronized (this) {
+            notify();
             while (queue.size() == 0) {
                 wait();
             }
-            notify();
         }
         return queue.poll();
     }
