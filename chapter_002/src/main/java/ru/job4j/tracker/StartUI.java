@@ -6,6 +6,8 @@ import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.input.ValidateInput;
 import ru.job4j.tracker.strogare.Tracker;
 
+import java.util.function.Consumer;
+
 /**
  * @author Anton Kondratkov
  * @since 18.07.18.
@@ -25,22 +27,25 @@ public class StartUI {
      */
     private boolean exit = true;
     /**
+     * Поле хранит ссылку с выходными данными.
+     */
+    private final Consumer<String> output;
+    /**
      * Конструктор инициализирующий поля.
      * @param input пользователький ввод данных.
+     * @param tracker объект класса Tracker.
+     * @param output вывод данных.
      */
-    public StartUI(Input input) {
-        this.input = input;
-    }
-
-    public StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
+        this.output = output;
     }
     /**
      * Основной цикл программы.
      */
     public void init() {
-        MenuTracker menu = new MenuTracker(this.input, this.tracker);
+        MenuTracker menu = new MenuTracker(this.input, this.tracker, this.output);
         menu.fillActions(this);
         do {
             System.out.println("Select from 0 to 6");
@@ -60,7 +65,7 @@ public class StartUI {
                 new ValidateInput(
                         new ConsoleInput()
                 ),
-                new Tracker()
+                new Tracker(), System.out::println
         ).init();
     }
 }

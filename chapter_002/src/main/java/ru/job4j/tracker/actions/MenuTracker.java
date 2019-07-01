@@ -6,6 +6,7 @@ import ru.job4j.tracker.model.Item;
 import ru.job4j.tracker.strogare.Tracker;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author Anton Kondratkov
@@ -68,6 +69,10 @@ public class MenuTracker {
      */
     private Tracker tracker;
     /**
+     * @param хранит ссылку с выходными данными.
+     */
+    private final Consumer<String> output;
+    /**
      * @param хранит ссылку на массив типа UserAction.
      */
     private UserAction[] actions = new UserAction[7];
@@ -77,9 +82,10 @@ public class MenuTracker {
      * @param input   объект типа Input
      * @param tracker объект типа Tracker
      */
-    public MenuTracker(Input input, Tracker tracker) {
+    public MenuTracker(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
+        this.output = output;
     }
     /**
      * Метод заполняет массив.
@@ -146,7 +152,7 @@ public class MenuTracker {
     /**
      * Класс отображает все заявки в хранилище.
      */
-    private static class ShowItems extends BaseAction {
+    private class ShowItems extends BaseAction {
 
         public ShowItems(int key, String name) {
             super(key, name);
@@ -159,7 +165,7 @@ public class MenuTracker {
             }
             for (Item item1: item) {
                 if (item1 != null) {
-                    System.out.println(String.format("%s. %s", item1.getId(), item1.getName()));
+                    output.accept(String.format("%s. %s", item1.getId(), item1.getName()));
                 }
             }
         }

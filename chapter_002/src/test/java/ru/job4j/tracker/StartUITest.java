@@ -8,6 +8,7 @@ import ru.job4j.tracker.strogare.Tracker;
 import ru.job4j.tracker.input.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.function.Consumer;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -22,10 +23,10 @@ public class StartUITest {
     private final Tracker tracker = new Tracker();
     //поле содержит объект класса Item
     private final Item item = tracker.add(new Item("name5", "desc5"));
-    // поле содержит дефолтный вывод в консоль.
-    private final PrintStream stdout = System.out;
     // буфер для результата.
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private final PrintStream stdout = new PrintStream(out);
+    private final Consumer<String> output = (s)-> stdout.println(s);
 
     @Before
     public void loadOutput() {
@@ -46,7 +47,7 @@ public class StartUITest {
         //Создаём StubInput с последовательностью действий(производим добавление заявки).
         Input input = new StubInput(new String[] {"0", "first name", "first desc", "6"});
         //Создаём StartUI и вызываем метод init().
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         //Проверяем, что нулевой элемент массива в трекере соедржит имя, введённое при эмуляции.
         assertThat(tracker.findAll().get(0).getName(), is("first name"));
     }
@@ -60,7 +61,7 @@ public class StartUITest {
         //Создаём StubInput с последовательностью действий(производим замену заявки).
         Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
         //Создаём StartUI и вызываем метод init().
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         //Проверяем, что нулевой элемент массива в трекере соедржит имя, введённое при эмуляции.
         assertThat(tracker.findById(item.getId()).getName(), is("test replace"));
 
@@ -76,14 +77,14 @@ public class StartUITest {
         //Создаём StubInput с последовательностью действий(производим удаление заявки).
         Input input = new StubInput(new String[]{"3", item3.getId(), "6"});
         //Создаём StartUI и вызываем метод init().
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         //Проверяем, что удалённый элемент отсутсвует и на его месте находится следующая заявка.
         assertThat(tracker.findAll().get(0).getName(), is(item4.getName()));
     }
 
     @Test
     public void whenShowItems() {
-        new StartUI(new StubInput(new String[]{"1", "6"}), tracker).init();
+        new StartUI(new StubInput(new String[]{"1", "6"}), tracker, output).init();
         assertThat(new String(out.toByteArray()),
                 is(
                         new StringBuilder()
@@ -130,7 +131,7 @@ public class StartUITest {
 
     @Test
     public void whenFindId() {
-        new StartUI(new StubInput(new String[]{"4", item.getId(), "6"}), tracker).init();
+        new StartUI(new StubInput(new String[]{"4", item.getId(), "6"}), tracker, output).init();
         assertThat(new String(out.toByteArray()),
                 is(
                         new StringBuilder()
@@ -177,7 +178,7 @@ public class StartUITest {
 
     @Test
     public void whenFindName() {
-        new StartUI(new StubInput(new String[]{"5", "name5", "6"}), tracker).init();
+        new StartUI(new StubInput(new String[]{"5", "name5", "6"}), tracker, output).init();
         assertThat(new String(out.toByteArray()),
                 is(
                         new StringBuilder()
