@@ -12,16 +12,16 @@ import static org.junit.Assert.assertThat;
 /**
  *Class SchoolTest в данном классе производится тестирование класса School.
  *@author Anton Kondratkov
- *@since 03.07.2019
+ *@since 06.07.2019
  */
 public class SchoolTest {
     //Поле содержит объект класса School
     School school = new School();
     //Список студентов
     List<Student> students = Stream.of(
-            new Student(80),
-            new Student(60),
-            new Student(40)
+            new Student(80, "Petrov"),
+            new Student(60, "Ivanov"),
+            new Student(40, "Sidorov")
     ).collect(Collectors.toList());
     /**
      * Метод сортирует студентов по общему баллу от 70 до 100.
