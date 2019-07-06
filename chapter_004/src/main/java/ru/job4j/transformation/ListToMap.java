@@ -16,6 +16,6 @@ public class ListToMap {
      * @return map объектов класса Student
      */
     public Map<String, Student> transformation(List<Student> list) {
-        return list.stream().distinct().collect(Collectors.toMap(e -> e.getSecondName(), e -> e));
+        return list.stream().collect(Collectors.toMap(e -> e.getSecondName(), e -> e));
     }
 }
