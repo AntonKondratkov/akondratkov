@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
  */
 public class ListToMap {
     /**
-     * Метод преобразует список объектов класса Student в map, где ключом является фамилия студента
-     * @param list Список объектов класса Student
-     * @return map объектов класса Student
+     * Метод преобразует список объектов класса Student в map, где ключом является фамилия студента.
+     * @param list Список объектов класса Student.
+     * @return map объектов класса Student.
      */
     public Map<String, Student> transformation(List<Student> list) {
         return list.stream().collect(Collectors.toMap(e -> e.getSecondName(), e -> e));
