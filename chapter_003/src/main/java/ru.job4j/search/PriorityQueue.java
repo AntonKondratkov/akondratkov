@@ -3,7 +3,7 @@ package ru.job4j.search;
 import java.util.LinkedList;
 /**
  * @author Anton Kondratkov
- * @since 24.07.18.
+ * @since 09.07.18.
  * Данный класс создаёт список задач.
  */
 
@@ -13,9 +13,9 @@ public class PriorityQueue {
      * Метод вставляет в нужную позицию элемент.
      */
     public void put(Task task) {
-        int index = 0;
+        var index = 0;
         Task result = null;
-        for (int i = 0; i < this.tasks.size(); i++) {
+        for (var i = 0; i < this.tasks.size(); i++) {
             if (tasks.get(i).getPriority() <= task.getPriority()) {
                 index++;
             } else {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 /**
  * @author Anton Kondratkov
- * @since 21.07.18.
+ * @since 09.07.18.
  * Класс реализует модель справочника.
  */
 
@@ -26,7 +26,7 @@ public class PhoneDictionary {
      **/
     public List<Person> find(String key) {
         List<Person> result = new ArrayList<>();
-        for (Person person : persons) {
+        for (var person : persons) {
             if (person.getName().contains(key)) {
                 result.add(person);
             } else if (person.getSurname().contains(key)) {
