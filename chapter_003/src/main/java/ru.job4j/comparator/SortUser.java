@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * @author Anton Kondratkov
- * @since 27.07.18.
+ * @since 09.07.19.
  * Класс прозводит сортировку объектов класса User.
  */
 public class SortUser {
@@ -19,7 +19,6 @@ public class SortUser {
         result.addAll(list);
         return result;
     }
-
     /**
      * Метод сортирует пользователей по длине имени.
      * @param list Лист пользователей, который нужно отсортировать.
@@ -27,18 +26,9 @@ public class SortUser {
      */
     public List<User> sortNameLength(List<User> list) {
         List<User> result = list;
-        result.sort(
-                new Comparator<User>() {
-                    @Override
-                    public int compare(User o1, User o2) {
-                        return o1.getSize().compareTo(o2.getSize());
-                    }
-                }
-        );
-
+        result.sort(Comparator.comparing(User::getSize));
         return result;
     }
-
     /**
      * Метод сортирует пользователей сначала в лексикографическом порядке,
      * затем по возрасту.
@@ -53,7 +43,7 @@ public class SortUser {
                     public int compare(User o1, User o2) {
                         int age = o1.getName().compareTo(o2.getName());
                         if (age == 0) {
-                           age = o1.getAge().compareTo(o2.getAge());
+                            age = o1.getAge().compareTo(o2.getAge());
                         }
                         return age;
                     }

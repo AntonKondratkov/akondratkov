@@ -15,58 +15,65 @@ import static org.junit.Assert.assertThat;
 
 /**
  * @author Anton Kondratkov
- * @since 27.07.18.
+ * @since 09.07.19.
  * Класс тестирует работу класса SortUser.
  */
 public class SortUserTest {
+    //Поле содержит объект класса SortUser.
+    SortUser sortUser = new SortUser();
+    //Список пользователей.
+    List<User> listOfUser = new ArrayList<>(List.of(
+            new User(5, "Tom"),
+            new User(7, "Ivan"),
+            new User(3, "Tom"),
+            new User(8, "Anton")
+    ));
+    /**
+     * Тестирование метода sort.
+     * Метод sort сортирует пользователей по возрасту и
+     * возвращает отсортированный список в виде TreeSet.
+     */
     @Test
     public void whenListSortElementToSet() {
-        SortUser sortUser = new SortUser();
-        List<User> result = new ArrayList<>();
-        result.addAll(
-                Arrays.asList(
-                        new User(5, "Tom"),
-                        new User(7, "Ivan"),
-                        new User(3, "Tom"),
-                        new User(8, "Anton")
-                )
+        Set<User> result = sortUser.sort(listOfUser);
+        Set<User> expected = Set.of(
+                new User(5, "Tom"),
+                new User(7, "Ivan"),
+                new User(3, "Tom"),
+                new User(8, "Anton")
         );
-        Set<User> set = sortUser.sort(result);
-        assertThat(set.iterator().next().getName(), is("Tom"));
-
+        assertThat(result, is(expected));
     }
+    /**
+     * Тестирование метода sortNameLength.
+     * Метод сортирует пользователей по длине имени.
+     */
     @Test
     public void whenListSortElementByNameLength() {
-        SortUser sortUser = new SortUser();
-        List<User> result = new ArrayList<>();
-        result.addAll(
-                Arrays.asList(
-                        new User(5, "Tom"),
-                        new User(7, "Ivan"),
-                        new User(3, "Tom"),
-                        new User(8, "Anton")
-                )
+        List<User> expected = List.of(
+                listOfUser.get(0),
+                listOfUser.get(2),
+                listOfUser.get(1),
+                listOfUser.get(3)
         );
-        List<User> list = sortUser.sortNameLength(result);
-        assertThat(list.get(0).getName(), is("Tom"));
-        assertThat(list.get(3).getName(), is("Anton"));
+        List<User> result = sortUser.sortNameLength(listOfUser);
+        assertThat(result, is(expected));
 
     }
+    /**
+     * Тестирование метода sortByAllFields
+     * Метод сортирует пользователей сначала в лексикографическом порядке,
+     * затем по возрасту.
+     */
     @Test
     public void whenListSortElementByAllFields() {
-        SortUser sortUser = new SortUser();
-        List<User> result = new ArrayList<>();
-        result.addAll(
-                Arrays.asList(
-                        new User(5, "Tom"),
-                        new User(7, "Ivan"),
-                        new User(3, "Tom"),
-                        new User(8, "Anton")
-                )
+        List<User> expected = List.of(
+                listOfUser.get(3),
+                listOfUser.get(1),
+                listOfUser.get(2),
+                listOfUser.get(0)
         );
-        List<User> list = sortUser.sortByAllFields(result);
-        assertThat(list.get(0).getName(), is("Anton"));
-        assertThat(list.get(3).getAge(), is(5));
-
+        List<User> result = sortUser.sortByAllFields(listOfUser);
+        assertThat(result, is(expected));
     }
 }
