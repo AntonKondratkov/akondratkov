@@ -35,19 +35,8 @@ public class Bishop extends Figure {
             int x = source.x;
             int y = source.y;
             for (int i = 0; i < Math.abs(delta); i++) {
-                if (x > dest.x && y > dest.y) {
-                    x--;
-                    y--;
-                } else if (x < dest.x && y > dest.y) {
-                    x++;
-                    y--;
-                } else if (x < dest.x && y < dest.y) {
-                    x++;
-                    y++;
-                } else {
-                    x--;
-                    y++;
-                }
+                x = x + (source.x > dest.x ? -1 : 1);
+                y = y + (source.x > dest.x ? -1 : 1);
                 cells[count] = Cell.getCell(x, y);
                 count++;
             }
