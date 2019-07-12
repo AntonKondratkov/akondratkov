@@ -40,4 +40,11 @@ public abstract class Figure {
     public Cell getPosition() {
         return this.position;
     }
+
+    public String icon() {
+        return String.format(
+                "%s.png", this.getClass().getSimpleName()
+        );
+
+    }
 }
