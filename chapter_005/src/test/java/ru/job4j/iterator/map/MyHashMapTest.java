@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import static org.junit.Assert.*;
 /**
+ * В данном классе происходит проверка работы класса MyHashMap.
  *@author Anton Kondratkov
  *@since 16.07.2019
  */

@@ -2,7 +2,11 @@ package ru.job4j.iterator.map;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
+/**
+ * Реализация собственной структуры данных - HashMap
+ *@author Anton Kondratkov
+ *@since 16.07.2019
+ */
 public class MyHashMap<K, V> implements Iterable<V> {
     //Массив узлов (пар ключ - значение).
     private Node<K, V>[] table;
