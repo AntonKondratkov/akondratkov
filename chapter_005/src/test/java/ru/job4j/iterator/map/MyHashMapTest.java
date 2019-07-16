@@ -9,13 +9,13 @@ import static org.junit.Assert.*;
 /**
  * В данном классе происходит проверка работы класса MyHashMap.
  *@author Anton Kondratkov
- *@since 16.07.2019
+ *@since 17.07.2019
  */
 public class MyHashMapTest {
     private MyHashMap<Integer, String> hashMap;
     @Before
     public void onStart() {
-       hashMap = new MyHashMap<>();
+        hashMap = new MyHashMap<>();
     }
     @Test
     public void whenAddElementThenCollectionHasIt() {
@@ -23,7 +23,7 @@ public class MyHashMapTest {
             assertTrue(hashMap.insert(i, Integer.toString(i)));
         }
         for (int i = 0; i < 100; i++) {
-            assertTrue(Integer.toString(i).equals(hashMap.get(i)));
+            assertEquals(Integer.toString(i), hashMap.get(i));
         }
     }
     @Test
@@ -33,13 +33,13 @@ public class MyHashMapTest {
         hashMap.insert(el1, el1.toString());
         hashMap.insert(el2, el2.toString());
         hashMap.delete(el1);
-        assertFalse(hashMap.get(el1) != null);
+        assertNull(hashMap.get(el1));
     }
     @Test
     public void whenAddElementTwiceThenAddIsFalse() {
         Integer one = 1;
         assertTrue(hashMap.insert(one, one.toString()));
-        assertFalse(hashMap.insert(one, one.toString()));
+        assertTrue(hashMap.insert(one, one.toString()));
     }
     @Test
     public void iteratorTest() {

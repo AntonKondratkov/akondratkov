@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 /**
  * Реализация собственной структуры данных - HashMap
  *@author Anton Kondratkov
- *@since 16.07.2019
+ *@since 17.07.2019
  */
 public class MyHashMap<K, V> implements Iterable<V> {
     //Массив узлов (пар ключ - значение).
@@ -29,7 +29,7 @@ public class MyHashMap<K, V> implements Iterable<V> {
         int address = getAddress(key);
         Node<K, V> element = this.table[address];
         boolean res = false;
-        if (element == null) {
+        if (element == null || element.key.equals(key)) {
             this.table[address] = new Node<>(key, value);
             count++;
             res = true;
@@ -43,7 +43,7 @@ public class MyHashMap<K, V> implements Iterable<V> {
      */
     public V get(K key) {
         Node<K, V> element = this.table[getAddress(key)];
-        return (element == null) ? null : element.value;
+        return (element != null && element.key.equals(key)) ? element.value : null;
     }
     /**
      * Метод удаляет узел из map.
@@ -52,7 +52,9 @@ public class MyHashMap<K, V> implements Iterable<V> {
      */
     public boolean delete(K key) {
         int address = getAddress(key);
-        return (this.table[address] != null) && ((this.table[address] = null) == null);
+        return (this.table[address] != null
+                && this.table[address].key.equals(key))
+                && ((this.table[address] = null) == null);
     }
     /**
      * Метод возвращает адрес объекта в списке.
