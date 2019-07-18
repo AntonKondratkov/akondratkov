@@ -12,7 +12,6 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     public Tree(E element) {
         this.root = new Node<>(element);
     }
-
     @Override
     public boolean add(E parent, E child) {
         boolean result = false;
@@ -22,7 +21,6 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         }
         return result;
     }
-
     @Override
     public Optional<Node<E>> findBy(E value) {
         Optional<Node<E>> rsl = Optional.empty();
@@ -40,10 +38,24 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         }
         return rsl;
     }
-
     @Override
     public Iterator iterator() {
         return new TreeIterator<E>();
+    }
+    /**
+     * Метод проверяет количество дочерних элементов в дереве.
+     * Если их меньше или равно 2 то дерево бинарное.
+     * @return true - дерево бинарное, false - дерево не бинарное.
+     */
+    public boolean isBinary() {
+        TreeIterator iterator = new TreeIterator();
+        while(iterator.hasNext()) {
+            int sumNodes = root.leaves().size();
+            if (sumNodes <= 2) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private class TreeIterator<E extends Comparable<E>> implements Iterator<E> {

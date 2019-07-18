@@ -44,4 +44,12 @@ public class TreeTest {
             assertEquals(expected, i);
         }
     }
+    @Test
+    public void whenIsBinaryThenTrue() {
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(2, 4);
+        tree.add(2, 5);
+        assertTrue(tree.isBinary());
+    }
 }
