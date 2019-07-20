@@ -4,7 +4,7 @@ import java.util.*;
 /**
  * В данном классе происходит проверка работы класса Tree.
  *@author Anton Kondratkov
- *@since 18.07.2019
+ *@since 20.07.2019
  */
 public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     private Node<E> root;
@@ -48,14 +48,21 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      * @return true - дерево бинарное, false - дерево не бинарное.
      */
     public boolean isBinary() {
-        TreeIterator iterator = new TreeIterator();
-        while(iterator.hasNext()) {
-            int sumNodes = root.leaves().size();
-            if (sumNodes <= 2) {
-                return true;
+        boolean valid = true;
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(this.root);
+        while (!data.isEmpty()) {
+            Node<E> el = data.poll();
+            List<Node<E>> childs = el.leaves();
+            if (childs.size() > 2) {
+                valid = false;
+                break;
+            }
+            for (Node<E> child : childs) {
+                data.offer(child);
             }
         }
-        return false;
+        return valid;
     }
 
     private class TreeIterator<E extends Comparable<E>> implements Iterator<E> {

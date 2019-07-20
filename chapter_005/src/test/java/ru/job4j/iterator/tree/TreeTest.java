@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 /**
  * В данном классе происходит проверка работы класса Tree.
  *@author Anton Kondratkov
- *@since 18.07.2019
+ *@since 20.07.2019
  */
 public class TreeTest {
     Tree<Integer> tree;
@@ -51,5 +51,12 @@ public class TreeTest {
         tree.add(2, 4);
         tree.add(2, 5);
         assertTrue(tree.isBinary());
+    }
+    @Test
+    public void whenNonBinaryTreeThenFalse() {
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        assertThat(tree.isBinary(), is(false));
     }
 }
