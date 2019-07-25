@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 /**
  *Данный класс тестирует работу класса Analizy.
  *@author Anton Kondratkov
- *@since 22.07.2019
+ *@since 25.07.2019
  */
 public class AnalizyTest {
     @Before
@@ -45,17 +45,14 @@ public class AnalizyTest {
     @Test
     public void whenInvokeUnavailableThenWriteTarget() throws IOException {
         File unavailable = new File("test_unavailable.csv");
-        if (unavailable.exists()) {
-            unavailable.delete();
-        }
         Analizy analizy = new Analizy();
-        analizy.unavailable("test_status.log", "test_unavailable.csv");
+        analizy.unavailable("test_status.log", unavailable);
 
         BufferedReader reader = new BufferedReader(new FileReader(unavailable));
+
         assertThat(reader.readLine(), is("10:57:01;10:59:01"));
         assertThat(reader.readLine(), is("11:01:02;11:02:02"));
         assertNull(reader.readLine());
         reader.close();
-
     }
 }
