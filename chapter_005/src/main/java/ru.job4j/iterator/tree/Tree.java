@@ -72,8 +72,8 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         Iterator<Node<E>> itCurrent;
 
         TreeIterator() {
-            allChild.add(Arrays.asList((Node<E>)root));
-            addChild((Node<E>)root);
+            allChild.add(Arrays.asList((Node<E>) root));
+            addChild((Node<E>) root);
             itAll = allChild.iterator();
             itCurrent = itAll.next().iterator();
         }
@@ -83,7 +83,7 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
          */
         private void addChild(Node<E> node) {
             List<Node<E>> childOfNode = node.leaves();
-            if(childOfNode.size() > 0) {
+            if (childOfNode.size() > 0) {
                 allChild.add(childOfNode);
                 for (Node<E> current: childOfNode) {
                     addChild(current);
@@ -98,8 +98,8 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         @Override
         public boolean hasNext() {
             boolean result = itCurrent.hasNext();
-            if(!result) {
-                if(itAll.hasNext()) {
+            if (!result) {
+                if (itAll.hasNext()) {
                     itCurrent = itAll.next().iterator();
                     result = itCurrent.hasNext();
                 }

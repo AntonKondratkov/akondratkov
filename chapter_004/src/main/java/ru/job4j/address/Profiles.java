@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  *@since 05.07.2019
  */
 public class Profiles {
-    List<Address> collect(List<Profile> profiles, Comparator<Address> comparator){
+    List<Address> collect(List<Profile> profiles, Comparator<Address> comparator) {
         return profiles.stream().map(profile -> profile.getAddress()).sorted(comparator).distinct().collect(Collectors.toList());
     }
 }

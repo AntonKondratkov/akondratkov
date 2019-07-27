@@ -70,7 +70,7 @@ public class MyHashMap<K, V> implements Iterable<V> {
     private void growSize() {
         Node<K, V>[] oldContainer = this.table;
         int newSize = this.table.length << 1;
-        this.table = (Node<K, V>[])new Node[newSize];
+        this.table = (Node<K, V>[]) new Node[newSize];
         for (int i = 0; i < oldContainer.length; i++) {
             Node<K, V> current = oldContainer[i];
             if (current != null) {

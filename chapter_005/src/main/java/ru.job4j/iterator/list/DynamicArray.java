@@ -39,7 +39,7 @@ public class DynamicArray<E> implements Iterable<E> {
      * Метод увеличивает размер массива.
      */
     public int increaseSize() {
-        return size = size * 2;
+        return size *= 2;
     }
     /**
      * Метод добавляет элементы в массив и увеличивает размер массива

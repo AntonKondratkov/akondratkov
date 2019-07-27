@@ -35,7 +35,7 @@ public class Board {
         int figureIndex = getFigureIndex(source);
         Figure figure = figures[figureIndex];
         Cell[] wayCells = figure.way(source, dest);
-        if(!contain(figure, wayCells)) {
+        if (!contain(figure, wayCells)) {
             figures[figureIndex] = figure.copy(dest);
             moved = true;
         }

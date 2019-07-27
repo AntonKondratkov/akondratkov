@@ -28,7 +28,7 @@ public class Analizy {
                     start = s.substring(4);
                 }
                 if (s.matches("^[23]00.*") && start != null) {
-                    list.add( start + ";" + s.substring(4));
+                    list.add(start + ";" + s.substring(4));
                     start = null;
                 }
             }

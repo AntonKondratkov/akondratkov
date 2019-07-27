@@ -35,7 +35,7 @@ public class Config {
                             s.substring(key.length() + 1).trim());
                 }
             });
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -47,7 +47,7 @@ public class Config {
      */
     public String value(String key) throws UnsupportedOperationException {
         String value = values.get(key);
-        if(value != null) {
+        if (value != null) {
             return value;
         }
         throw new UnsupportedOperationException(String.format("Unexpected property %s", key));

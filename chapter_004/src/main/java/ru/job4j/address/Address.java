@@ -39,10 +39,18 @@ public class Address {
             return false;
         }
         Address address = (Address) obj;
-        if (home != address.getHome()) return false;
-        if (apartment != address.getApartment()) return false;
-        if (city != address.getCity()) return false;
-        if (street != address.getStreet()) return false;
+        if (home != address.getHome()) {
+            return false;
+        }
+        if (apartment != address.getApartment()) {
+            return false;
+        }
+        if (city != address.getCity()) {
+            return false;
+        }
+        if (street != address.getStreet()) {
+            return false;
+        }
 
         return true;
     }
