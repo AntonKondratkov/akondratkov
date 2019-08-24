@@ -233,4 +233,26 @@ public class InteractCalc {
         this.arithmeticOperations.put(name, operation);
     }
 
+
+    public static void main(String[] args) {
+        class StubInput implements Input {
+            private final String[] value;
+            private int position;
+
+            public StubInput(final String[] value) {
+                this.value = value;
+            }
+            @Override
+            public String ask(String question) {
+                return this.value[this.position++];
+            }
+        }
+
+        InteractCalc interactCalc = new InteractCalc(new StubInput(new String[]{"5", "+", "5", "="}),
+                s -> System.out.println(s));
+        interactCalc.next();
+        interactCalc.next();
+        interactCalc.next();
+        interactCalc.next();
+    }
 }
