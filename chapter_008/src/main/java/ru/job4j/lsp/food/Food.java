@@ -1,5 +1,8 @@
 package ru.job4j.lsp.food;
 
+import ru.job4j.lsp.storage.Reproduct;
+import ru.job4j.lsp.storage.Vegetable;
+
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -10,7 +13,7 @@ import java.time.LocalDate;
  * @author Kondratkov Anton
  * @since 31.08.2019
  */
-public class Food {
+public abstract class Food implements Reproduct, Vegetable {
 
     private final String name;
     private final LocalDate expaireDate;

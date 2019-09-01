@@ -13,4 +13,14 @@ public class Potato extends Food {
     public Potato(String name, LocalDate expaireDate, LocalDate createDate, BigDecimal price, int discount) {
         super(name, expaireDate, createDate, price, discount);
     }
+
+    @Override
+    public boolean isCanReproduct() {
+        return false;
+    }
+
+    @Override
+    public boolean isVegetable() {
+        return true;
+    }
 }

@@ -13,4 +13,14 @@ public class Kefir extends Food {
     public Kefir(String name, LocalDate expaireDate, LocalDate createDate, BigDecimal price, int discount) {
         super(name, expaireDate, createDate, price, discount);
     }
+
+    @Override
+    public boolean isCanReproduct() {
+        return true;
+    }
+
+    @Override
+    public boolean isVegetable() {
+        return false;
+    }
 }
