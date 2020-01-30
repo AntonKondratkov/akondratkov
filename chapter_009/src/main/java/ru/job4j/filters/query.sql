@@ -50,8 +50,8 @@ WHERE p.name LIKE '%ice cream%';
 
 /*3. Написать запрос, который выводит все продукты, срок годности которых заканчивается в следующем месяце.*/
 
-select*from Product AS p
-WHERE p.expired_date BETWEEN '2020-01-31' AND '2020-03-01';
+select * from Product
+WHERE date_part('month', Expired_date) = date_part('month', now() + interval '1 month');
 
 /*4. Написать запрос, который выводит самый дорогой продукт.*/
 
