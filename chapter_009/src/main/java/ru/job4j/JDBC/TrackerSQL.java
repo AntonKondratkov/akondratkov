@@ -13,7 +13,7 @@ import java.util.Properties;
 /**
  * @author Anton Kondratkov
  * @since 04.02.2020
- * Переделанный класс Tracker из модуля chapter_002 для работы с БД PostgreSQL.
+ * Переделанный класс Tracker из модуля chapter_002 для работы с БД PostgreSQL
  **/
 public class TrackerSQL implements ITracker {
 
