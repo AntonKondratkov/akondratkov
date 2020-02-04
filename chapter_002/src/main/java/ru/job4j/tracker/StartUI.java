@@ -4,6 +4,7 @@ import ru.job4j.tracker.actions.MenuTracker;
 import ru.job4j.tracker.input.ConsoleInput;
 import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.input.ValidateInput;
+import ru.job4j.tracker.strogare.ITracker;
 import ru.job4j.tracker.strogare.Tracker;
 
 import java.util.function.Consumer;
@@ -17,7 +18,7 @@ public class StartUI {
     /**
      * Поле содержит объект класса Tracker
      */
-    private Tracker tracker;
+    private final ITracker tracker;
     /**
      * Получение данных от пользователя.
      */
@@ -36,7 +37,7 @@ public class StartUI {
      * @param tracker объект класса Tracker.
      * @param output вывод данных.
      */
-    public StartUI(Input input, Tracker tracker, Consumer<String> output) {
+    public StartUI(Input input, ITracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
         this.output = output;

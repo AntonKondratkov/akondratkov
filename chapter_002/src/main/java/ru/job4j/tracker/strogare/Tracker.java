@@ -17,7 +17,7 @@ import java.util.*;
  * получение заявки по уникальному ключу - id;
  */
 
-public class Tracker {
+public class Tracker implements ITracker {
     /**
      * Лист для хранения заявок.
      */

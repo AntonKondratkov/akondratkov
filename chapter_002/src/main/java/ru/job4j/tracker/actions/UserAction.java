@@ -1,5 +1,6 @@
 package ru.job4j.tracker.actions;
 import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.strogare.ITracker;
 import ru.job4j.tracker.strogare.Tracker;
 
 /**
@@ -12,7 +13,7 @@ public interface UserAction {
     int key();
 
     //Метод будет выполнять основные действия(добавление, редактирование и т.д.)   .
-    void execute(Input input, Tracker tracker);
+    void execute(Input input, ITracker tracker);
 
     //Данный класс будет сообщать пользователю, что данное действие делает
     String info();

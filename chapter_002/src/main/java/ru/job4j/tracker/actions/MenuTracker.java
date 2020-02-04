@@ -3,6 +3,7 @@ package ru.job4j.tracker.actions;
 import ru.job4j.tracker.StartUI;
 import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.strogare.ITracker;
 import ru.job4j.tracker.strogare.Tracker;
 
 import java.util.List;
@@ -19,7 +20,7 @@ class EditItem extends BaseAction {
         super(key, name);
     }
     @Override
-    public void execute(Input input, Tracker tracker) {
+    public void execute(Input input, ITracker tracker) {
         String id = input.ask("Please, enter the task's id: ");
         if (tracker.findById(id) != null && tracker.findById(id).getId().equals(id)) {
             String name = input.ask("Please, enter the task's name: ");
@@ -43,7 +44,7 @@ class FindNameItems extends BaseAction {
         super(key, name);
     }
     @Override
-    public void execute(Input input, Tracker tracker) {
+    public void execute(Input input, ITracker tracker) {
         String name = input.ask("Please, enter the task's name: ");
         List<Item> item = tracker.findByName(name);
         if (item.size() == 0) {
@@ -67,7 +68,7 @@ public class MenuTracker {
     /**
      * @param хранит ссылку на объект .
      */
-    private Tracker tracker;
+    private ITracker tracker;
     /**
      * @param хранит ссылку с выходными данными.
      */
@@ -82,7 +83,7 @@ public class MenuTracker {
      * @param input   объект типа Input
      * @param tracker объект типа Tracker
      */
-    public MenuTracker(Input input, Tracker tracker, Consumer<String> output) {
+    public MenuTracker(Input input, ITracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
         this.output = output;
@@ -138,7 +139,7 @@ public class MenuTracker {
             super(key, name);
         }
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             String name = input.ask("Please, enter the task's name: ");
             String desc = input.ask("Please, enter the task's desc: ");
             Item item = new Item(name, desc);
@@ -158,7 +159,7 @@ public class MenuTracker {
             super(key, name);
         }
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             List<Item> item = tracker.findAll();
             if (item.size() == 0) {
                 System.out.println("Items not found");
@@ -179,7 +180,7 @@ public class MenuTracker {
             super(key, name);
         }
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             String id = input.ask("Please, enter the task's id: ");
             if (tracker.delete(id)) {
                 System.out.println("Item delete");
@@ -197,7 +198,7 @@ public class MenuTracker {
             super(key, name);
         }
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             String id = input.ask("Please, enter the task's id: ");
             Item item = tracker.findById(id);
             if (item != null) {
@@ -218,7 +219,7 @@ public class MenuTracker {
             this.ui = ui;
         }
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             System.out.println("Menu item selected \"Exit programm.\"");
             this.ui.setExit();
         }

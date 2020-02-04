@@ -1,5 +1,7 @@
 package ru.job4j.tracker.model;
 
+import java.util.Objects;
+
 /**
  * @version $Id$
  * @since 0.inheritance
@@ -26,6 +28,11 @@ public class Item {
         this.description = description;
         this.create = create;
     }
+    public Item(String name, String description, String id) {
+        this.name = name;
+        this.description = description;
+        this.id = id;
+    }
 
     public String getName() {
         return this.name;
@@ -42,7 +49,16 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Имя заявки: " + name + ", " + "Описание заявки: " + description + " id заявки: " + id;
+        return "Имя заявки: " + name + ", " + "Описание заявки: " + description + " id заявки: " +id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return Objects.equals(name, item.name)
+                && Objects.equals(description, item.description);
     }
 }
 
