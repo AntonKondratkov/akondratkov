@@ -49,15 +49,21 @@ public class TrackerSQL implements ITracker {
      */
     @Override
     public Item add(Item item) {
-        try (PreparedStatement st = connection.prepareStatement("insert into car (id, name, color) values (?, ?, ?)")) {
+        String key = null ;
+        try (PreparedStatement st = connection.prepareStatement("insert into car (id, name, color) " +
+                "values (?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
             st.setString(1, item.getId());
             st.setString(2, item.name);
             st.setString(3, item.description);
             st.executeUpdate();
+            ResultSet rs = st.getGeneratedKeys();
+            if(rs.next()) {
+                key = String.valueOf(rs.getString(1));
+            }
         } catch (Exception e) {
             Log.error(e.getMessage(), e);
         }
-        return item;
+        return item.getId().equals(key) ? item : new Item();
     }
     /*
      * Метод производит поиск заявки в БД по id и заменяет найденную заявку на передаваемую в параметрах
