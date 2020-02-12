@@ -10,7 +10,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.Random;
 
 /**
  * @author Anton Kondratkov
@@ -18,8 +17,6 @@ import java.util.Random;
  * Переделанный класс Tracker из модуля chapter_002 для работы с БД PostgreSQL
  **/
 public class TrackerSQL implements ITracker {
-
-    private static final Random RN = new Random();
 
     private static final Logger Log = LogManager.getLogger(TrackerSQL.class.getName());
 
@@ -53,15 +50,14 @@ public class TrackerSQL implements ITracker {
      */
     @Override
     public Item add(Item item) {
-        try (PreparedStatement st = connection.prepareStatement("insert into car (id, name, color) " +
-                "values (?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
-            st.setString(1, this.generateId());
-            st.setString(2, item.name);
-            st.setString(3, item.description);
+        try (PreparedStatement st = connection.prepareStatement("insert into car (name, color) " +
+                "values (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+            st.setString(1, item.name);
+            st.setString(2, item.description);
             st.executeUpdate();
             ResultSet rs = st.getGeneratedKeys();
             if(rs.next()) {
-                item.setId(String.valueOf(rs.getString(1)));
+                item.setId(String.valueOf(rs.getInt(1)));
             }
         } catch (Exception e) {
             Log.error(e.getMessage(), e);
@@ -77,11 +73,10 @@ public class TrackerSQL implements ITracker {
     @Override
     public boolean replace(String id, Item item) {
         int result = 0;
-        try (PreparedStatement st = connection.prepareStatement("update car set id=?, name=?, color=? where id = ?")) {
-            st.setString(1, id);
-            st.setString(2, item.name);
-            st.setString(3, item.description);
-            st.setString(4, id);
+        try (PreparedStatement st = connection.prepareStatement("update car set name=?, color=? where id = ?")) {
+            st.setString(1, item.name);
+            st.setString(2, item.description);
+            st.setInt(3, Integer.valueOf(id));
             result = st.executeUpdate();
         } catch (Exception e) {
             Log.error(e.getMessage(), e);
@@ -97,7 +92,7 @@ public class TrackerSQL implements ITracker {
     public boolean delete(String id) {
         int result = 0;
         try (PreparedStatement st = connection.prepareStatement("delete from car where id = ?")) {
-            st.setString(1, id);
+            st.setInt(1, Integer.valueOf(id));
             result = st.executeUpdate();
         } catch (Exception e) {
             Log.error(e.getMessage(), e);
@@ -116,7 +111,7 @@ public class TrackerSQL implements ITracker {
             while (rs.next()) {
                 list.add(new Item(rs.getString("name"),
                         rs.getString("color"),
-                        rs.getString("id")));
+                        String.valueOf(rs.getInt("id"))));
             }
         } catch (Exception e) {
             Log.error(e.getMessage(), e);
@@ -137,7 +132,7 @@ public class TrackerSQL implements ITracker {
             while (rs.next()) {
                 list.add(new Item(rs.getString("name"),
                         rs.getString("color"),
-                        rs.getString("id")));
+                        String.valueOf(rs.getInt("id"))));
             }
         } catch (Exception e) {
             Log.error(e.getMessage(), e);
@@ -153,24 +148,16 @@ public class TrackerSQL implements ITracker {
     public Item findById(String id) {
         Item item = null;
         try (PreparedStatement st = connection.prepareStatement("SELECT * FROM car as c WHERE c.id IN (?)")) {
-            st.setString(1, id);
+            st.setInt(1, Integer.valueOf(id));
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 item = new Item(rs.getString("name"),
                         rs.getString("color"),
-                        rs.getString("id"));
+                        String.valueOf(rs.getInt("id")));
             }
         } catch (Exception e) {
             Log.error(e.getMessage(), e);
         }
         return item;
-    }
-    /**
-     * Метод генерирует уникальный ключ для заявки.
-     * Так как у заявки нет уникальности полей, имени и описания. для её идентификации нам нужен уникальный ключ.
-     * @return Уникальный ключ.
-     */
-    private String generateId() {
-        return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
 }
