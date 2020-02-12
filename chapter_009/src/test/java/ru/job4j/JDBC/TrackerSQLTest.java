@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 /**
  * @author Anton Kondratkov
  * @since 04.02.2020
@@ -16,8 +17,10 @@ import static org.junit.Assert.*;
  **/
 public class TrackerSQLTest {
 
-    private TrackerSQL trackerSQL;
+    private TrackerSQL trackerSQL = new TrackerSQL();
+
     List<Item> listOfCar = new ArrayList<>();
+
     Item audi;
     Item bmw;
     Item ww;
@@ -25,9 +28,9 @@ public class TrackerSQLTest {
     @Before
     public void setUp() {
         trackerSQL = new TrackerSQL();
-        audi = new Item("Audi", "Black", "1");
-        bmw = new Item("BMW", "White", "3");
-        ww = new Item("WW", "Red", "7");
+        audi = new Item("Audi", "Black");
+        bmw = new Item("BMW", "White");
+        ww = new Item("WW", "Red");
         listOfCar.add(audi);
         listOfCar.add(bmw);
         listOfCar.add(ww);
@@ -40,21 +43,23 @@ public class TrackerSQLTest {
 
     @Test
     public void checkAddFunction() {
-        Item mazda = new Item("Mazda", "Yellow", "2");
+        Item mazda = new Item("Mazda", "Yellow");
         Item expected = trackerSQL.add(mazda);
         assertEquals(expected, mazda);
     }
 
     @Test
     public void checkReplaceFunction() {
-        Item mitsubishi = new Item("Mitsubishi", "Green", "5");
-        boolean expected = trackerSQL.replace("2", mitsubishi);
+        Item mitsubishi = new Item("Mitsubishi", "Green");
+        List<Item> list = trackerSQL.findByName("Mazda");
+        boolean expected = trackerSQL.replace(list.get(0).getId(), mitsubishi);
         assertThat(expected, is(true));
     }
 
     @Test
     public void checkDeleteFunction() {
-        boolean expected = trackerSQL.delete("7");
+        List<Item> list = trackerSQL.findByName("Mitsubishi");
+        boolean expected = trackerSQL.delete(list.get(0).getId());
         assertThat(expected, is(true));
     }
 
@@ -69,15 +74,18 @@ public class TrackerSQLTest {
 
     @Test
     public void checkFindByIdFunction() {
-        Item expected = trackerSQL.findById("3");
+        String id = trackerSQL.findByName("BMW").get(0).getId();
+        Item expected = trackerSQL.findById(id);
+        bmw.setId(id);
         assertEquals(expected, bmw);
     }
 
     @Test
     public void checkFindByNameFunction() {
         List<Item> listByName = new ArrayList<>();
-        listByName.add(audi);
         List<Item> expected = trackerSQL.findByName("Audi");
+        audi.setId(expected.get(0).getId());
+        listByName.add(audi);
         assertEquals(expected, listByName);
     }
 }

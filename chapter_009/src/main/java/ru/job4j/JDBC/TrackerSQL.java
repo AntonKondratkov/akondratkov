@@ -1,7 +1,7 @@
 package ru.job4j.JDBC;
 
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.job4j.tracker.model.Item;
 import ru.job4j.tracker.strogare.ITracker;
 
@@ -10,12 +10,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
+
 /**
  * @author Anton Kondratkov
  * @since 04.02.2020
  * Переделанный класс Tracker из модуля chapter_002 для работы с БД PostgreSQL
  **/
 public class TrackerSQL implements ITracker {
+
+    private static final Random RN = new Random();
 
     private static final Logger Log = LogManager.getLogger(TrackerSQL.class.getName());
 
@@ -49,21 +53,20 @@ public class TrackerSQL implements ITracker {
      */
     @Override
     public Item add(Item item) {
-        String key = null ;
         try (PreparedStatement st = connection.prepareStatement("insert into car (id, name, color) " +
                 "values (?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
-            st.setString(1, item.getId());
+            st.setString(1, this.generateId());
             st.setString(2, item.name);
             st.setString(3, item.description);
             st.executeUpdate();
             ResultSet rs = st.getGeneratedKeys();
             if(rs.next()) {
-                key = String.valueOf(rs.getString(1));
+                item.setId(String.valueOf(rs.getString(1)));
             }
         } catch (Exception e) {
             Log.error(e.getMessage(), e);
         }
-        return item.getId().equals(key) ? item : new Item();
+        return item;
     }
     /*
      * Метод производит поиск заявки в БД по id и заменяет найденную заявку на передаваемую в параметрах
@@ -75,7 +78,7 @@ public class TrackerSQL implements ITracker {
     public boolean replace(String id, Item item) {
         int result = 0;
         try (PreparedStatement st = connection.prepareStatement("update car set id=?, name=?, color=? where id = ?")) {
-            st.setString(1, item.getId());
+            st.setString(1, id);
             st.setString(2, item.name);
             st.setString(3, item.description);
             st.setString(4, id);
@@ -161,5 +164,13 @@ public class TrackerSQL implements ITracker {
             Log.error(e.getMessage(), e);
         }
         return item;
+    }
+    /**
+     * Метод генерирует уникальный ключ для заявки.
+     * Так как у заявки нет уникальности полей, имени и описания. для её идентификации нам нужен уникальный ключ.
+     * @return Уникальный ключ.
+     */
+    private String generateId() {
+        return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
 }
