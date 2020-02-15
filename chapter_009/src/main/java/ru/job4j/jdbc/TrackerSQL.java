@@ -1,4 +1,4 @@
-package ru.job4j.JDBC;
+package ru.job4j.jdbc;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,9 +16,9 @@ import java.util.Properties;
  * @since 04.02.2020
  * Переделанный класс Tracker из модуля chapter_002 для работы с БД PostgreSQL
  **/
-public class TrackerSQL implements ITracker {
+public class TrackerSQL implements ITracker, AutoCloseable {
 
-    private static final Logger Log = LogManager.getLogger(TrackerSQL.class.getName());
+    private static final Logger LOG = LogManager.getLogger(TrackerSQL.class.getName());
 
     private Connection connection;
 
@@ -50,17 +50,17 @@ public class TrackerSQL implements ITracker {
      */
     @Override
     public Item add(Item item) {
-        try (PreparedStatement st = connection.prepareStatement("insert into car (name, color) " +
-                "values (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement st = connection.prepareStatement("insert into car (name, color) "
+                + "values (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
             st.setString(1, item.name);
             st.setString(2, item.description);
             st.executeUpdate();
             ResultSet rs = st.getGeneratedKeys();
-            if(rs.next()) {
+            if (rs.next()) {
                 item.setId(String.valueOf(rs.getInt(1)));
             }
         } catch (Exception e) {
-            Log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         }
         return item;
     }
@@ -79,7 +79,7 @@ public class TrackerSQL implements ITracker {
             st.setInt(3, Integer.valueOf(id));
             result = st.executeUpdate();
         } catch (Exception e) {
-            Log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         }
         return result == 1;
     }
@@ -95,7 +95,7 @@ public class TrackerSQL implements ITracker {
             st.setInt(1, Integer.valueOf(id));
             result = st.executeUpdate();
         } catch (Exception e) {
-            Log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         }
         return result == 1;
     }
@@ -114,7 +114,7 @@ public class TrackerSQL implements ITracker {
                         String.valueOf(rs.getInt("id"))));
             }
         } catch (Exception e) {
-            Log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         }
         return list;
     }
@@ -135,7 +135,7 @@ public class TrackerSQL implements ITracker {
                         String.valueOf(rs.getInt("id"))));
             }
         } catch (Exception e) {
-            Log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         }
         return list;
     }
@@ -156,8 +156,13 @@ public class TrackerSQL implements ITracker {
                         String.valueOf(rs.getInt("id")));
             }
         } catch (Exception e) {
-            Log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         }
         return item;
+    }
+
+    @Override
+    public void close() {
+        System.out.println("close");
     }
 }
