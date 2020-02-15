@@ -1,4 +1,4 @@
-package ru.job4j.JDBC;
+package ru.job4j.jdbc;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
  **/
 public class TrackerSQLTest {
 
-    private TrackerSQL trackerSQL = new TrackerSQL();
+    private TrackerSQL trackerSQL;
 
     List<Item> listOfCar = new ArrayList<>();
 
@@ -36,7 +36,7 @@ public class TrackerSQLTest {
         listOfCar.add(ww);
     }
 
-    @Test
+    @Test ()
     public void checkConnection() {
         assertThat(trackerSQL.init(), is(true));
     }
