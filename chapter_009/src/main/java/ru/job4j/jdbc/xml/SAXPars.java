@@ -1,8 +1,11 @@
-package ru.job4j.JDBC.xml_xslt_jdbc_optimization;
+package ru.job4j.jdbc.xml;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+import ru.job4j.jdbc.TrackerSQL;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -14,8 +17,13 @@ import java.io.IOException;
  * @since 14.02.2020
  * В данном классе парсится xml файл и вычисляется арифметическая сумма значений всех атрибутов
  **/
-public class SAXPars extends DefaultHandler{
-    static long summ = 0;
+public class SAXPars extends DefaultHandler {
+    private static final Logger LOG = LogManager.getLogger(TrackerSQL.class.getName());
+    private long summ = 0;
+
+    public long getSumm() {
+        return summ;
+    }
 
     @Override
     public void startDocument() {
@@ -24,14 +32,14 @@ public class SAXPars extends DefaultHandler{
 
     @Override
     public void startElement(String namespaceURI, String localName, String qName, Attributes atts) {
-        if(atts.getValue("field") != null) {
+        if (atts.getValue("field") != null) {
             summ += Long.valueOf(atts.getValue("field"));
         }
     }
 
     @Override
     public void endDocument() {
-        System.out.println("Arithmetic sum of field equals: " + summ);
+        System.out.println("Arithmetic sum of field equals: " + getSumm());
         System.out.println("Stop parse XML...");
     }
 
@@ -41,7 +49,7 @@ public class SAXPars extends DefaultHandler{
             SAXParser parser = factory.newSAXParser();
             parser.parse(dest, saxPars);
         } catch (ParserConfigurationException | SAXException | IOException  e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
     }
 }

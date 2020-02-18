@@ -1,12 +1,8 @@
-package ru.job4j.JDBC.xml_xslt_jdbc_optimization;
-
-import org.xml.sax.SAXException;
+package ru.job4j.jdbc.xml;
 
 import javax.xml.bind.JAXBException;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 /**
  * @author Anton Kondratkov
@@ -14,7 +10,7 @@ import java.sql.SQLException;
  * В данном классе происходит запуск всего приложения
  **/
 public class Main {
-    public static void main(String[] args) throws TransformerException, JAXBException, IOException, SAXException, ParserConfigurationException, SQLException {
+    public static void main(String[] args) throws TransformerException, JAXBException, SQLException {
         long startTime = System.currentTimeMillis();
 
         File source = new File("C:/Users/11/Desktop/SQL/4. JDBC/4.3. XML XSLT JDBC/sqlite/entries.xml");
@@ -25,7 +21,7 @@ public class Main {
         ConvertXSQT convertXSQT = new ConvertXSQT();
         SAXPars saxPars = new SAXPars();
 
-        storeSQL.generate(1000000);
+        storeSQL.generate(10);
         storeXML.save(storeSQL.load());
         convertXSQT.convert(source, dest, scheme);
         saxPars.parser(dest, new SAXPars());

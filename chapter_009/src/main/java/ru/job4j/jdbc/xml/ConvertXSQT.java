@@ -1,4 +1,4 @@
-package ru.job4j.JDBC.xml_xslt_jdbc_optimization;
+package ru.job4j.jdbc.xml;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;

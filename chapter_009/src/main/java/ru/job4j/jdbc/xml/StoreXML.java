@@ -1,4 +1,4 @@
-package ru.job4j.JDBC.xml_xslt_jdbc_optimization;
+package ru.job4j.jdbc.xml;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -24,13 +24,9 @@ public class StoreXML {
     public static class Entry {
 
         @XmlElement(name = "entry")
-        private List<Value> values = null;
+        private List<Value> values;
 
         public Entry() {
-        }
-
-        public Entry(List<Value> values) {
-            this.values = values;
         }
 
         public List<Value> getValues() {
@@ -56,6 +52,9 @@ public class StoreXML {
 
         public Value(int field) {
             this.field = field;
+        }
+
+        public Value() {
         }
 
         public int getField() {

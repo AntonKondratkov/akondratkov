@@ -1,9 +1,10 @@
-package ru.job4j.JDBC.xml_xslt_jdbc_optimization;
+package ru.job4j.jdbc.xml;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import ru.job4j.jdbc.TrackerSQL;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -11,32 +12,34 @@ import java.util.List;
  * @since 14.02.2020
  * Класс генерирует данные в БД
  **/
-public class StoreSQL implements AutoCloseable{
+public class StoreSQL implements AutoCloseable {
+    private static final Logger LOG = LogManager.getLogger(TrackerSQL.class.getName());
     private final Config config;
     private Connection connection;
 
     public StoreSQL(Config config) {
         this.config = config;
-        this.connection = config.getConnection();
+        this.connection = config.init();
     }
     /*
      * Метод генерирует в БД n записей.
      * @param size - параметр задаёт количество записей вносимых в БД
      */
     public void generate(int size) throws SQLException {
-        if(load().isEmpty()) {
+        if (load().isEmpty()) {
             connection.setAutoCommit(false);
-            for (int i = 0; i <= size; i++) {
-                try (PreparedStatement ps = config.getConnection().prepareStatement("INSERT INTO entry(field) VALUES(?)")) {
+            try (PreparedStatement ps = config.init().prepareStatement("INSERT INTO entry(field) VALUES(?)")) {
+                for (int i = 0; i <= size; i++) {
                     ps.setInt(1, i);
-                    ps.executeUpdate();
-                } catch (SQLException e) {
-                    connection.rollback();
-                    System.out.println(e.getMessage());
+                    ps.addBatch();
                 }
+                ps.executeBatch();
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                LOG.error(e.getMessage(), e);
             }
-            connection.commit();
-        }else {
+        } else {
             deleteAll();
             generate(size);
         }
@@ -45,15 +48,15 @@ public class StoreSQL implements AutoCloseable{
      * Метод возвращает все объекты класса Value
      * @return List <StoreXML.Value> - лист объектов класса Value
      */
-    public List <StoreXML.Value> load() {
+    public List<StoreXML.Value> load() {
         List<StoreXML.Value> values = new ArrayList<>();
-        try (PreparedStatement st = config.getConnection().prepareStatement("SELECT * FROM entry")) {
+        try (PreparedStatement st = config.init().prepareStatement("SELECT * FROM entry")) {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 values.add(new StoreXML.Value((rs.getInt("field"))));
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOG.error(e.getMessage(), e);
         }
         return values;
     }
@@ -61,17 +64,17 @@ public class StoreSQL implements AutoCloseable{
      * Метод производит удаление всех объектов из БД
      */
     public void deleteAll() {
-        try (PreparedStatement st = config.getConnection().prepareStatement("DELETE FROM entry")) {
+        try (PreparedStatement st = config.init().prepareStatement("DELETE FROM entry")) {
             st.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOG.error(e.getMessage(), e);
         }
     }
 
     @Override
     public void close() throws Exception {
-        if (config.getConnection() != null) {
-            config.getConnection().close();
+        if (connection != null) {
+            connection.close();
         }
     }
 }
