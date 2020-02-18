@@ -49,18 +49,15 @@ public class TrackerSQLTest {
     }
 
     @Test
-    public void checkReplaceFunction() {
+    public void checkReplaceAndDeleteFunctions() {
         Item mitsubishi = new Item("Mitsubishi", "Green");
         List<Item> list = trackerSQL.findByName("Mazda");
-        boolean expected = trackerSQL.replace(list.get(0).getId(), mitsubishi);
-        assertThat(expected, is(true));
-    }
+        boolean expected1 = trackerSQL.replace(list.get(0).getId(), mitsubishi);
+        List<Item> list2 = trackerSQL.findByName("Mitsubishi");
+        boolean expected2 = trackerSQL.delete(list2.get(0).getId());
 
-    @Test
-    public void checkDeleteFunction() {
-        List<Item> list = trackerSQL.findByName("Mitsubishi");
-        boolean expected = trackerSQL.delete(list.get(0).getId());
-        assertThat(expected, is(true));
+        assertThat(expected1, is(true));
+        assertThat(expected2, is(true));
     }
 
     @Test

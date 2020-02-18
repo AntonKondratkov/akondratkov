@@ -25,6 +25,9 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     public TrackerSQL() {
         init();
     }
+    public TrackerSQL(Connection connection) {
+        this.connection = connection;
+    }
     /*
      * Метод устанавливает соединение с БД.
      * @return true если соединение установлено и false если не установлено.
@@ -55,14 +58,16 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             st.setString(1, item.name);
             st.setString(2, item.description);
             st.executeUpdate();
-            ResultSet rs = st.getGeneratedKeys();
-            if (rs.next()) {
-                item.setId(String.valueOf(rs.getInt(1)));
+            try (ResultSet rs = st.getGeneratedKeys()) {
+                if (rs.next()) {
+                    item.setId(String.valueOf(rs.getInt(1)));
+                    return item;
+                }
             }
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
-        return item;
+        throw new IllegalStateException("Could not create new Item");
     }
     /*
      * Метод производит поиск заявки в БД по id и заменяет найденную заявку на передаваемую в параметрах

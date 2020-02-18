@@ -1,0 +1,1 @@
+ALTER TABLE items ADD COLUMN description varchar(2000);
