@@ -27,7 +27,7 @@ public class DynamicArrayTest {
     /**
      * Проверка метода add.
      */
-    @Test (expected = ConcurrentModificationException.class)
+    @Test
     public void whenAddElementToDynamicArray() {
         Iterator<Integer> iterator = array.iterator();
         array.add(3);
@@ -47,6 +47,8 @@ public class DynamicArrayTest {
         assertThat(iterator.next(), is(2));
         assertThat(iterator.hasNext(), is(true));
         assertThat(iterator.next(), is(3));
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is((Object) null));
         assertThat(iterator.hasNext(), is(false));
     }
 }

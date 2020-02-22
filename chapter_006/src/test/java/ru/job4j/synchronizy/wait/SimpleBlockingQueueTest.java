@@ -53,7 +53,7 @@ public class SimpleBlockingQueueTest {
         int[] result = new int[5];
         Thread producer = new Thread(() -> {
             try {
-                for(int i = 0; i < 5; i++) {
+                for (int i = 0; i < 5; i++) {
                     sb.offer(i);
                 }
             } catch (InterruptedException e) {
@@ -62,7 +62,7 @@ public class SimpleBlockingQueueTest {
         });
         Thread consumer = new Thread(() -> {
             try {
-                for(int i = 0; i < 5; i++) {
+                for (int i = 0; i < 5; i++) {
                     result[i] = sb.poll();
                 }
             } catch (InterruptedException e) {

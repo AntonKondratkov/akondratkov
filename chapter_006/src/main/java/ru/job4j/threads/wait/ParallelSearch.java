@@ -6,13 +6,13 @@ import net.jcip.annotations.ThreadSafe;
 @ThreadSafe
 public class ParallelSearch {
     @GuardedBy("queue")
-    private static final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<Integer>();
+    private static final SimpleBlockingQueue<Integer> QUEUE = new SimpleBlockingQueue<Integer>();
     public static void main(String[] args) throws InterruptedException {
         final Thread producer = new Thread(
                 ()-> {
                     for (int index = 0; index != 7; index++) {
                         try {
-                            queue.offer(index);
+                            QUEUE.offer(index);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -21,9 +21,9 @@ public class ParallelSearch {
         );
         final Thread consumer = new Thread(
                 ()-> {
-                    while (!Thread.currentThread().isInterrupted() || queue.size() > 0) {
+                    while (!Thread.currentThread().isInterrupted() || QUEUE.size() > 0) {
                         try {
-                            System.out.println(queue.poll());
+                            System.out.println(QUEUE.poll());
                         } catch (InterruptedException e) {
                             Thread.currentThread().interrupt();
 

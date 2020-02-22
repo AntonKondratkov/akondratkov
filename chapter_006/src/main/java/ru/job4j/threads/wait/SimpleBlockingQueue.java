@@ -5,11 +5,6 @@ import net.jcip.annotations.ThreadSafe;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Scanner;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 /**
  * @author Anton Kondratkov
  * @since 19.01.19.
@@ -20,12 +15,12 @@ import java.util.concurrent.TimeUnit;
 public class SimpleBlockingQueue<T> {
     @GuardedBy("this")
     private Queue<T> queue = new LinkedList<>();
-    private final int LIMIT = 1;
+    private final int limit = 1;
 
     public void offer(T value) throws InterruptedException {
         synchronized (this) {
             notify();
-            while (queue.size() == LIMIT) {
+            while (queue.size() == limit) {
                 wait();
             }
             queue.offer(value);

@@ -1,4 +1,5 @@
 package ru.job4j.iterator.list;
+
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
@@ -13,7 +14,7 @@ public class DynamicArray<E> implements Iterable<E> {
     // Хранилище.
     private E[] container;
     // Размер хранилища.
-    private int size = 10;
+    private int size;
     // Позиция в массиве.
     private int position = 0;
     // Счётчик изменений коллекции.
@@ -79,6 +80,10 @@ public class DynamicArray<E> implements Iterable<E> {
     public DynamicArray<E> copy() {
         return new DynamicArray<>(this.container.clone(), this.size);
     }
+
+    public int getModCount() {
+        return modCount;
+    }
     /**
      * Итератор.
      */
@@ -86,12 +91,16 @@ public class DynamicArray<E> implements Iterable<E> {
     public Iterator<E> iterator() {
         return new Iterator<E>() {
             private int currentIndex = 0;
+            int expectedModCount = getModCount();
             @Override
             public boolean hasNext() {
                 return currentIndex < size;
             }
             @Override
             public E next() {
+                if (expectedModCount != getModCount()) {
+                    throw new ConcurrentModificationException();
+                }
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
