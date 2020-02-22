@@ -26,8 +26,7 @@ public class BulletActionMenu implements Action {
     public String getFullMenu() {
         StringBuilder actual = new StringBuilder();
         List<SimpleMenu> fullMenu = this.menu.getSubMenuTree();
-        for (SimpleMenu menu: fullMenu
-        ) {
+        for (SimpleMenu menu: fullMenu) {
             actual.append(getPrintName(menu));
         }
         return actual.toString();

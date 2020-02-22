@@ -75,14 +75,17 @@ public class SimpleMenu {
         List<String> numChain = new ArrayList<>();
         numChain.add(String.valueOf(getNum()));
         SimpleMenu par = getParent();
+//        System.out.println(par);
         while (par != null) {
             numChain.add(String.valueOf(par.getNum()));
             par = par.getParent();
         }
+        System.out.println(numChain.size());
         StringJoiner result = new StringJoiner(joiner);
         for (int i = numChain.size() - 1; i >= 0; i--) {
             result.add(numChain.get(i));
         }
+        System.out.println(result.toString());
         return result.toString();
     }
 
