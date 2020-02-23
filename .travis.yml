@@ -27,3 +27,7 @@ notifications:
       - kondratkov.anton@yandex.ru
     on_success: never # default: change
     on_failure: always # default: always
+
+env:
+  global:
+    - CODECOV_TOKEN="fc597075-9c22-4cc7-9e21-6b749933a7b2"
