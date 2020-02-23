@@ -2,6 +2,8 @@
 language: java
 jdk:
   - openjdk11
+dist: xenial
+
 # используем режим обычного пользователя для сборки проекта.
 sudo: false
 
@@ -10,10 +12,6 @@ services:
 
 before_install:
   - psql -c 'create database tracker;' -U postgres
-
-cache:
-  directories:
-  -$HOME/.m2
 
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонний сервис https://codecov.io/

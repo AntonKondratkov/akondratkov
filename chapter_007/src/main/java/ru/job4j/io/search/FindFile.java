@@ -7,7 +7,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -19,17 +21,21 @@ public class FindFile {
     private String mask;
     private String regExp;
     private String outputFilename;
+    private Map<String, List<Path>> listMap = new HashMap<>();
 
-    public FindFile (String[] args) {
+    public FindFile(String[] args) {
         this.args = new Args(args);
     }
 
-    public void init() {
+    public void init() throws IOException {
         this.directory = args.getDirectory();
         this.inputFilename = args.getInputFilename();
         this.mask = args.getMask();
         this.regExp = args.getRegExp();
         this.outputFilename = args.getOutputFilename();
+        this.listMap.put("this.inputFilename", findByName(this.inputFilename));
+        this.listMap.put("this.mask", findByMask(this.mask));
+        this.listMap.put("this.regExp", findByRegExp(this.regExp));
     }
 
     public static void main(String[] args) throws IOException {
@@ -43,13 +49,18 @@ public class FindFile {
      * @throws IOException
      */
     public void find() throws IOException {
-        if (this.inputFilename != null) {
-            this.fileList = findByName(this.inputFilename);
-        } else if (this.mask != null) {
-            this.fileList = findByMask(this.mask);
-        } else if (this.regExp != null) {
-            this.fileList = findByRegExp(this.regExp);
+        for (Map.Entry<String, List<Path>> entry: listMap.entrySet()) {
+            if (entry.getValue() != null) {
+                this.fileList = entry.getValue();
+            }
         }
+//        if (this.inputFilename != null) {
+//            this.fileList = findByName(this.inputFilename);
+//        } else if (this.mask != null) {
+//            this.fileList = findByMask(this.mask);
+//        } else if (this.regExp != null) {
+//            this.fileList = findByRegExp(this.regExp);
+//        }
 
     }
     /**
