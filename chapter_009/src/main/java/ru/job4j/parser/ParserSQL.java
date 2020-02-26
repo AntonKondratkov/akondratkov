@@ -4,62 +4,46 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class ParserSQL {
-    public static void main(String[] args) {
-
-        Document htmlFile = null;
+public class ParserSQL  implements Job {
+    ScriptSQL scriptSQL = new ScriptSQL();
+    Document page;
+    Document vac;
+    Elements listVacancy;
+    /**
+     * Метод парсит сайт sql.ru в разделе "Работа" и собирает Java вакансии.
+     * Собранные вакансии метод помещает в три отдельных листа:
+     * names - название вакансии; links - ссылка на вакансию; commnets - описание вакансии.
+     * @param context
+     */
+    @Override
+    public void execute(JobExecutionContext context) {
         try {
-            htmlFile = Jsoup.connect("http://sql.ru/forum/job-offers/3").get();
+            page = Jsoup.connect("http://sql.ru/forum/job-offers/1").get();
+            listVacancy = page.select("td.postslisttopic > a");
+            for (Element element : listVacancy) {
+                if (element.text().matches("(.*)[Jj][Aa][Vv][Aa]\\s*[^Ss](.*)")) {
+                    if (scriptSQL.findByName(element.text()) == null) {
+                        try {
+                            vac = Jsoup.connect(element.attr("href")).get();
+                            String result = vac.select("table.msgTable")
+                                    .get(0)
+                                    .select("td.msgBody").get(1).text();
+                            scriptSQL.add(new Vacancy(element.text(), result, element.attr("href")));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (scriptSQL.findByName(element.text()).equals(element.text())) {
+                        System.out.println("Вакансия - " + element.text() + " есть в БД");
+                    }
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Elements listVacancy = htmlFile.select("td.postslisttopic > a");
-
-        Elements elementList = new Elements();
-        List<String> links = new ArrayList<>();
-        List<String> names = new ArrayList<>();
-        List<String> commnets = new ArrayList<>();
-
-        for (Element element : listVacancy) {
-            if (element.text().matches("(.*)[Jj][Aa][Vv][Aa]\\s*[^Ss](.*)")) {
-                elementList.add(element);
-                links.add(element.attr("href"));
-                names.add(element.text());
-            }
-        }
-
-        Document htmlFile2;
-        Element body;
-        try {
-            for (int i = 0; i < links.size(); i++) {
-                htmlFile2 = Jsoup.connect(links.get(i)).get();
-                body = htmlFile2.select("table.msgTable").get(0);
-                commnets.add(body.select("td.msgBody").get(1).text());
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        for (String s: links) {
-            System.out.println(s);
-        }
-
-//        System.out.println(elementList);
-//        System.out.println();
-//        System.out.println(links);
-//        System.out.println();
-//        System.out.println(names);
-
-        for (String s: names) {
-            System.out.println(s);
-        }
-
     }
 }
