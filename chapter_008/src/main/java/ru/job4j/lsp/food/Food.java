@@ -13,7 +13,7 @@ import java.time.LocalDate;
  * @author Kondratkov Anton
  * @since 31.08.2019
  */
-public abstract class Food implements Reproduct, Vegetable {
+public abstract class Food implements Vegetable, Reproduct {
 
     private final String name;
     private final LocalDate expaireDate;

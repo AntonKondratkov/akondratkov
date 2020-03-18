@@ -7,4 +7,5 @@ import java.util.List;
 public interface StorageStrategy {
 
     boolean add(Food food, List<Food> foods);
+    boolean addResort(Food food, List<Food> foods);
 }

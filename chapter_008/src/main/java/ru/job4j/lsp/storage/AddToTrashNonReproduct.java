@@ -26,4 +26,13 @@ public class AddToTrashNonReproduct implements StorageStrategy {
         }
         return added;
     }
+
+    @Override
+    public boolean addResort(Food food, List<Food> foods) {
+        boolean added = false;
+        if (!food.isCanReproduct()) {
+            added = storageStrategy.addResort(food, foods);
+        }
+        return added;
+    }
 }

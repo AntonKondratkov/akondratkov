@@ -15,4 +15,9 @@ public class Skip implements StorageStrategy {
     public boolean add(Food food, List<Food> foods) {
         return false;
     }
+
+    @Override
+    public boolean addResort(Food food, List<Food> foods) {
+        return false;
+    }
 }

@@ -26,4 +26,13 @@ public class AddToWarehouseNonVegetable implements StorageStrategy {
         }
         return added;
     }
+
+    @Override
+    public boolean addResort(Food food, List<Food> foods) {
+        boolean added = false;
+        if (!food.isVegetable()) {
+            added = storageStrategy.addResort(food, foods);
+        }
+        return added;
+    }
 }

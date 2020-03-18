@@ -3,6 +3,7 @@ package ru.job4j.lsp;
 import ru.job4j.lsp.food.Food;
 import ru.job4j.lsp.storage.Storage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +32,27 @@ public class ControllQuality {
             if (storage.addFood(food)) {
                 added = true;
                 break;
+            }
+        }
+        return added;
+    }
+    /**
+     * The method extracts all products and redistributes them again.
+     * @return - food added.
+     */
+    public boolean resort() {
+        boolean added = false;
+        List<Food> foodList = new ArrayList<>();
+        for (Storage storage : storages) {
+            foodList.addAll(storage.getFoods());
+            storage.deleteAll();
+        }
+        for (Food food : foodList) {
+            for (Storage storage : storages) {
+                if (storage.addFoodResort(food)) {
+                    added = true;
+                    break;
+                }
             }
         }
         return added;

@@ -23,6 +23,10 @@ public class Storage {
     public List<Food> getFoods() {
         return foods;
     }
+
+    public void deleteAll() {
+        foods.removeAll(foods);
+    }
     /**
      * Add food to storage using strategy.
      * @param food - food.
@@ -30,5 +34,13 @@ public class Storage {
      */
     public boolean addFood(Food food) {
         return this.storageStrategy.add(food, this.foods);
+    }
+    /**
+     * Add food to storage using alternative strategy.
+     * @param food - food.
+     * @return - food added.
+     */
+    public boolean addFoodResort(Food food) {
+        return this.storageStrategy.addResort(food, this.foods);
     }
 }

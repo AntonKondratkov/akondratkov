@@ -5,10 +5,7 @@ import org.junit.Test;
 import ru.job4j.lsp.food.Kefir;
 import ru.job4j.lsp.food.Meat;
 import ru.job4j.lsp.food.Potato;
-import ru.job4j.lsp.storage.Shop;
-import ru.job4j.lsp.storage.Storage;
-import ru.job4j.lsp.storage.Trash;
-import ru.job4j.lsp.storage.Warehouse;
+import ru.job4j.lsp.storage.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -39,6 +36,8 @@ public class ControlQualityTest {
     private final Kefir kefirExpaireRate76 = new Kefir("kefir", now.plusDays(24), now.minusDays(76), new BigDecimal("32.11"), 25);
     private final Potato potatoExpaireRate100 = new Potato("potato", now.plusDays(0), now.minusDays(100), new BigDecimal("1.00"), 0);
     private final Meat meatExpaired = new Meat("meat", now.minusDays(1), now.minusDays(101), new BigDecimal("0.00"), 0);
+    private final Kefir kefirExpaireRate93 = new Kefir("kefir", now.plusDays(7), now.minusDays(93), new BigDecimal("84.21"), 0);
+    private final Meat meatExpaireRate20 = new Meat("meat", now.plusDays(80), now.minusDays(20), new BigDecimal("84.21"), 0);
 
 
     @Before
@@ -95,6 +94,7 @@ public class ControlQualityTest {
         assertThat(warehouse.getFoods(), hasItem(kefirExpaireRate5));
         assertThat(trash.getFoods(), not(hasItem(kefirExpaireRate5)));
         assertThat(shop.getFoods(), not(hasItem(kefirExpaireRate5)));
+
     }
 
     @Test
@@ -119,5 +119,43 @@ public class ControlQualityTest {
         assertThat(trash.getFoods(), hasItem(meatExpaired));
         assertThat(warehouse.getFoods(), not(hasItem(meatExpaired)));
         assertThat(shop.getFoods(), not(hasItem(meatExpaired)));
+    }
+
+    @Test
+    public void whenAddingProductsChangesFromShopToTrash() {
+        ControllQuality controllQuality = new ControllQuality(storages);
+
+        controllQuality.addToStorage(kefirExpaireRate93);
+
+        assertThat(kefirExpaireRate93.getExpaireRate(), is(93));
+        assertThat(kefirExpaireRate93.getDiscount(), is(5));
+        assertThat(warehouse.getFoods(), not(hasItem(kefirExpaireRate93)));
+        assertThat(trash.getFoods(), not(hasItem(kefirExpaireRate93)));
+        assertThat(shop.getFoods(), hasItem(kefirExpaireRate93));
+
+        controllQuality.resort();
+
+        assertThat(kefirExpaireRate93.getExpaireRate(), is(93));
+        assertThat(kefirExpaireRate93.getDiscount(), is(0));
+        assertThat(warehouse.getFoods(), not(hasItem(kefirExpaireRate93)));
+        assertThat(trash.getFoods(), hasItem(kefirExpaireRate93));
+        assertThat(shop.getFoods(), not(hasItem(kefirExpaireRate93)));
+    }
+
+    @Test
+    public void whenAddingProductsChangesFromWarehouseToShop() {
+        ControllQuality controllQuality = new ControllQuality(storages);
+
+        controllQuality.addToStorage(meatExpaireRate20);
+
+        assertThat(warehouse.getFoods(), hasItem(meatExpaireRate20));
+        assertThat(trash.getFoods(), not(hasItem(meatExpaireRate20)));
+        assertThat(shop.getFoods(), not(hasItem(meatExpaireRate20)));
+
+        controllQuality.resort();
+
+        assertThat(warehouse.getFoods(), not(hasItem(meatExpaireRate20)));
+        assertThat(trash.getFoods(), not(hasItem(meatExpaireRate20)));
+        assertThat(shop.getFoods(), hasItem(meatExpaireRate20));
     }
 }

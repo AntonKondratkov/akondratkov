@@ -19,4 +19,13 @@ public class Warehouse implements StorageStrategy {
         }
         return added;
     }
+
+    @Override
+    public boolean addResort(Food food, List<Food> foods) {
+        boolean added = false;
+        if (food.getExpaireRate() < 15) {
+            added = foods.add(food);
+        }
+        return added;
+    }
 }

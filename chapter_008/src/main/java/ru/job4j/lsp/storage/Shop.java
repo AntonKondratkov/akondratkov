@@ -14,12 +14,25 @@ public class Shop implements StorageStrategy {
     @Override
     public boolean add(Food food, List<Food> foods) {
         boolean added = false;
-
         if (food.getExpaireRate() >= 25 && food.getExpaireRate() <= 75) {
             added = foods.add(food);
         } else if (food.getExpaireRate() > 75 && food.getExpaireRate() < 100) {
             if (food.getDiscount() == 0) {
                 food.setDiscount(5);
+            }
+            added = foods.add(food);
+        }
+        return added;
+    }
+
+    @Override
+    public boolean addResort(Food food, List<Food> foods) {
+        boolean added = false;
+        if (food.getExpaireRate() >= 15 && food.getExpaireRate() <= 80) {
+            added = foods.add(food);
+        } else if (food.getExpaireRate() > 80 && food.getExpaireRate() < 90) {
+            if (food.getDiscount() == 0) {
+                food.setDiscount(20);
             }
             added = foods.add(food);
         }
