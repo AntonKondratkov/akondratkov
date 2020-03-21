@@ -1,8 +1,8 @@
 package ru.job4j.lsp.parking;
 
-import java.util.List;
+import ru.job4j.lsp.parking.cars.Car;
 
 public interface ParkingStrategy {
 
-    List<Car> add(Car car);
+    boolean add(Car car);
 }

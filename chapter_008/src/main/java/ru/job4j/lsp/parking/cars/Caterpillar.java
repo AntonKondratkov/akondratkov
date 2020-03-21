@@ -1,15 +1,14 @@
 package ru.job4j.lsp.parking.cars;
 
-import ru.job4j.lsp.parking.Car;
-
 public class Caterpillar implements Car {
-    @Override
-    public boolean isLorry() {
-        return true;
+    private final TypeCar typeCar;
+
+    public Caterpillar(TypeCar typeCar) {
+        this.typeCar = typeCar;
     }
 
     @Override
-    public boolean isPassenger() {
-        return false;
+    public int occupiedPlace() {
+        return 0;
     }
 }

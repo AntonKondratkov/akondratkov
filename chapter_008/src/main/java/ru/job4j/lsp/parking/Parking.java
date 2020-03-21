@@ -1,17 +1,23 @@
 package ru.job4j.lsp.parking;
 
+import ru.job4j.lsp.parking.cars.Car;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class Parking {
-    private List<ParkingStrategy> parkingStrategy;
+public class Parking implements ParkingStrategy {
 
-    public Parking(List<ParkingStrategy> parkingStrategy) {
-        this.parkingStrategy = parkingStrategy;
+    private List<Car> lorryList;
+    private List<Car> passengerList;
+
+    public Parking(int lorry, int passenger) {
+        this.lorryList = new ArrayList<>(lorry);
+        this.passengerList = new ArrayList<>(passenger);
     }
 
-
-    public List<Car> add(Car car) {
-        return null;
+    @Override
+    public boolean add(Car car) {
+        return false;
     }
 }
 
