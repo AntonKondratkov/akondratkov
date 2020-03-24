@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<List_of_Employees>
+  <Employee id="1">
+    <name>Ivan1</name>
+    <salary>32.0</salary>
+  </Employee>
+  <Employee id="2">
+    <name>Ivan1</name>
+    <salary>5.0</salary>
+  </Employee>
+  <Employee id="3">
+    <name>Ivan1</name>
+    <salary>50.0</salary>
+  </Employee>
+</List_of_Employees>

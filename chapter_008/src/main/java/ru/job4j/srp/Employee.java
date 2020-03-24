@@ -11,6 +11,9 @@ public class Employee implements Comparable<Employee> {
     private Calendar fired;
     private Double salary;
 
+    public Employee() {
+    }
+
     public Employee(String name, Calendar hired, Calendar fired, Double salary) {
         this.name = name;
         this.hired = hired;
@@ -75,5 +78,15 @@ public class Employee implements Comparable<Employee> {
     @Override
     public int compareTo(Employee o) {
         return salary.compareTo(o.getSalary());
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{"
+                + "name='" + name + '\''
+                + ", hired=" + hired
+                + ", fired=" + fired
+                + ", salary=" + salary
+                + '}';
     }
 }
