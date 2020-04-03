@@ -69,12 +69,8 @@ public class Logic {
         int[][] table = this.convert();
         for (int i = 0; i != table.length; i++) {
             for (int j = 0; j != table.length; j++) {
-                if (table[i][j] == 1) {
-                    markHor++;
-                }
-                if (table[j][i] == 1) {
-                    markVer++;
-                }
+                markHor += table[i][j];
+                markVer += table[j][i];
             }
             if (markHor == size || markVer == size) {
                 result = true;
