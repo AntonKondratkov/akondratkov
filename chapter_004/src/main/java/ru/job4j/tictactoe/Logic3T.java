@@ -1,6 +1,8 @@
 package ru.job4j.tictactoe;
 
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Класс отвечает за проверку логики.
@@ -60,9 +62,9 @@ public class Logic3T {
      */
     public boolean hasGap() {
         boolean result = false;
-        for (int i = 0; i != this.table.length; i++) {
-            for (int j = 0; j != this.table.length; j++) {
-                if (!this.table[i][j].hasMarkO() & !this.table[i][j].hasMarkX()) {
+        for (Figure3T[] x : Stream.of(this.table).collect(Collectors.toList())) {
+            for (Figure3T y : x) {
+                if (!y.hasMarkO() & !y.hasMarkX()) {
                     result = true;
                 }
             }
