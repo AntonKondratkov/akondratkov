@@ -1,7 +1,7 @@
 package ru.job4j.tictactoe;
 
+import java.util.Arrays;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -61,14 +61,6 @@ public class Logic3T {
      * @return true - есть пустые клетки или false - нет пустых клеток.
      */
     public boolean hasGap() {
-        boolean result = false;
-        for (Figure3T[] x : Stream.of(this.table).collect(Collectors.toList())) {
-            for (Figure3T y : x) {
-                if (!y.hasMarkO() & !y.hasMarkX()) {
-                    result = true;
-                }
-            }
-        }
-        return result;
+        return Stream.of(this.table).flatMap(Arrays::stream).anyMatch(f -> !f.hasMarkO() & !f.hasMarkX());
     }
 }
