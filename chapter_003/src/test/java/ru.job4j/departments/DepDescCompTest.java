@@ -13,8 +13,8 @@ public class DepDescCompTest {
     @Test
     public void compare() {
         int rsl = new DepDescComp().compare(
-                "K2/SK1/SSK2",
-                "K2/SK1/SSK1"
+                "K2/SK1/SSK1",
+                "K2/SK1/SSK2"
         );
         assertThat(rsl, greaterThan(0));
     }
@@ -45,8 +45,8 @@ public class DepDescCompTest {
         List<String> list = Arrays.asList("K1", "K1/SK1", "K1/SK1/SSK1", "K1/SK1/SSK2", "K1/SK2",
                 "K2", "K2/SK1", "K2/SK1/SSK1", "K2/SK1/SSK2");
 
-        List<String> expect = Arrays.asList("K2", "K2/SK1", "K2/SK1/SSK1", "K2/SK1/SSK2",
-                "K1", "K1/SK1", "K1/SK1/SSK1", "K1/SK1/SSK2", "K1/SK2");
+        List<String> expect = Arrays.asList("K2", "K2/SK1", "K2/SK1/SSK2", "K2/SK1/SSK1",
+                "K1", "K1/SK2", "K1/SK1", "K1/SK1/SSK2", "K1/SK1/SSK1");
         Departments.sortDesc(list);
 
         assertThat(list, is(expect));
