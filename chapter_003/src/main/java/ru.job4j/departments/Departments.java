@@ -15,15 +15,12 @@ public class Departments {
      */
     public static List<String> fillGaps(List<String> deps) {
         HashSet<String> tmp = new HashSet<>(deps);
-
         for (int i = 0; i < deps.size(); i++) {
             String[] separated = deps.get(i).split("/");
             if (separated.length > 1) {
                 String temp = separated[0];
                 for (int j = 1; j < separated.length; j++) {
-                    if (!deps.contains(temp)) {
-                        tmp.add(temp);
-                    }
+                    tmp.add(temp);
                     temp += "/" + separated[j];
                 }
             }
