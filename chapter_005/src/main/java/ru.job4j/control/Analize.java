@@ -1,7 +1,6 @@
 package ru.job4j.control;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Класс содержит метод определяющий разницу между начальным и конечным состоянием списка.
@@ -9,6 +8,7 @@ import java.util.Objects;
  * @since 14.04.2020
  */
 public class Analize {
+
     /**
      * Метод определяет разницу между начальным состоянием списка и изменённым.
      * @param previous Начальное состояние списка пользователей.
@@ -19,21 +19,26 @@ public class Analize {
         int added = 0;
         int changed = 0;
         int deleted = 0;
-        for (int i = 0; i < previous.size(); i++) {
-            for (int j = 0; j < current.size(); j++) {
-                if (previous.get(i).id == current.get(j).id
-                        && !previous.get(i).name.equals(current.get(j).name)) {
-                    changed++;
-                }
-            }
+        Map<Integer, String> pervMap = new HashMap<>();
+        for (User user : current) {
+            pervMap.put(user.id, user.name);
         }
-        if (previous.size() > current.size()) {
-            deleted = previous.size() - current.size();
-        } else if (previous.size() < current.size()) {
-            added = current.size() - previous.size();
+        for (User user : previous) {
+            if (!pervMap.containsKey(user.id)) {
+                deleted++;
+            }
+            if (pervMap.containsKey(user.id) && !pervMap.get(user.id).equals(user.name)) {
+                changed++;
+                pervMap.remove(user.id);
+            }
+            if (pervMap.containsKey(user.id) && pervMap.get(user.id).equals(user.name)) {
+                pervMap.remove(user.id);
+            }
+            added = pervMap.size();
         }
         return new Info(added, changed, deleted);
     }
+
     /**
      * Класс описывает объект "Пользователь".
      */
@@ -45,6 +50,7 @@ public class Analize {
             this.name = name;
         }
     }
+
     /**
      * Класс содержит статистику коллекции, а именно:
      * 1. Параметр added - количество добавленных пользователей;
@@ -59,14 +65,6 @@ public class Analize {
             this.added = added;
             this.changed = changed;
             this.deleted = deleted;
-        }
-        @Override
-        public String toString() {
-            return "Info{"
-                    + "added=" + added
-                    + ", changed=" + changed
-                    + ", deleted=" + deleted
-                    + '}';
         }
         @Override
         public boolean equals(Object o) {
