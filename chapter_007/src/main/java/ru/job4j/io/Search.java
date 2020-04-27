@@ -50,4 +50,19 @@ public class Search {
         }
         return files;
     }
+
+    /**
+     * Метод осуществляет запуск программы с параметрами заданными через аргументы запуска.
+     * В методе осуществляется валидация параметров запуска.
+     * @param args Первый параметр - начальная директория; Второй параметр - расширения файлов, которые нужно искать.
+     */
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalStateException("Parameters are not set. Usage java -jar dir.jar ROOT_FOLDER EXTENSION");
+        }
+        List<String> exts = new ArrayList<>();
+        exts.add(args[1]);
+        List<File> files = new Search().files(args[0], exts);
+        files.forEach(System.out::println);
+    }
 }
