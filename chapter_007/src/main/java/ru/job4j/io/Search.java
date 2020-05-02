@@ -3,7 +3,11 @@ package ru.job4j.io;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 /**
  *Класс сканирует файловую систему.
  *@author Anton Kondratkov
@@ -59,6 +63,9 @@ public class Search {
     public static void main(String[] args) {
         if (args.length == 0) {
             throw new IllegalStateException("Parameters are not set. Usage java -jar dir.jar ROOT_FOLDER EXTENSION");
+        }
+        if (args.length < 2) {
+            throw new IllegalStateException("One parameter is set. Usage java -jar dir.jar ROOT_FOLDER EXTENSION");
         }
         List<String> exts = new ArrayList<>();
         exts.add(args[1]);
