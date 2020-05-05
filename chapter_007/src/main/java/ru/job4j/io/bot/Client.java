@@ -1,5 +1,9 @@
 package ru.job4j.io.bot;
 
+import org.apache.log4j.BasicConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,6 +18,7 @@ import java.util.Scanner;
  */
 public class Client {
     private final Socket socket;
+    private static final Logger LOG = LoggerFactory.getLogger(Client.class.getName());
 
     public Client(Socket socket) {
         this.socket = socket;
@@ -47,7 +52,8 @@ public class Client {
             Client client = new Client(socket);
             client.start();
         } catch (IOException e) {
-            e.printStackTrace();
+            BasicConfigurator.configure();
+            LOG.error("If an I/O error occurs", e);
         }
     }
 }
