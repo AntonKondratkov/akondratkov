@@ -1,16 +1,16 @@
 package ru.job4j.io.log;
 
 import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Anton Kondratkov
  * @since 05.04.2020
- * Класс показывает работу библиотеки Lob4j
+ * Класс показывает работу библиотеки slf4j
  */
 public class UsageLog4j {
-    private static final Logger LOG = LogManager.getLogger(UsageLog4j.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
     public static void main(String[] args) {
         BasicConfigurator.configure();
         LOG.trace("trace message");
