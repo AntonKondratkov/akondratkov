@@ -13,10 +13,18 @@ public class UsageLog4j {
     private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
     public static void main(String[] args) {
         BasicConfigurator.configure();
-        LOG.trace("trace message");
-        LOG.debug("debug message");
-        LOG.info("info message");
-        LOG.warn("warn message");
-        LOG.error("error message");
+        String name = "Tom";
+        int age = 25;
+        long height = 180;
+        short weight = 74;
+        byte shoes = 41;
+        float clothes = 40;
+        double salary = 28000;
+        boolean married = true;
+        char driver = 'B';
+        LOG.debug("User info name : {}, age : {},"
+                + " height : {}, weight : {}, shoes : {},"
+                + " clothes : {}, salary : {}, married : {}, driver : {}",
+                name, age, height, weight, shoes, clothes, salary, married, driver);
     }
 }
