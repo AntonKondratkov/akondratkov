@@ -2,7 +2,7 @@ package ru.job4j.threads.wait;
 
 /**
  * @author Anton Kondratkov
- * @since 7.05.20
+ * @since 7.05.20.
  * Класс содержит метод, который блокирует выполнение по условию счётчика.
  */
 public class CountBarrier {
