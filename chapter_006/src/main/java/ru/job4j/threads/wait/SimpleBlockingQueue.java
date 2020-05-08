@@ -17,11 +17,15 @@ public class SimpleBlockingQueue<T> {
     private Queue<T> queue = new LinkedList<>();
     private final int limit = 1;
 
-    public void offer(T value) throws InterruptedException {
+    public void offer(T value) {
         synchronized (this) {
             notify();
             while (queue.size() == limit) {
-                wait();
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             queue.offer(value);
         }
