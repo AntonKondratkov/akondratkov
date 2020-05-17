@@ -5,26 +5,25 @@ package ru.job4j.threads.concurrent;
  * @since 09.05.2020
  */
 public class ThreadState {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Thread first = new Thread(
                 () -> { }, "first"
         );
         System.out.println(first.getName() + " " + first.getState());
-        first.start();
-        while (first.getState() != Thread.State.TERMINATED) {
-            System.out.println(first.getName() + " " + first.getState());
-        }
-        System.out.println(first.getName() + " " + first.getState());
-
         Thread second = new Thread(
                 () -> { }, "second"
         );
         System.out.println(second.getName() + " " + second.getState());
+        first.start();
+        while (first.getState() != Thread.State.TERMINATED) {
+            System.out.println(first.getName() + " " + first.getState());
+        }
         second.start();
+        while (second.getState() != Thread.State.TERMINATED) {
+            System.out.println(second.getName() + " " + second.getState());
+        }
+        System.out.println(first.getName() + " " + first.getState());
         System.out.println(second.getName() + " " + second.getState());
-        second.join();
-        System.out.println(second.getName() + " " + second.getState());
-
         System.out.println(Thread.currentThread().getName() + " complete the work");
     }
 }
