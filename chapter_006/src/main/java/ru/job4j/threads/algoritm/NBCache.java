@@ -3,22 +3,17 @@ package ru.job4j.threads.algoritm;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class NBCache {
-    private ConcurrentHashMap<Integer, Base> cache;
-
-    public NBCache() {
-        cache = new ConcurrentHashMap<>();
-    }
+    private ConcurrentHashMap<Integer, Base> cache = new ConcurrentHashMap<>();
 
     public void add(Base model) {
         cache.put(model.getId(), model);
     }
 
     public Base update(Base model, String name) {
-        int result = cache.get(model.getId()).getVersion();
         return cache.computeIfPresent(model.getId(),
                 (id, value) -> {
                     try {
-                        if (result == value.getVersion()) {
+                        if (model.getVersion() == value.getVersion()) {
                             cache.get(id).setName(name);
                             cache.get(id).increment();
                         } else {
@@ -27,7 +22,7 @@ public class NBCache {
                     } catch (OptimisticException oe) {
                         oe.getMessage();
                     }
-                    return value;
+                    return model;
                 }
         );
     }
