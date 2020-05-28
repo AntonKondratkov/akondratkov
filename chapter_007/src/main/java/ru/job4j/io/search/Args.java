@@ -1,19 +1,47 @@
 package ru.job4j.io.search;
-
+/**
+ * В классе происходит валидация аргументов, а также инициализация параметров.
+ * @author Anton Kondratkov
+ * @since 28.05.2020
+ */
 public class Args {
+    /**
+     * Параметр содержит в себе массив аргументов, указанных при запуске.
+     */
     private String[] args;
+    /**
+     * Путь к корневому каталогу, где будет происходить поиск файла.
+     */
     private String directory;
+    /**
+     * Параметр содержит имя файла, который нужно искать.
+     */
     private String inputFilename;
+    /**
+     * Параметр содержит маску, необходим при поиске файла по маске.
+     */
     private String mask;
+    /**
+     * Параметр содержит регулярное выражение, необходим при поиске файла по регулярному выражению.
+     */
     private String regExp;
+    /**
+     * Путь к файлу, в который будет записан результат поиска.
+     */
     private String outputFilename;
-
-
+    /**
+     * Конструктор.
+     * @param args Входящие параметры.
+     */
     public Args(String[] args) {
         this.args = args;
         validate();
     }
-
+    /**
+     * Метод инициализирует переменные, значения берутся из аргументов.
+     * Также в методе происходит проверка аргументов.
+     * Если аргументы не были указаны, то в консоль выводится подсказка.
+     */
     public void validate() {
         if (args.length == 0) {
             System.out.println("Не найдено ключей!\n"
@@ -44,23 +72,18 @@ public class Args {
             }
         }
     }
-
     public String getDirectory() {
         return directory;
     }
-
     public String getInputFilename() {
         return inputFilename;
     }
-
     public String getMask() {
         return mask;
     }
-
     public String getRegExp() {
         return regExp;
     }
-
     public String getOutputFilename() {
         return outputFilename;
     }
