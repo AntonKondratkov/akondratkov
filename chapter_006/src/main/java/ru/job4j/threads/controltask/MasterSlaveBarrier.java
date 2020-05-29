@@ -1,4 +1,7 @@
 package ru.job4j.threads.controltask;
+
+import net.jcip.annotations.ThreadSafe;
+
 /**
  * Класс реализует последовательную работу двух нитей.
  * Нить А всегда выводит фразу в консоль первой, затем фразу выводит нить В.
@@ -6,40 +9,66 @@ package ru.job4j.threads.controltask;
  * @author Anton Kondratkov
  * @since 24.05.20.
  */
+@ThreadSafe
 public class MasterSlaveBarrier {
     /**
-     * Данный метод выполняет нить A.
-     * Нить выводит фразу в консоль, освобождает монитор и переходит в режим ожидания.
+     * Флаг работы потока "A".
      */
-    public synchronized void master() {
-            System.out.println("Thread A");
-            notifyAll();
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    boolean master = true;
+    /**
+     * Флаг работы потока "B".
+     */
+    boolean slave = false;
+    /**
+     * Данный метод выполняет поток "A".
+     * Выводит в консоль своё имя, вызывает метод doneMaster(), затем переходит в режим ожидания.
+     * @throws InterruptedException Выбрасывается если другой поток прервал ждущий текущий поток.
+     */
+    public synchronized void tryMaster() throws InterruptedException {
+        while (master) {
+            System.out.println(Thread.currentThread().getName());
+            doneMaster();
         }
+        wait();
     }
     /**
-     * Данный метод выполняет нить B.
-     * Нить выводит фразу в консоль, освобождает монитор и переходит в режим ожидания.
+     * Данный метод выполняет поток "B".
+     * Выводит в консоль своё имя, вызывает метод doneSlave(), затем переходит в режим ожидания.
+     * @throws InterruptedException Выбрасывается если другой поток прервал ждущий текущий поток.
      */
-    public synchronized void slave()  {
-            System.out.println("Thread B");
-            notifyAll();
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public synchronized void trySlave() throws InterruptedException {
+        while (slave) {
+            System.out.println(Thread.currentThread().getName());
+            doneSlave();
         }
+        wait();
     }
+    /**
+     * Метод меняет значения флагов, пробуждает ждущий поток.
+     * Вызывается из метода tryMaster.
+     */
+    public synchronized void doneMaster() {
+        master = false;
+        slave = true;
+        notifyAll();
+    }
+    /**
+     * Метод меняет значения флагов, пробуждает ждущий поток.
+     * Вызывается из метода trySlave.
+     */
+    public synchronized void doneSlave() {
+        master = true;
+        slave = false;
+        notifyAll();
+    }
+
     public static void main(String[] args) throws InterruptedException {
         MasterSlaveBarrier ms = new MasterSlaveBarrier();
         Thread first = new Thread(
                 () -> {
                     while (true) {
                         try {
-                            ms.master();
+                            ms.tryMaster();
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -50,7 +79,7 @@ public class MasterSlaveBarrier {
                 () -> {
                     while (true) {
                         try {
-                            ms.slave();
+                            ms.trySlave();
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -58,7 +87,6 @@ public class MasterSlaveBarrier {
                     }
                 }, "B");
         first.start();
-        Thread.sleep(500);
         second.start();
         first.join();
         second.join();
