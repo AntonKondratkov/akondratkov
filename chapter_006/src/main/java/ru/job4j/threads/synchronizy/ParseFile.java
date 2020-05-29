@@ -1,16 +1,29 @@
 package ru.job4j.threads.synchronizy;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 import java.io.*;
 /**
  * Парсер файла.
  * @author Anton Kondratkov
  * @since 24.05.2020
  */
+@ThreadSafe
 public class ParseFile {
+    @GuardedBy("this")
     private volatile File file;
-    public void setFile(File f) {
-        file = f;
+    /**
+     * Конструктор.
+     * @param file Файл, который необходимо пропарсить.
+     */
+    public ParseFile(File file) {
+        this.file = file;
     }
+    /**
+     * Геттер.
+     * @return this.file
+     */
     public File getFile() {
         return file;
     }
@@ -40,9 +53,9 @@ public class ParseFile {
         char[] buffer = new char[1024];
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(getFile())))) {
             while ((br.read(buffer, 0, buffer.length)) != -1) {
-                for (int i = 0; i < buffer.length; i++) {
-                    if (buffer[i] < 0x80) {
-                        sb.append((buffer[i]));
+                for (char c : buffer) {
+                    if (c < 0x80) {
+                        sb.append((c));
                     }
                 }
             }
