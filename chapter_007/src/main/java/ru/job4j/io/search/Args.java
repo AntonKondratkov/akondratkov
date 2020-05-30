@@ -43,14 +43,16 @@ public class Args {
      * Если аргументы не были указаны, то в консоль выводится подсказка.
      */
     public void validate() {
-        if (args.length == 0) {
-            System.out.println("Не найдено ключей!\n"
-                    + "Ключи:\n"
-                    + "        -d - директория в которая начинать поиск.\n"
-                    + "        -n - имя файл, маска, либо регулярное выражение.\n"
-                    + "        -m - искать по маске, либо -f - полное совпадение имени. -r регулярное выражение.\n"
-                    + "        -o - результат записать в файл."
-                    + "Пример использования: java -jar find.jar -d c:/ -n *.txt -m -o log.txt");
+        if (args.length == 0 || args.length < 7) {
+            throw new IllegalArgumentException(
+                    "Не найдено ключей!" + System.lineSeparator()
+                            + "Ключи:" + System.lineSeparator()
+                            + "        -d - директория в которая начинать поиск." + System.lineSeparator()
+                            + "        -n - имя файл, маска, либо регулярное выражение." + System.lineSeparator()
+                            + "        -m - искать по маске, либо -f - полное совпадение имени. -r регулярное выражение."
+                            + System.lineSeparator()
+                            + "        -o - результат записать в файл." + System.lineSeparator()
+                            + "Пример использования: java -jar find.jar -d c:/ -n *.txt -m -o log.txt");
         } else {
             for (int i = 0; i < args.length; i++) {
                 if (args[i].equals("-d")) {

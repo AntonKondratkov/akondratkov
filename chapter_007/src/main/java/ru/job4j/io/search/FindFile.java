@@ -1,15 +1,17 @@
 package ru.job4j.io.search;
 
-import org.apache.commons.io.filefilter.RegexFileFilter;
-import org.apache.commons.io.filefilter.WildcardFileFilter;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 /**
@@ -29,26 +31,6 @@ public class FindFile {
      * Параметр содержит в себе массив аргументов, указанных при запуске.
      */
     private Args args;
-    /**
-     * Путь к корневому каталогу, где будет происходить поиск файла.
-     */
-    private String directory;
-    /**
-     * Параметр содержит имя файла, который нужно искать.
-     */
-    private String inputFilename;
-    /**
-     * Параметр содержит маску, необходим при поиске файла по маске.
-     */
-    private String mask;
-    /**
-     * Параметр содержит регулярное выражение, необходим при поиске файла по регулярному выражению.
-     */
-    private String regExp;
-    /**
-     * Путь к файлу, в который будет записан результат поиска.
-     */
-    private String outputFilename;
     /**
      * Карта содержит в качестве ключа содержит одно из значений: inputFilename, mask, regExp.
      * А в качестве значения результат работы одного из соответствующих методов поиска:
@@ -70,17 +52,12 @@ public class FindFile {
      * @throws IOException Ошибка ввода-вывода при обращении к файлу.
      */
     public void init() throws IOException {
-        this.directory = args.getDirectory();
-        this.inputFilename = args.getInputFilename();
-        this.mask = args.getMask();
-        this.regExp = args.getRegExp();
-        this.outputFilename = args.getOutputFilename();
-        if (this.inputFilename != null) {
-            this.listMap.put(this.inputFilename, findByName(this.inputFilename));
-        } else if (this.mask != null) {
-            this.listMap.put(this.mask, findByMask(this.mask));
-        } else if (this.regExp != null) {
-            this.listMap.put(this.regExp, findByRegExp(this.regExp));
+        if (args.getInputFilename() != null) {
+            this.listMap.put(args.getInputFilename(), findByName(args.getInputFilename()));
+        } else if (args.getMask() != null) {
+            this.listMap.put(args.getMask(), findByMask(args.getMask()));
+        } else if (args.getRegExp() != null) {
+            this.listMap.put(args.getRegExp(), findByRegExp(args.getRegExp()));
         }
     }
 
@@ -107,11 +84,7 @@ public class FindFile {
      * @throws IOException Ошибка ввода-вывода при обращении к файлу.
      */
     private List<Path> findByName(String filename) throws IOException {
-        try (Stream<Path> filesStream = Files.walk(Paths.get(this.directory))) {
-            return filesStream
-                    .filter(f -> f.toFile().getName().equals(filename))
-                    .collect(Collectors.toList());
-        }
+        return findBy(file -> file.getName().equals(filename));
     }
     /**
      * Метод осуществляет поиск файлов по маске.
@@ -120,14 +93,7 @@ public class FindFile {
      * @throws IOException Ошибка ввода-вывода при обращении к файлу.
      */
     private List<Path> findByMask(String mask) throws IOException {
-        FileFilter fileFilter = new WildcardFileFilter(mask);
-        try (Stream<Path> filesStream = Files.walk(Paths.get(this.directory))) {
-            return filesStream
-                    .map(Path::toFile)
-                    .filter(fileFilter::accept)
-                    .map(File::toPath)
-                    .collect(Collectors.toList());
-        }
+        return findBy(file -> file.getName().matches(mask));
     }
     /**
      * Метод осуществляет поиск файлов по регулярному выражению.
@@ -136,11 +102,19 @@ public class FindFile {
      * @throws IOException Ошибка ввода-вывода при обращении к файлу.
      */
     private List<Path> findByRegExp(String regExp) throws IOException {
-        FileFilter fileFilter = new RegexFileFilter(regExp);
-        try (Stream<Path> filesStream = Files.walk(Paths.get(this.directory))) {
+        return findBy(file -> Pattern.matches(regExp, file.getName()));
+    }
+    /**
+     * Общий метод для 3 методов поиска файлов. Принимает в качестве входящего параметра предикат.
+     * @param predicate Условие поиска файлов.
+     * @return List<Path>
+     * @throws IOException Ошибка ввода-вывода при обращении к файлу.
+     */
+    public List<Path> findBy(Predicate<File> predicate) throws IOException {
+        try (Stream<Path> filesStream = Files.walk(Paths.get(args.getDirectory()))) {
             return filesStream
                     .map(Path::toFile)
-                    .filter(fileFilter::accept)
+                    .filter(predicate)
                     .map(File::toPath)
                     .collect(Collectors.toList());
         }
@@ -150,7 +124,7 @@ public class FindFile {
      * @throws IOException Ошибка ввода-вывода при обращении к файлу.
      */
     public void writeToFile() throws IOException {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(new File(outputFilename)))) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(new File(args.getOutputFilename())))) {
             this.fileList.forEach(pw::println);
         }
     }

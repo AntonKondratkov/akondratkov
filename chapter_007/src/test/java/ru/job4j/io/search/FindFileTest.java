@@ -52,7 +52,7 @@ public class FindFileTest {
         String[] args = {
                 "-d",
                 System.getProperty("java.io.tmpdir") + "/test1/test1",
-                "-n", "*.doc", "-m", "-o",
+                "-n", ".*doc*", "-m", "-o",
                 System.getProperty("java.io.tmpdir") + "/test1/log.txt"};
         String result = finderTest(args);
         String expected = "testdoc1.doc";
